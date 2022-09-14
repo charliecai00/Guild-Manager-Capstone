@@ -1,5 +1,5 @@
-![last commit](https://img.shields.io/github/last-commit/https://github.com/Jorge-A-Velasquez/Guild-Manager-Capstone?logo=Github)
-![license](https://img.shields.io/github/license/https://github.com/Jorge-A-Velasquez/Guild-Manager-Capstone?logo=GitHub)
+![last commit](https://img.shields.io/github/last-commit/Jorge-A-Velasquez/Guild-Manager-Capstone?style=for-the-badge)
+![license](https://img.shields.io/github/license/Jorge-A-Velasquez/Guild-Manager-Capstone?style=for-the-badge)
 
 ## Requirements
 
