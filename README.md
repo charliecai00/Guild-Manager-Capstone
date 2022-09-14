@@ -1,20 +1,36 @@
-# demo-repo3
-An example flask rest API server, for SE Fall 2022.
-
-To build production, type `make prod`.
-
-To create the env for a new developer, run `make dev_env`.
-
-
 ## Requirements
 
 - have a program that generates data, running on the cloud
 - have a database that stores the data, running on the cloud
 - have an API that a client can call to interact with both the program and database
 
-## Design
 
-- we'll decide this later
+## Product Vision Statement
+### What and why?
+`fill in`
 
-Charlie Cai
-Jorge Velasquez
+### For whom?
+`fill in`
+
+
+## `name here` is maintained by
+- <a href="https://github.com/charliecai00"> Charlie Cai</a>
+- <a href="https://github.com/Jorge-A-Velasquez">Jorge Antonio Velasquez</a>
+- <a href="https://github.com/Gorka1">Ziynou Fleming</a>
+- <a href="https://github.com">Zhiquan Cao</a>
+
+
+## Building and installing `name here`
+### Production
+`make prod`
+
+### Development
+`make dev_env`
+
+
+## Help wanted
+We have several ideas we would like to see in `name here` to make it even better. However, we already work on so many things that we do not have the time for all the big ideas.
+
+This can be your way to support and contribute to `name here` - extend it to do something cool.
+
+For everyone who wants to contribute (and send pull requests), please read our [contributing guidelines](./CONTRIBUTING.md) before you submit.
