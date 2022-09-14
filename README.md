@@ -2,7 +2,6 @@
 ![license](https://img.shields.io/github/license/Jorge-A-Velasquez/Guild-Manager-Capstone?style=for-the-badge)
 
 ## Requirements
-
 - have a program that generates data, running on the cloud
 - have a database that stores the data, running on the cloud
 - have an API that a client can call to interact with both the program and database
