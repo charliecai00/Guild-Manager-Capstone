@@ -1,5 +1,5 @@
-![last commit](https://img.shields.io/github/last-commit/software-assignments-spring2022/final-project-codehunt?logo=Github)
-![license](https://img.shields.io/github/license/software-assignments-spring2022/final-project-codehunt?logo=GitHub)
+![last commit](https://img.shields.io/github/last-commit/https://github.com/Jorge-A-Velasquez/Guild-Manager-Capstone?logo=Github)
+![license](https://img.shields.io/github/license/https://github.com/Jorge-A-Velasquez/Guild-Manager-Capstone?logo=GitHub)
 
 ## Requirements
 
