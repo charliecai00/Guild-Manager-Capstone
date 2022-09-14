@@ -17,3 +17,4 @@ To create the env for a new developer, run `make dev_env`.
 - we'll decide this later
 
 Charlie Cai
+Jorge Velasquez
