@@ -10,9 +10,16 @@ Functionality needed in order to have a MVP.
 - Assign & post quests
 - Reward groups
 - Provide overworld information (Adventurer's Guide)
+- Assign character attributes
+- Quest reports
+- Battle System
 
 ## Polish
 Functionality needed to have a polished game.
 
+- Class tree
+
 ## Additions
 Functionality that would be nice to have, but is not a priority/needed.
+
+- Character personality
