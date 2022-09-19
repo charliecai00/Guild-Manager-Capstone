@@ -8,17 +8,13 @@
 
 
 ## Product Vision Statement
-### What and why?
--`fill in`
-
-### For whom?
--`fill in`
+The project is called "Guild Manager", a game where you organize a guild of adventurers in a fantasy world. You will send heroes out on quests and then use the treasure and riches they collect to build up the greatest guild in the world. The game will be a program that runs on the cloud and all the data it generates (characters, quests, treasure, dungeons, etc.) will get stored in a database. Finally there'll be an API that a web client could use to send commands to the game on the cloud.
 
 
 ## Guild Manager is maintained by
 - <a href="https://github.com/charliecai00"> Charlie Cai</a>
 - <a href="https://github.com/Jorge-A-Velasquez">Jorge Antonio Velasquez</a>
-- <a href="https://github.com/Gorka1">Ziynou Fleming</a>
+- <a href="https://github.com/Zighnou">Ziynou Fleming</a>
 - <a href="https://github.com/ZhiquanCao">Zhiquan Cao</a>
 
 
