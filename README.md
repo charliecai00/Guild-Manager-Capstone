@@ -18,7 +18,7 @@
 ## Guild Manager is maintained by
 - <a href="https://github.com/charliecai00"> Charlie Cai</a>
 - <a href="https://github.com/Jorge-A-Velasquez">Jorge Antonio Velasquez</a>
-- <a href="https://github.com/Gorka1">Ziynou Fleming</a>
+- <a href="https://github.com/Zighnou">Ziynou Fleming</a>
 - <a href="https://github.com/ZhiquanCao">Zhiquan Cao</a>
 
 
