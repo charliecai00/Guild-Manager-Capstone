@@ -1,7 +1,7 @@
 
-import pytest
+# import pytest
 
-import server.endpoints as ep
+# import server.endpoints as ep
 
 
 def test_hello():
