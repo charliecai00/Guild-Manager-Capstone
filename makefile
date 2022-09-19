@@ -1,4 +1,4 @@
-LINTER = flake8
+LINTER = python -m flake8
 API_DIR = server
 DB_DIR = db
 REQ_DIR = .
@@ -15,7 +15,7 @@ github: FORCE
 all_tests: lint unit
 
 unit: FORCE
-	cd $(API_DIR); pytest $(PYTESTFLAGS)
+	cd $(API_DIR); python -m pytest $(PYTESTFLAGS)
 
 lint: FORCE
 	$(LINTER) $(API_DIR)/*.py
