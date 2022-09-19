@@ -15,14 +15,14 @@
 -`fill in`
 
 
-## `name here` is maintained by
+## Guild Manager is maintained by
 - <a href="https://github.com/charliecai00"> Charlie Cai</a>
 - <a href="https://github.com/Jorge-A-Velasquez">Jorge Antonio Velasquez</a>
 - <a href="https://github.com/Gorka1">Ziynou Fleming</a>
 - <a href="https://github.com/ZhiquanCao">Zhiquan Cao</a>
 
 
-## Building and installing `name here`
+## Building and installing Guild Manager
 ### Production
 `make prod`
 
@@ -31,8 +31,8 @@
 
 
 ## Help wanted
-We have several ideas we would like to see in `name here` to make it even better. However, we already work on so many things that we do not have the time for all the big ideas.
+We have several ideas we would like to see in Guild Manager to make it even better. However, we already work on so many things that we do not have the time for all the big ideas.
 
-This can be your way to support and contribute to `name here` - extend it to do something cool.
+This can be your way to support and contribute to Guild Manager  - extend it to do something cool.
 
 For everyone who wants to contribute (and send pull requests), please read our [contributing guidelines](./CONTRIBUTING.md) before you submit.
