@@ -12,7 +12,9 @@ Functionality needed in order to have a MVP.
 - Provide overworld information (Adventurer's Guide)
 - Assign character attributes
 - Quest reports
-- Battle System
+- Battle system
+- Clock / time system
+- Economy system
 
 ## Polish
 Functionality needed to have a polished game.
