@@ -1,28 +1,17 @@
-LINTER = python -m flake8
+LINTER = python3 -m flake8
 API_DIR = server
 DB_DIR = db
-REQ_DIR = .
-PYTESTFLAGS = -vv --verbose --tb=short
 
-FORCE:
+FORCE: 
 
-prod: all_tests github
+test: dev lint unit
 
-github: FORCE
-	- git commit -a
-	git push origin master
-
-all_tests: lint unit
-
-unit: FORCE
-	cd $(API_DIR); python -m pytest $(PYTESTFLAGS)
+dev: FORCE
+	pip3 install -r ./requirements-dev.txt
 
 lint: FORCE
 	$(LINTER) $(API_DIR)/*.py
 	$(LINTER) $(DB_DIR)/*.py
 
-dev_env: FORCE
-	pip install -r $(REQ_DIR)/requirements-dev.txt
-
-docs: FORCE
-	cd $(API_DIR); make docs
+unit: FORCE
+	cd $(API_DIR); python3 -m pytest -vv --verbose --tb=short
