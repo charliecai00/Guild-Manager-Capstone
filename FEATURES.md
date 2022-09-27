@@ -24,6 +24,9 @@ Functionality needed in order to have a MVP.
 - Reputation
 - Procedural generation
 
+- API Input and Output
+- Save game states
+
 ## Polish
 Functionality needed to have a polished game.
 
