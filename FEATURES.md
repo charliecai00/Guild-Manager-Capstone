@@ -16,6 +16,14 @@ Functionality needed in order to have a MVP.
 - Clock / time system
 - Economy system
 
+- Items
+- Parties
+- Rolls system
+- Locations
+- Monsters
+- Reputation
+- Procedural generation
+
 ## Polish
 Functionality needed to have a polished game.
 
