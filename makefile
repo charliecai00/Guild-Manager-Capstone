@@ -1,6 +1,7 @@
 LINTER = python3 -m flake8
 API_DIR = server
 DB_DIR = db
+GAME_DIR = game
 
 FORCE: 
 
@@ -15,3 +16,6 @@ lint: FORCE
 
 unit: FORCE
 	cd $(API_DIR); python3 -m pytest -vv --verbose --tb=short
+
+game_cmd: FORCE
+	py $(GAME_DIR)/system/command_line.py
