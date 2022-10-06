@@ -5,7 +5,8 @@ GAME_DIR = game
 
 FORCE: 
 
-test: dev lint unit
+# test: dev lint unit
+test: dev lint
 
 dev: FORCE
 	pip3 install -r ./requirements-dev.txt
