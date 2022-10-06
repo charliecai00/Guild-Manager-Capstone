@@ -3,6 +3,7 @@ from random import Random
 from object_classes.character import Character
 from game_math.random import RandomNormalClamped
 
+
 class Hero(Character):
     def __init__(self) -> None:
         Character.__init__(self)
@@ -21,13 +22,14 @@ class Hero(Character):
         self.cost = 5
 
     def __str__(self) -> str:
-        return "Name: {}, Health: {}, Stats: {}, Items: {}, Hire Cost: {}\n".format(
+        s = "Name: {}, Health: {}, Stats: {}, Items: {}, Cost: {}\n".format(
             self.name,
             self.health,
             self.stats,
             self.items,
             self.cost
         )
+        return s
 
     def __repr__(self) -> str:
         return str(self)
@@ -38,4 +40,3 @@ class Hero(Character):
 
     def Take_Damage(self, dmg):
         self.health -= dmg
-    

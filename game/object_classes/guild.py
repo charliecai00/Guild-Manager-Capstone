@@ -2,6 +2,7 @@
 from object_classes.hero import Hero
 from object_classes.party import Party
 
+
 class Guild:
     def __init__(self) -> None:
         self.hired_heros_list = []
@@ -20,7 +21,7 @@ class Guild:
         )
 
     def __repr__(self) -> str:
-        return __str__()
+        return str(self)
 
     def Find_Heros(self):
         return [Hero() for i in range(10)]
