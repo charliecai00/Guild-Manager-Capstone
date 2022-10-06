@@ -18,4 +18,4 @@ unit: FORCE
 	cd $(API_DIR); python3 -m pytest -vv --verbose --tb=short
 
 game_cmd: FORCE
-	py $(GAME_DIR)/system/command_line.py
+	py $(GAME_DIR)/command_line.py
