@@ -4,7 +4,7 @@
 # TEST_CLIENT = ep.app.test_client()
 
 
-def dummy_api():
+def test_dummy_api():
 #     res = TEST_CLIENT.get(ep.dummy_api).get_json()
 #     assert isinstance(res[ep.MESSAGE], str)
     assert True

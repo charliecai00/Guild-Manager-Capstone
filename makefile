@@ -5,18 +5,17 @@ GAME_DIR = game
 
 FORCE: 
 
-# test: dev lint unit
-test: dev lint
+test: dev unit
 
 dev: FORCE
 	pip3 install -r ./requirements-dev.txt
 
 lint: FORCE
-	$(LINTER) $(API_DIR)/*.py
-	$(LINTER) $(DB_DIR)/*.py
+	cd $(API_DIR); make lint
+	cd $(DB_DIR); make lint
 
 unit: FORCE
-	cd $(API_DIR); python3 -m pytest -vv --verbose --tb=short
+	cd $(API_DIR); make unit
 
 game_cmd: FORCE
 	py $(GAME_DIR)/command_line.py
