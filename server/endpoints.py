@@ -6,10 +6,10 @@ app = Flask(__name__)
 api = Api(app)
 
 
-@api.route('/dummy_api')
-class dummy_api(Resource):
+@api.route('/hello')
+class HelloWorld(Resource):
     def get(self):
-        return {"message": "Welcome to Guild Manager!"}
+        return {'MESSAGE': 'hello world'}
 
 
 @api.route('/command_list')
