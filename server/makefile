@@ -1,4 +1,5 @@
-LINTER = python3 -m flake8
+LINTER = flake8
+PYTESTFLAGS = -vv --verbose --tb=short
 
 FORCE:
 
@@ -6,4 +7,4 @@ lint: FORCE
 	$(LINTER) *.py
 
 unit: FORCE
-	pytest -vv --verbose --tb=short
+	pytest $(PYTESTFLAGS)
