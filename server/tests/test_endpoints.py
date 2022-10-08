@@ -1,19 +1,13 @@
-# import pytest
-# import server.endpoints as ep
+import pytest
+import server.endpoints as ep
 
-# TEST_CLIENT = ep.app.test_client()
+TEST_CLIENT = ep.app.test_client()
 
-# def test_hello():
-#     resp_json = TEST_CLIENT.get(ep.HELLO).get_json()
-#     assert isinstance(resp_json[ep.MESSAGE], str)
+def test_command_list():
+    res = TEST_CLIENT.get(ep.COMMAND_LIST).get_json()
+    assert isinstance(res[ep.COMMANDS], list)
 
-# def test_command_list():
-#     res = TEST_CLIENT.get(ep.command_list).get_json()
-#     assert isinstance(res[ep.MESSAGE], list)
+def test_input():
+    res = TEST_CLIENT.get(ep.INPUT).get_json()
+    assert isinstance(res[ep.MESSAGE],str)
 
-# def test_input():
-#     res = TEST_CLIENT.get(ep.input).get_json()
-#     assert isinstance(res[ep.MESSAGE],str)
-
-def test_dummy():
-    assert True
