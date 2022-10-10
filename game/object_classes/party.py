@@ -3,7 +3,7 @@ from random import randint
 
 
 class Party:
-    def __init__(self, new_hero_list=[], name="The Fellowship of Heros") -> None:
+    def __init__(self, new_hero_list=[], name="Dudes") -> None:
         self.hero_list = new_hero_list
         self.name = name
 

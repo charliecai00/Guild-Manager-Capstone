@@ -1,6 +1,7 @@
 
 import object_classes.static_consts as sc
 
+
 class Challenge:
     def __init__(self, skill=None) -> None:
         self.test_skill = skill

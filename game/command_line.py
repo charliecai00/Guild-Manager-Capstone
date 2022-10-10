@@ -1,5 +1,4 @@
 
-from turtle import done
 from game_object import Game
 
 game = Game()
