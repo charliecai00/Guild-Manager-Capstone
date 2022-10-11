@@ -23,7 +23,8 @@ The project is called "Guild Manager", a game where you organize a guild of adve
 `make prod`
 
 ### Development
-`make dev_env`
+`make dev && sh local.sh`
+
 
 
 ## Help wanted
