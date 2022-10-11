@@ -34,8 +34,17 @@ class Guild:
             self.funds -= new_hero.cost
             return True
 
-    def Form_Party(self, hero_list):
-        self.party_list(Party(hero_list))
+    def Form_Party(self, hero_list, name=None):
+        if name is not None:
+            self.party_list.append(Party(hero_list, name))
+        else:
+            self.party_list.append(Party(hero_list))
 
-    def Send_Quest(self, party, quest):
-        pass
+    def Get_Party(self, name):
+        for party in self.party_list:
+            if party.name == name:
+                return party
+
+    def Send_Quest(self, party_name, quest) -> bool:
+        party = self.Get_Party(party_name)
+        return party.Take_Challenge(quest)

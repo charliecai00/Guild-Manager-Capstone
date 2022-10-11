@@ -1,7 +1,8 @@
 
-from random import Random
+from random import randrange
 from object_classes.character import Character
 from game_math.random import RandomNormalClamped
+import object_classes.static_consts as sc
 
 
 class Hero(Character):
@@ -16,7 +17,8 @@ class Hero(Character):
                 "CHA": RandomNormalClamped(20, 10, 5, 95),
             }
         self.items = []
-        self.name = "A new hero"
+        self.name = str(sc.HERO_ID)
+        sc.HERO_ID += 1
         self.health = 2
         self.alive = True
         self.cost = 5
@@ -35,7 +37,7 @@ class Hero(Character):
         return str(self)
 
     def Test_Skill(self, skill):
-        roll = Random.randrange(0, 99)
+        roll = randrange(99)
         return roll <= self.stats[skill]
 
     def Take_Damage(self, dmg):
