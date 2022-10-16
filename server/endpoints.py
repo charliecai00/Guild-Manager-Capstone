@@ -17,7 +17,16 @@ COMMANDS = 'commands'
 class command_list(Resource):
     # Returns a list of commands
     def get(self):
-        return {COMMANDS: ["Get_Heros", "Find_Hero", "Hire_Hero", "Guild_Status", "Add_Party", "Get_Quest", "Find_Quest", "Do_Quest"]}
+        return {COMMANDS: [
+            "Get_Heros",
+            "Find_Hero",
+            "Hire_Hero",
+            "Guild_Status",
+            "Add_Party",
+            "Get_Quest",
+            "Find_Quest",
+            "Do_Quest"
+        ]}
 
 
 @api.route((INPUT))
