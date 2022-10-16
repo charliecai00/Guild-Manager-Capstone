@@ -4,7 +4,9 @@ from object_classes.party import Party
 
 
 class Guild:
-    def __init__(self) -> None:
+    def __init__(self, new_id) -> None:
+        self.id = new_id
+        self.PARTY_ID = 0
         self.hired_heros_list = []
         self.groups_list = []
         self.quest_list = []
@@ -22,9 +24,6 @@ class Guild:
 
     def __repr__(self) -> str:
         return str(self)
-
-    def Find_Heros(self):
-        return [Hero() for i in range(10)]
 
     def Hire_Hero(self, new_hero: Hero):
         if (self.funds - new_hero.cost < 0):

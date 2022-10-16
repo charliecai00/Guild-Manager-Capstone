@@ -6,8 +6,9 @@ import object_classes.static_consts as sc
 
 
 class Hero(Character):
-    def __init__(self) -> None:
+    def __init__(self, new_id) -> None:
         Character.__init__(self)
+        self.id = new_id
         self.stats = {
                 "STR": RandomNormalClamped(20, 10, 5, 95),
                 "CON": RandomNormalClamped(20, 10, 5, 95),

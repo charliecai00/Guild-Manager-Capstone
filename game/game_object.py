@@ -1,16 +1,29 @@
 
 from object_classes.challenge import Challenge
 from object_classes.guild import Guild
+from object_classes.hero import Hero
 
 
 class Game:
     def __init__(self):
-        self.guild = Guild()
+        # setting up ID numbers
+        self.GUILD_ID = 0
+        self.HERO_ID = 0
+        self.QUEST_ID = 0
+        self.guild = self.Create_Guild()
         self.full_hero_list = []
         self.full_quest_list = []
 
+    def Create_Guild(self):
+        ret_guild = Guild(self.GUILD_ID)
+        self.GUILD_ID += 1
+        return ret_guild
+
     def Get_Heros(self):
-        hero_list = self.guild.Find_Heros()
+        hero_list = []
+        for i in range(10):
+            hero_list.append(Hero(self.HERO_ID))
+            self.HERO_ID += 1
         self.full_hero_list.extend(hero_list)
         return hero_list
 
