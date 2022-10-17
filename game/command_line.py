@@ -12,16 +12,20 @@ GetQuest = "Get Quests"
 DoQuest = "Do Quest"
 
 print("command line test")
-print(
-    "The following commands are available:\n",
-    Heros,
-    Hire,
-    List,
-    PartyAdd,
-    GetQuest,
-    DoQuest,
-    sep=', '
-)
+
+def printCmd():
+    print(
+        "The following commands are available:\n",
+        Heros,
+        Hire,
+        List,
+        PartyAdd,
+        GetQuest,
+        DoQuest,
+        sep=', '
+    )
+
+printCmd()
 
 curr_input = input(': ')
 while curr_input != 'quit':
@@ -60,4 +64,5 @@ while curr_input != 'quit':
             print("{} completed the quest!".format(party_name))
         else:
             print("{} failed".format(party_name))
+    printCmd()
     curr_input = input(': ')
