@@ -19,12 +19,10 @@ class command_list(Resource):
     def get(self):
         return {COMMANDS: [
             "Get_Heros",
-            "Find_Hero",
             "Hire_Hero",
-            "Guild_Status",
+            "List_Guild_Members",
             "Add_Party",
             "Get_Quest",
-            "Find_Quest",
             "Do_Quest"
         ]}
 

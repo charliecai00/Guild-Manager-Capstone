@@ -20,4 +20,4 @@ unit: FORCE
 	cd $(API_DIR); make unit
 
 game_cmd: FORCE
-	py $(GAME_DIR)/command_line.py
+	python3 $(GAME_DIR)/command_line.py
