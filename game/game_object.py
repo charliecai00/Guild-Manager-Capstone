@@ -1,7 +1,7 @@
 
-from object_classes.challenge import Challenge
-from object_classes.guild import Guild
-from object_classes.hero import Hero
+from game.object_classes.challenge import Challenge
+from game.object_classes.guild import Guild
+from game.object_classes.hero import Hero
 
 
 class Game:
@@ -31,10 +31,13 @@ class Game:
         for hero in self.full_hero_list:
             if hero.name == name:
                 return hero
+        return None
 
     def Hire_Hero(self, name):
         hero = self.Find_Hero(name)
-        return self.guild.Hire_Hero(hero)
+        if hero:
+            return self.guild.Hire_Hero(hero)
+        return False
 
     def Guild_Status(self):
         return self.guild
@@ -51,6 +54,7 @@ class Game:
         for quest in self.full_quest_list:
             if quest.name == name:
                 return quest
+        return None
 
     def Do_Quest(self, quest_name, party_name):
         self.guild.Send_Quest(party_name, self.Find_Quest(quest_name))

@@ -1,8 +1,8 @@
 
 from random import randrange
-from object_classes.character import Character
-from game_math.random import RandomNormalClamped
-import object_classes.static_consts as sc
+from game.object_classes.character import Character
+from game.game_math.random import RandomNormalClamped
+import game.object_classes.static_consts as sc
 
 
 class Hero(Character):

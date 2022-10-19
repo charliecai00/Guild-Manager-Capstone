@@ -1,4 +1,4 @@
-# import pytest
+import pytest
 import server.endpoints as ep
 
 TEST_CLIENT = ep.app.test_client()

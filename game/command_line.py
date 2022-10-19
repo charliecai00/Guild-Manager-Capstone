@@ -1,5 +1,5 @@
 
-from game_object import Game
+from game.game_object import Game
 
 game = Game()
 

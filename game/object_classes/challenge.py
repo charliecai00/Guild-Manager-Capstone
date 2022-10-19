@@ -1,5 +1,5 @@
 
-import object_classes.static_consts as sc
+import game.object_classes.static_consts as sc
 
 
 class Challenge:
