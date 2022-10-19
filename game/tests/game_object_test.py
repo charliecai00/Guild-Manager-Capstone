@@ -1,5 +1,5 @@
 import unittest
-import game_object
+import game.game_object as game_object
 
 class Test(unittest.TestCase):
     def test_create_guild(self):
@@ -16,19 +16,21 @@ class Test(unittest.TestCase):
 
     def test_hire_hero(self):
         object = game_object.Game()
-        # self.assertEqual(object.Hire_Hero('Nonexistent'), None)
+        self.assertEqual(object.Hire_Hero('Nonexistent'), False)
 
     def test_guild_status(self):
-        pass
-
-    def test_add_party(self):
+        object = game_object.Game()
+        print(object.Guild_Status)
         pass
     
     def test_get_quest(self):
+        object = game_object.Game()
+        print(object.Get_Quest)
         pass
 
     def test_find_quest(self):
-        pass
+        object = game_object.Game()
+        self.assertEqual(object.Find_Quest('Nonexistent'), None)
 
 if __name__ == '__main__':
     unittest.main()
