@@ -1,7 +1,7 @@
 
-from object_classes.challenge import Challenge
-from object_classes.guild import Guild
-from object_classes.hero import Hero
+from game.object_classes.challenge import Challenge
+from game.object_classes.guild import Guild
+from game.object_classes.hero import Hero
 
 
 class Game:
