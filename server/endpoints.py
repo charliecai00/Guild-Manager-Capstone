@@ -1,5 +1,3 @@
-# from http import HTTPStatus
-
 from flask import Flask  # , request
 from flask_restx import Resource, Api  # , fields
 # import werkzeug.exceptions as wz
@@ -11,7 +9,6 @@ INPUT = '/input'
 COMMAND_LIST = '/command_list'
 MESSAGE = 'message'
 COMMANDS = 'commands'
-
 
 @api.route(COMMAND_LIST)
 class command_list(Resource):
@@ -25,7 +22,6 @@ class command_list(Resource):
             "Get_Quest",
             "Do_Quest"
         ]}
-
 
 @api.route((INPUT))
 class input(Resource):
