@@ -3,10 +3,10 @@ import game.object_classes.static_consts as sc
 
 
 class Challenge:
-    def __init__(self, skill=None) -> None:
+    def __init__(self, skill=None, new_type='Random') -> None:
         self.test_skill = skill
-        self.name = str(sc.QUEST_ID)
-        sc.QUEST_ID += 1
+        self.name = 0   # change this later
+        self.type = new_type
 
     def Get_Skill(self):
         return self.test_skill
