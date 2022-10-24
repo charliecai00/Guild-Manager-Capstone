@@ -1,7 +1,11 @@
 
+from game.game_math.random import RandomRange
 from game.object_classes.challenge import Challenge
 from game.object_classes.guild import Guild
 from game.object_classes.hero import Hero
+from game.object_classes.map_tile import MapTile
+from game.object_classes.map import Map
+
 
 
 class Game:
@@ -11,9 +15,10 @@ class Game:
         self.HERO_ID = 0
         self.QUEST_ID = 0
         self.guild = self.Create_Guild()
+        self.map = self.Create_Map()
         self.full_hero_list = []
         self.full_quest_list = []
-        self.map = self.Create_Map()
+
 
     def Create_Guild(self):
         ret_guild = Guild(self.GUILD_ID)
@@ -61,4 +66,12 @@ class Game:
         self.guild.Send_Quest(party_name, self.Find_Quest(quest_name))
     
     def Create_Map(self):
-        pass
+        locales = Map()
+        coordinates = []
+        while len(coordinates) < 10:
+            coords = (RandomRange(0,10), RandomRange(0,10))
+            if coords in coordinates:
+                continue
+            coordinates.append(coords)
+            locales.locations[coords] = MapTile()
+        return locales
