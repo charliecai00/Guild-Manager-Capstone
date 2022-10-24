@@ -22,13 +22,13 @@ class Party:
     def Add_Hero(self, new_hero):
         self.hero_list.append(new_hero)
         self.Calc_Stats()
-    
+
     def Calc_Stats(self):
         stat_names = ["STR", "CON", "DEX", "WIS", "INT", "CHA"]
         # best stats
         for h in self.hero_list:
             for s in stat_names:
-                if self.best_stats.has_key(s):
+                if s in self.best_stats:
                     if self.best_stats[s] < h.stats[s]:
                         self.best_stats[s] = h.stats[s]
                 else:
@@ -36,7 +36,7 @@ class Party:
         # mean stats
         for h in self.hero_list:
             for s in stat_names:
-                if self.mean_stats.has_key(s):
+                if s in self.mean_stats:
                     self.mean_stats[s] += h.stats[s]
                 else:
                     self.mean_stats[s] = h.stats[s]
