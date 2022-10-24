@@ -4,7 +4,7 @@ class MapTile:
     def __init__(self) -> None:
         self.terrain = 'Fields'
         self.paths = []
-        self.name = str(sc.LOCALE_ID)
+        self.name = "Location " + str(sc.LOCALE_ID)
         sc.LOCALE_ID += 1
 
     def __str__(self) -> str:
