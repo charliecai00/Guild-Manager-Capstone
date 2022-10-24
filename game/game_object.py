@@ -14,6 +14,7 @@ class Game:
         self.GUILD_ID = 0
         self.HERO_ID = 0
         self.QUEST_ID = 0
+        self.LOCALE_ID = 0
         self.guild = self.Create_Guild()
         self.map = self.Create_Map()
         self.full_hero_list = []
@@ -73,5 +74,6 @@ class Game:
             if coords in coordinates:
                 continue
             coordinates.append(coords)
-            locales.locations[coords] = MapTile()
+            locales.locations[coords] = MapTile(self.LOCALE_ID)
+            self.LOCALE_ID += 1
         return locales
