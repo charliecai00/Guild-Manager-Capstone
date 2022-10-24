@@ -13,6 +13,7 @@ class Game:
         self.guild = self.Create_Guild()
         self.full_hero_list = []
         self.full_quest_list = []
+        self.map = self.Create_Map()
 
     def Create_Guild(self):
         ret_guild = Guild(self.GUILD_ID)
@@ -58,3 +59,6 @@ class Game:
 
     def Do_Quest(self, quest_name, party_name):
         self.guild.Send_Quest(party_name, self.Find_Quest(quest_name))
+    
+    def Create_Map(self):
+        pass
