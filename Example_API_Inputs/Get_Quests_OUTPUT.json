@@ -1,0 +1,10 @@
+{
+    "Quests": [
+        {
+            "Name": "Very dangerous",
+            "Data": {
+                "Some data here, still not defined": null
+            }
+        }
+    ]
+}
