@@ -15,6 +15,7 @@ ERROR = 'Error'
 
 game = Game()
 
+
 @api.route(COMMAND_LIST)
 class command_list(Resource):
     # Returns a list of commands
@@ -28,11 +29,13 @@ class command_list(Resource):
             "Do_Quest"
         ]}
 
+
 expected_input = api.model('expected_input', {
     "Type": fields.String(default="Add_To_Party", required=True),
     "Data1": fields.String(default="specific data goes here", required=True),
     "Data2": fields.String(default="specific data goes here", required=True)
 })
+
 
 @api.route((INPUT))
 class input(Resource):
@@ -71,8 +74,9 @@ class input(Resource):
 
             hero_list = hero_list.split(",")
             for i in hero_list:
-                if not game.Hire_Hero(hired_hero):
+                if not game.Hire_Hero(i):
                     return {ERROR: "Could not hire hero, out of money"}
         elif (_type == "Get_Quests"):
             res = game.Guild_Status()
             return {RESULT: res}
+            

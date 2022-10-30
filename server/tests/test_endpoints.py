@@ -9,9 +9,10 @@ def test_command_list():
 
 test_input = {
     "Type": "Add_To_Party",
-    "Data": "specific data goes here"
+    "Data1": "test1",
+    "Data2": "test2"
 }
 
 def test_input():
-    res = TEST_CLIENT.post(ep.INPUT, json=test_input)
-    pass
+    # res = TEST_CLIENT.post(ep.INPUT, json=test_input)
+    res = TEST_CLIENT.post(ep.INPUT)
