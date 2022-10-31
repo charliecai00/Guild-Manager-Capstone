@@ -16,7 +16,7 @@ all_tests: FORCE
 	cd $(API_DIR); make tests
 	cd $(GAME_DIR); make tests
 
-dev_env: FORCE
+dev: FORCE
 	export PYTHONPATH=$(pwd):$PYTHONPATH
 	pip install -r $(REQ_DIR)/requirements-dev.txt
 
