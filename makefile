@@ -1,24 +1,29 @@
-LINTER = python3 -m flake8
 API_DIR = server
 DB_DIR = db
 GAME_DIR = game
+REQ_DIR = .
 
-FORCE: 
+FORCE:
 
-test: dev unit
+prod: all_tests github
 
-dev: FORCE
+github: FORCE
+	- git commit -a
+	git push origin master
+
+all_tests: FORCE
+	cd $(DB_DIR); make tests
+	cd $(API_DIR); make tests
+	cd $(GAME_DIR); make tests
+
+dev_env: FORCE
 	export PYTHONPATH=$(pwd):$PYTHONPATH
-	pip3 install -r ./requirements-dev.txt
+	pip install -r $(REQ_DIR)/requirements-dev.txt
 
-lint: FORCE
-	cd $(API_DIR); make lint
-	cd $(DB_DIR); make lint
-	cd $(GAME_DIR); make lint
-
-unit: FORCE
-	cd $(API_DIR); make unit
-	cd $(GAME_DIR); make unit
+all_docs: FORCE
+	cd $(API_DIR); make docs
+	cd $(DB_DIR); make docs
+	cd $(GAME_DIR); make docs
 
 game_cmd: FORCE
 	python3 $(GAME_DIR)/command_line.py
