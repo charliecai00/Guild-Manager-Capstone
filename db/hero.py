@@ -3,7 +3,7 @@ This module encapsulates details about heros.
 """
 
 
-from telnetlib import TELNET_PORT
+# from telnetlib import TELNET_PORT
 
 
 TEST_HERO = 'test_hero'
@@ -17,15 +17,17 @@ ALIVE = 'alive'
 COST = 'cost'
 
 
-
 # We expect the hero database to change frequently:
 # For now, we will consider ID and hero_ID to be
 # our mandatory fields.
 REQUIRED_FLDS = [ID, HERO_ID, STATS]
 
-heros = {TEST_HERO: {ID: 4, HERO_ID: 3, STATS: {}, ITEMS : [], NAME : "", HEALTH : 2, ALIVE : True, COST : 5},
-         'hero2': {ID: 3, HERO_ID: 9, STATS: {}, ITEMS : [], NAME : "", HEALTH : 2, ALIVE : True, COST : 3},
-         'hero3': {ID: 2, HERO_ID: 1, STATS: {}, ITEMS : [], NAME : "", HEALTH : 2, ALIVE : False, COST : 2} }
+heros = {TEST_HERO: {ID: 4, HERO_ID: 3, STATS: {}, ITEMS: [], NAME: "",
+                     HEALTH: 2, ALIVE: True, COST: 5},
+         'hero2': {ID: 3, HERO_ID: 9, STATS: {}, ITEMS: [], NAME: "",
+                   HEALTH: 2, ALIVE: True, COST: 3},
+         'hero3': {ID: 2, HERO_ID: 1, STATS: {}, ITEMS: [], NAME: "",
+                   HEALTH: 2, ALIVE: False, COST: 2}}
 
 
 def hero_exists(name):

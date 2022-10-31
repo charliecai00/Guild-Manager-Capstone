@@ -2,23 +2,21 @@
 This module encapsulates details about challenges.
 """
 
-
-from telnetlib import TELNET_PORT
-
+# from telnetlib import TELNET_PORT
 
 TEST_CHALLENGE = 'test_CHALLENGE'
 TEST_SKILL = 'test_skill'
 NAME = 'name'
-
 
 # We expect the CHALLENGE database to change frequently:
 # For now, we will consider ID and CHALLENGE_ID to be
 # our mandatory fields.
 REQUIRED_FLDS = [TEST_SKILL]
 
-challenges = {TEST_CHALLENGE: {TEST_SKILL : 'swimming'},
-         'Seven Hells': {TEST_SKILL : 'surviving'},
-         'Spacing Void': {TEST_SKILL : 'breathing'} }
+
+challenges = {TEST_CHALLENGE: {TEST_SKILL: 'swimming'},
+              'Seven Hells': {TEST_SKILL: 'surviving'},
+              'Spacing Void': {TEST_SKILL: 'breathing'}}
 
 
 def CHALLENGE_exists(name):

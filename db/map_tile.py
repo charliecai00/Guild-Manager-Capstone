@@ -3,9 +3,9 @@ This module encapsulates details about mapTiles.
 """
 
 
-from telnetlib import TELNET_PORT
+# from telnetlib import TELNET_PORT
 
-from matplotlib.backend_bases import LocationEvent
+# from matplotlib.backend_bases import LocationEvent
 
 
 TEST_MAPTile = 'test_mapTile'
@@ -18,9 +18,9 @@ LOCATIONS = 'locations'
 # our mandatory fields.
 REQUIRED_FLDS = [TERRAIN, LOCATIONS]
 
-mapTiles = {TEST_MAPTile: {TERRAIN : '', LOCATIONS : []},
-         'mapTile2': {TERRAIN : '', LOCATIONS : []},
-         'mapTile3': {TERRAIN : '', LOCATIONS : []} }
+mapTiles = {TEST_MAPTile: {TERRAIN: '', LOCATIONS: []},
+            'mapTile2': {TERRAIN: '', LOCATIONS: []},
+            'mapTile3': {TERRAIN: '', LOCATIONS: []}}
 
 
 def mapTile_exists(name):

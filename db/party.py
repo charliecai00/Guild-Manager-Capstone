@@ -3,13 +3,12 @@ This module encapsulates details about parties.
 """
 
 
-from telnetlib import TELNET_PORT
+# from telnetlib import TELNET_PORT
 
 
 TEST_PARTY = 'test_party'
 HEROS = 'hero_list'
 NAME = 'name'
-
 
 
 # We expect the party database to change frequently:
@@ -18,8 +17,8 @@ NAME = 'name'
 REQUIRED_FLDS = [HEROS]
 
 parties = {TEST_PARTY: {HEROS: []},
-         'party2': {HEROS: []},
-         'party3': {HEROS: []} }
+           'party2': {HEROS: []},
+           'party3': {HEROS: []}}
 
 
 def party_exists(name):

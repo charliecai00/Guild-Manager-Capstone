@@ -3,7 +3,7 @@ This module encapsulates details about maps.
 """
 
 
-from telnetlib import TELNET_PORT
+# from telnetlib import TELNET_PORT
 
 
 TEST_MAP = 'test_map'
@@ -15,9 +15,9 @@ MAP = 'map'
 # our mandatory fields.
 REQUIRED_FLDS = [MAP]
 
-maps = {TEST_MAP: {MAP :[]},
-         'map2': {MAP :[]},
-         'map3': {MAP :[]} }
+maps = {TEST_MAP: {MAP: []},
+        'map2': {MAP: []},
+        'map3': {MAP: []}}
 
 
 def map_exists(name):

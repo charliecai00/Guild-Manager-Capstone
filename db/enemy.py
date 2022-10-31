@@ -3,12 +3,11 @@ This module encapsulates details about enemys.
 """
 
 
-from telnetlib import TELNET_PORT
+# from telnetlib import TELNET_PORT
 
 
 TEST_ENEMY = 'test_enemy'
 ENEMY = 'enemy'
-
 
 
 # We expect the enemy database to change frequently:
@@ -16,9 +15,9 @@ ENEMY = 'enemy'
 # our mandatory fields.
 REQUIRED_FLDS = [ENEMY]
 
-enemys = {TEST_ENEMY: {ENEMY :[]},
-         'enemy2': {ENEMY :[]},
-         'enemy3': {ENEMY :[]} }
+enemys = {TEST_ENEMY: {ENEMY: []},
+          'enemy2': {ENEMY: []},
+          'enemy3': {ENEMY: []}}
 
 
 def enemy_exists(name):

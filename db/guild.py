@@ -3,7 +3,7 @@ This module encapsulates details about guilds.
 """
 
 
-from telnetlib import TELNET_PORT
+# from telnetlib import TELNET_PORT
 
 
 TEST_GUILD = 'test_guild'
@@ -17,15 +17,17 @@ PARTIES = 'party_list'
 FUNDS = 'funds'
 
 
-
 # We expect the guild database to change frequently:
 # For now, we will consider ID and guild_ID to be
 # our mandatory fields.
 REQUIRED_FLDS = [ID, GUILD_ID, HIRED_HEROS]
 
-guilds = {TEST_GUILD: {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS : [], QEUSTS : [], QUEST_HISTORY : [], PARTIES : [], FUNDS : 0},
-         'guild2': {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS : [], QEUSTS : [], QUEST_HISTORY : [], PARTIES : [], FUNDS : 0},
-         'guild3': {ID: 6, GUILD_ID: 1, HIRED_HEROS: 2, GROUPS : [], QEUSTS : [], QUEST_HISTORY : [], PARTIES : [], FUNDS : 0} }
+guilds = {TEST_GUILD: {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS: [],
+                       QEUSTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0},
+          'guild2': {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS: [],
+                     QEUSTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0},
+          'guild3': {ID: 6, GUILD_ID: 1, HIRED_HEROS: 2, GROUPS: [],
+                     QEUSTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0}}
 
 
 def guild_exists(name):

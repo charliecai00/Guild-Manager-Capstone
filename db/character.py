@@ -3,7 +3,7 @@ This module encapsulates details about characters.
 """
 
 
-from telnetlib import TELNET_PORT
+# from telnetlib import TELNET_PORT
 
 
 TEST_CHARACTER = 'test_character'
@@ -15,9 +15,9 @@ ATTRIBUTES = 'attributes'
 # our mandatory fields.
 REQUIRED_FLDS = [ATTRIBUTES]
 
-characters = {TEST_CHARACTER: {ATTRIBUTES :[]},
-         'CHARACTER2': {ATTRIBUTES :[]},
-         'CHARACTER3': {ATTRIBUTES :[]} }
+characters = {TEST_CHARACTER: {ATTRIBUTES: []},
+              'CHARACTER2': {ATTRIBUTES: []},
+              'CHARACTER3': {ATTRIBUTES: []}}
 
 
 def CHARACTER_exists(name):
