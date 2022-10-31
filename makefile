@@ -1,4 +1,3 @@
-LINTER = python3 -m flake8
 API_DIR = server
 DB_DIR = db
 GAME_DIR = game
