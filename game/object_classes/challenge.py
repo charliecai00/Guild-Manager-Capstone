@@ -4,6 +4,8 @@ class Challenge:
         self.test_skill = skill
         self.name = 0   # change this later
         self.type = new_type
+        self.success_message = ""
+        self.fail_message = ""
 
     def Get_Skill(self):
         return self.test_skill

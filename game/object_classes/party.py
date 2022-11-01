@@ -1,5 +1,6 @@
 
 from random import randint, randrange
+from game.object_classes.quest import Quest
 
 
 class Party:
@@ -18,6 +19,13 @@ class Party:
 
     def __repr__(self) -> str:
         return str(self)
+
+    # if any heroes in the party are still alive
+    def Is_Alive(self):
+        for h in self.hero_list:
+            if h.alive:
+                return True
+        return False
 
     def Add_Hero(self, new_hero):
         self.hero_list.append(new_hero)
@@ -57,3 +65,7 @@ class Party:
 
     def Get_Random_Hero(self):
         return self.hero_list[randint(0, len(self.hero_list)-1)]
+
+    def Complete_Quest(self, quest: Quest) -> list:
+        report = quest.resolve(self)
+        return report

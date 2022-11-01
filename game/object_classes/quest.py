@@ -1,4 +1,7 @@
 
+from game.object_classes.party import Party
+
+
 class Quest:
     class Node:
         def __init__(self,
@@ -38,18 +41,21 @@ class Quest:
         self.done = False
         self.root = None    # Quest.Node(Challenge)
         self.curr_nodes = [self.root]
+        self.report = []    # overwritten with each party
 
     def generate_nodes(self):
         pass    # TODO: a system to generate nodes
 
-    def succeed_node(self, done_node, party=None):
+    def succeed_node(self, done_node: Node, party=None):
+        self.report.append(done_node.challenge.success_message)
         if done_node.terminal:
             self.done = True
         self.curr_nodes.remove(done_node)
         for c in done_node.check_children(party):
             self.curr_nodes.append(c)
 
-    def fail_node(self, fail_node, party=None):
+    def fail_node(self, fail_node: Node, party=None):
+        self.report.append(fail_node.challenge.fail_message)
         # recheck parents nodes
         for c in fail_node.parent.check_children(party):
             if c not in self.curr_nodes:
@@ -60,10 +66,13 @@ class Quest:
             if not n.done:
                 return n
 
-    def resolve(self, party):
-        curr_node = self.next_node()
-        result = curr_node.resolve(party)
-        if result:
-            self.succeed_node(curr_node, party)
-        else:
-            self.fail_node(curr_node, party)
+    def resolve(self, party: Party, report=[]):
+        self.report = report
+        while party.Is_Alive() and not self.done:
+            curr_node = self.next_node()
+            result = curr_node.resolve(party)
+            if result:
+                self.succeed_node(curr_node, party)
+            else:
+                self.fail_node(curr_node, party)
+        return report
