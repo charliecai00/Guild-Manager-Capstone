@@ -27,10 +27,28 @@ GetHeroes_sample = {
 def test_GetHeroes():
     pass
 
-GetHeroes_sample = {
-    "Count": "Data ...",
-    "Type": "Data ..."
+def test_GET_QUEST():
+    # res = TEST_CLIENT.get(ep.GET_QUEST).get_json()
+    # assert isinstance(res[ep.RESULT], list)
+    pass
+
+HireHeroes_sample = {
+    "HireList": "Data ..."
 }
 
-def test_GetHeroes():
+def test_HireHeroes():
+    pass
+
+HireHeroes_error_sample = {
+    "HireList": "DNE"
+}
+
+def test_HireHeroes_error():
+    # res = TEST_CLIENT.get(ep.HIRE_HEROES).get_json()
+    # assert isinstance(res[ep.ERROR], str)
+    pass
+
+def test_List():
+    # res = TEST_CLIENT.get(ep.LIST).get_json()
+    # assert isinstance(res[ep.RESULT], list)
     pass
