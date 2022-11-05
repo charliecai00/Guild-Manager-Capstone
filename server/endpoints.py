@@ -8,26 +8,28 @@ app = Flask(__name__)
 api = Api(app)
 
 INPUT = '/input'
-COMMAND_LIST = '/command_list'
-COMMANDS = 'Commands'
+MAIN_MENU = '/main_menu'
 RESULT = 'Results'
 ERROR = 'Error'
 
 game = Game()
 
 
-@api.route(COMMAND_LIST)
-class command_list(Resource):
+@api.route(MAIN_MENU)
+class MainMenu(Resource):
     # Returns a list of commands
     def get(self):
-        return {COMMANDS: [
-            "Get_Heros",
-            "Hire_Hero",
-            "List_Guild_Members",
-            "Add_Party",
-            "Get_Quest",
-            "Do_Quest"
-        ]}
+        return {'Title': 'Main Menu',
+                'Options': {
+                    '1': {'text': 'Add_To_Party'},
+                    '2': {'text': 'Do_Quest'},
+                    '3': {'text': 'Get_Heroes'},
+                    '4': {'text': 'Get_Quests'},
+                    '5': {'text': 'Hire_Heroes'},
+                    '6': {'text': 'List_Guild_Members'},
+                    'X': {'text': 'Exit'},
+                }
+        }
 
 
 expected_input = api.model('expected_input', {
@@ -76,7 +78,7 @@ class input(Resource):
             for i in hero_list:
                 if not game.Hire_Hero(i):
                     return {ERROR: "Could not hire hero, out of money"}
-        elif (_type == "Get_Quests"):
+        elif (_type == "List_Guild_Members"):
             res = game.Guild_Status()
             return {RESULT: res}
             
