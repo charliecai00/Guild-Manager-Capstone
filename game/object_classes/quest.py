@@ -1,7 +1,4 @@
 
-from game.object_classes.party import Party
-
-
 class Quest:
     class Node:
         def __init__(self,
@@ -20,11 +17,11 @@ class Quest:
             new_node.parent = self
             self.children.append(new_node)
 
-        def check_children(self, party=None):
+        def check_children(self, stats: dict = None):
             ret_lst = []
             for c in self.children:
                 if c.check_stat is not None:
-                    if party is not None:
+                    if stats is not None:
                         pass  # test party stat
                 else:
                     ret_lst.append(c)
@@ -41,23 +38,29 @@ class Quest:
         self.done = False
         self.root = None    # Quest.Node(Challenge)
         self.curr_nodes = [self.root]
-        self.report = []    # overwritten with each party
+        self.nodes_master_list = []
+        self.best_p_stats = {}  # local party stats
+        self.mean_p_stats = {}  # overriden for each party
 
     def generate_nodes(self):
         pass    # TODO: a system to generate nodes
 
-    def succeed_node(self, done_node: Node, party=None):
-        self.report.append(done_node.challenge.success_message)
+    def start(self, best_stats: dict, mean_stats: dict) -> None:
+        self.best_p_stats = best_stats.copy()
+        self.mean_p_stats = mean_stats.copy()
+        for n in self.nodes_master_list:
+            n.done = False
+
+    def succeed_node(self, done_node: Node):
         if done_node.terminal:
             self.done = True
         self.curr_nodes.remove(done_node)
-        for c in done_node.check_children(party):
+        for c in done_node.check_children(self.best_p_stats):
             self.curr_nodes.append(c)
 
-    def fail_node(self, fail_node: Node, party=None):
-        self.report.append(fail_node.challenge.fail_message)
+    def fail_node(self, fail_node: Node):
         # recheck parents nodes
-        for c in fail_node.parent.check_children(party):
+        for c in fail_node.parent.check_children(self.mean_p_stats):
             if c not in self.curr_nodes:
                 self.curr_nodes.append(c)
 
@@ -65,14 +68,3 @@ class Quest:
         for n in self.curr_nodes:
             if not n.done:
                 return n
-
-    def resolve(self, party: Party, report=[]):
-        self.report = report
-        while party.Is_Alive() and not self.done:
-            curr_node = self.next_node()
-            result = curr_node.resolve(party)
-            if result:
-                self.succeed_node(curr_node, party)
-            else:
-                self.fail_node(curr_node, party)
-        return report

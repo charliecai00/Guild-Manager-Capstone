@@ -51,6 +51,24 @@ class Party:
         for s in stat_names:
             self.mean_stats[s] = self.mean_stats[s] // len(self.hero_list)
 
+    def Get_Random_Hero(self):
+        return self.hero_list[randint(0, len(self.hero_list)-1)]
+
+    # quest functions
+    def Complete_Quest(self, quest: Quest) -> list:
+        quest.start(self.best_stats, self.mean_stats)
+        report = []
+        while self.Is_Alive() and not quest.done:
+            curr_node = quest.next_node()
+            result = self.Take_Challenge(curr_node.challenge)
+            if result:  # success
+                report.append(curr_node.challenge.success_message)
+                quest.succeed_node(curr_node)
+            else:   # failure
+                report.append(curr_node.challenge.fail_message)
+                quest.fail_node(curr_node)
+        return report
+
     def Take_Challenge(self, challenge):
         skill = challenge.Get_Skill()
         if challenge.type == "Random":
@@ -62,10 +80,3 @@ class Party:
         elif challenge.type == "Mean":
             roll = randrange(99)
             return roll <= self.mean_stats[skill]
-
-    def Get_Random_Hero(self):
-        return self.hero_list[randint(0, len(self.hero_list)-1)]
-
-    def Complete_Quest(self, quest: Quest) -> list:
-        report = quest.resolve(self)
-        return report
