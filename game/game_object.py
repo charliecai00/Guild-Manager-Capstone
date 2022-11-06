@@ -69,7 +69,7 @@ class Game:
     def Create_Map(self):
         locales = Map()
         coordinates = []
-        while len(coordinates) < 10:
+        while len(coordinates) < 5:
             coords = (RandomRange(0,10), RandomRange(0,10))
             if coords in coordinates:
                 continue
