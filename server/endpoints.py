@@ -25,7 +25,8 @@ class MainMenu(Resource):
     # Returns a list of commands
     def get(self):
         return {'Title': 'Main Menu',
-                'Options': {
+                'Default': 0,
+                'Choices': {
                     '1': {'text': 'Add_To_Party'},
                     '2': {'text': 'Do_Quest'},
                     '3': {'text': 'Get_Heroes'},
