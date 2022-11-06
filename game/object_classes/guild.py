@@ -35,9 +35,10 @@ class Guild:
 
     def Form_Party(self, hero_list, name=None):
         if name is not None:
-            self.party_list.append(Party(hero_list, name))
+            self.party_list.append(Party(self.PARTY_ID, hero_list, name))
         else:
-            self.party_list.append(Party(hero_list))
+            self.party_list.append(Party(self.PARTY_ID, hero_list))
+        self.PARTY_ID += 1
 
     def Get_Party(self, name):
         for party in self.party_list:
