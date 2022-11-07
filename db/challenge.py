@@ -19,26 +19,26 @@ challenges = {TEST_CHALLENGE: {TEST_SKILL: 'swimming'},
               'Spacing Void': {TEST_SKILL: 'breathing'}}
 
 
-def CHALLENGE_exists(name):
+def challenge_exists(name):
     """
     Returns whether or not a CHALLENGE exists.
     """
     return name in challenges
 
 
-def get_CHALLENGEs_dict():
+def get_challenges_dict():
     return challenges
 
 
-def get_CHALLENGEs():
+def get_challenges():
     return list(challenges.keys())
 
 
-def get_CHALLENGE_details(CHALLENGE):
-    return challenges.get(CHALLENGE, None)
+def get_challenge_details(challenge):
+    return challenges.get(challenge, None)
 
 
-def add_CHALLENGE(name, details):
+def add_challenge(name, details):
     if not isinstance(name, str):
         raise TypeError(f'Wrong type for name: {type(name)=}')
     if not isinstance(details, dict):
@@ -50,9 +50,9 @@ def add_CHALLENGE(name, details):
 
 
 def main():
-    challenges = get_CHALLENGEs()
+    challenges = get_challenges()
     print(f'{challenges=}')
-    print(f'{get_CHALLENGE_details(TEST_CHALLENGE)=}')
+    print(f'{get_challenge_details(TEST_CHALLENGE)=}')
 
 
 if __name__ == '__main__':
