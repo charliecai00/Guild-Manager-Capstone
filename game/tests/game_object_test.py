@@ -31,6 +31,10 @@ class Test(unittest.TestCase):
     def test_find_quest(self):
         object = game_object.Game()
         self.assertEqual(object.Find_Quest('Nonexistent'), None)
+    
+    def test_create_map(self):
+        object = game_object.Game()
+        print(object.Create_Map)
 
 if __name__ == '__main__':
     unittest.main()
