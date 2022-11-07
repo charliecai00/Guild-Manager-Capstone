@@ -27,12 +27,12 @@ class MainMenu(Resource):
         return {'Title': 'Main Menu',
                 'Default': 0,
                 'Choices': {
-                    '1': {'text': 'Add_To_Party'},
-                    '2': {'text': 'Do_Quest'},
-                    '3': {'text': 'Get_Heroes'},
-                    '4': {'text': 'Get_Quests'},
-                    '5': {'text': 'Hire_Heroes'},
-                    '6': {'text': 'List_Guild_Members'},
+                    '1': {'text': 'Add_To_Party', 'url': '/add_to_party', 'method': 'post'},
+                    '2': {'text': 'Do_Quest', 'url': '/do_quest', 'method': 'post'},
+                    '3': {'text': 'Get_Heroes', 'url': '/get_heroes', 'method': 'post'},
+                    '4': {'text': 'Get_Quests', 'url': '/get_quest', 'method': 'get'},
+                    '5': {'text': 'Hire_Heroes', 'url': '/hire_heroes', 'method': 'post'},
+                    '6': {'text': 'List_Guild_Members', 'url': '/list', 'method': 'get'},
                     'X': {'text': 'Exit'},
                 }
                 }
