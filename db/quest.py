@@ -2,7 +2,8 @@
 This module encapsulates details about quests.
 """
 
-import challenge
+
+# import challenge
 # from telnetlib import TELNET_PORT
 
 
@@ -21,9 +22,12 @@ DONE = 'done'
 # our mandatory fields.
 REQUIRED_FLDS = [HEROS]
 
-quests = {TEST_QUEST: {HEROS: [], CHALLENGE: 'challenge type', CHECK_STAT: None, CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False},
-           'quest2': {HEROS: [], CHALLENGE: 'challenge type', CHECK_STAT: None, CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False},
-           'quest3': {HEROS: [], CHALLENGE: 'challenge type', CHECK_STAT: None, CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False}}
+quests = {TEST_QUEST: {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
+          CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False},
+          'quest2': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
+          CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False},
+          'quest3': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
+          CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False}}
 
 
 def quest_exists(name):
