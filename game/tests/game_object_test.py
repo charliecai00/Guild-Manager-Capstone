@@ -1,5 +1,6 @@
 import unittest
 import game.game_object as game_object
+from game.object_classes.map import Map
 
 class Test(unittest.TestCase):
     def test_create_guild(self):
@@ -34,7 +35,7 @@ class Test(unittest.TestCase):
     
     def test_create_map(self):
         object = game_object.Game()
-        print(object.Create_Map)
+        self.assertIsInstance(object.Create_Map(), Map)
 
 if __name__ == '__main__':
     unittest.main()
