@@ -38,7 +38,7 @@ class MainMenu(Resource):
                 }
 
 
-add_to_party_input = api.model('example', {
+add_to_party_input = api.model('add_to_party', {
     "HeroIDs": fields.String(default="data... ", required=True),
     "PartyID": fields.Integer(default="data... ", required=True)
 })
@@ -57,7 +57,7 @@ class AddToParty(Resource):
         game.Add_Party(PartyID, parse_hero_ID)
 
 
-do_quest_input = api.model('example', {
+do_quest_input = api.model('do_quest', {
     "PartyID": fields.Integer(default="data... ", required=True),
     "QuestID": fields.Integer(default="data... ", required=True)
 })
@@ -79,7 +79,7 @@ class DoQuest(Resource):
             return {RESULT: "{} failed".format(party_ID)}
 
 
-get_heroes_input = api.model('example', {
+get_heroes_input = api.model('get_heroes', {
     "Count": fields.Integer(default="data... ", required=True),
     "Type": fields.String(default="data... ", required=True)
 })
@@ -106,7 +106,7 @@ class GetQuest(Resource):
         return {RESULT: res}
 
 
-hire_heroes_input = api.model('example', {
+hire_heroes_input = api.model('hire_heroes', {
     "HireList": fields.Integer(default="data... ", required=True),
 })
 
