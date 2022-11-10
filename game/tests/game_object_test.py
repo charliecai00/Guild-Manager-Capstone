@@ -3,39 +3,45 @@ import game.game_object as game_object
 from game.object_classes.map import Map
 
 class Test(unittest.TestCase):
+    def setUp(self):
+        self.test_game = game_object.Game()
+    
+    def tearDown(self):
+        self.test_game = None
+
     def test_create_guild(self):
-        object = game_object.Game()
-        self.assertIsInstance(str(object.Create_Guild()), str)
+        #object = game_object.Game()
+        self.assertIsInstance(str(self.test_game.Create_Guild()), str)
 
     def test_get_heros(self):
-        object = game_object.Game()
-        self.assertIsInstance(object.Get_Heros(), list)
+        #object = game_object.Game()
+        self.assertIsInstance(self.test_game.Get_Heros(), list)
 
     def test_find_hero(self):
-        object = game_object.Game()
-        self.assertEqual(object.Find_Hero('Nonexistent'), None)
+        #object = game_object.Game()
+        self.assertEqual(self.test_game.Find_Hero('Nonexistent'), None)
 
     def test_hire_hero(self):
-        object = game_object.Game()
-        self.assertEqual(object.Hire_Hero('Nonexistent'), False)
+        #object = game_object.Game()
+        self.assertEqual(self.test_game.Hire_Hero('Nonexistent'), False)
 
     def test_guild_status(self):
-        object = game_object.Game()
-        print(object.Guild_Status)
+        #object = game_object.Game()
+        print(self.test_game.Guild_Status)
         pass
     
     def test_get_quest(self):
-        object = game_object.Game()
-        print(object.Get_Quest)
+        #object = game_object.Game()
+        print(self.test_game.Get_Quest)
         pass
 
     def test_find_quest(self):
-        object = game_object.Game()
-        self.assertEqual(object.Find_Quest('Nonexistent'), None)
+        #object = game_object.Game()
+        self.assertEqual(self.test_game.Find_Quest('Nonexistent'), None)
     
     def test_create_map(self):
-        object = game_object.Game()
-        self.assertIsInstance(object.Create_Map(), Map)
+        #object = game_object.Game()
+        self.assertIsInstance(self.test_game.Create_Map(), Map)
 
 if __name__ == '__main__':
     unittest.main()
