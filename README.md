@@ -1,5 +1,6 @@
-![last commit](https://img.shields.io/github/last-commit/Jorge-A-Velasquez/Guild-Manager-Capstone?style=for-the-badge)
+![release](https://img.shields.io/github/v/release/Jorge-A-Velasquez/Guild-Manager-Capstone?include_prereleases&style=for-the-badge)
 ![license](https://img.shields.io/github/license/Jorge-A-Velasquez/Guild-Manager-Capstone?style=for-the-badge)
+![last commit](https://img.shields.io/github/last-commit/Jorge-A-Velasquez/Guild-Manager-Capstone?style=for-the-badge)
 
 ## Requirements
 - have a program that generates data, running on the cloud
