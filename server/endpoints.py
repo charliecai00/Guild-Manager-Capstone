@@ -102,8 +102,12 @@ class GetHeroes(Resource):
 @api.route(GET_QUEST)
 class GetQuest(Resource):
     def get(self):
-        res = game.Get_Quest()
-        return {RESULT: res}
+        res = str(game.Get_Quest()).split(" ")
+        name = res[1]
+        skill = res[3]
+        return {'Data': {"Name": {"": name}, "Skill": {"": skill}},
+                'Type': 'Data',
+                'Title': 'Get Quest'}
 
 
 hire_heroes_input = api.model('hire_heroes', {
@@ -128,5 +132,11 @@ class HireHeroes(Resource):
 @api.route(LIST)
 class List(Resource):
     def get(self):
-        res = game.Guild_Status()
-        return {RESULT: res}
+        res =str(game.Guild_Status()).split(" ")
+        funds = res[1]
+        heros = res[3]
+        parties = res[5]
+        quests = res[7]
+        return {'Data': {"Funds": {"": funds}, "Heros": {"": heros}, "Parties": {"": parties}, "Quests": {"": quests}},
+                'Type': 'Data',
+                'Title': 'List Guild Members'}
