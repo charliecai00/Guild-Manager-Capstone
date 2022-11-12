@@ -14,8 +14,12 @@ GET_HEROES = '/get_heroes'
 GET_QUEST = '/get_quest'
 HIRE_HEROES = '/hire_heroes'
 LIST = '/list'
-RESULT = 'Results'
+
 ERROR = 'Error'
+RESULT = 'Result'
+DATA = 'Data'
+TYPE = 'Type'
+TITLE = 'Title'
 
 game = Game()
 
@@ -105,9 +109,9 @@ class GetQuest(Resource):
         res = str(game.Get_Quest()).split(" ")
         name = res[1]
         skill = res[3]
-        return {'Data': {"Name": {"": name}, "Skill": {"": skill}},
-                'Type': 'Data',
-                'Title': 'Get Quest'}
+        return {DATA: {"Name": {"": name}, "Skill": {"": skill}},
+                TYPE: 'Data',
+                TITLE: 'Get Quest'}
 
 
 hire_heroes_input = api.model('hire_heroes', {
@@ -137,6 +141,6 @@ class List(Resource):
         heros = res[3]
         parties = res[5]
         quests = res[7]
-        return {'Data': {"Funds": {"": funds}, "Heros": {"": heros}, "Parties": {"": parties}, "Quests": {"": quests}},
-                'Type': 'Data',
-                'Title': 'List Guild Members'}
+        return {DATA: {"Funds": {"": funds}, "Heros": {"": heros}, "Parties": {"": parties}, "Quests": {"": quests}},
+                TYPE: 'Data',
+                TITLE: 'List Guild Members'}
