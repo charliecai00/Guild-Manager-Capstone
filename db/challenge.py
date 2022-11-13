@@ -1,12 +1,12 @@
 """
 This module encapsulates details about challenges.
 """
+import db_connect as dbc
 
-# from telnetlib import TELNET_PORT
-
-TEST_CHALLENGE = 'test_CHALLENGE'
+TEST_CHALLENGE = 'test_challenge'
 TEST_SKILL = 'test_skill'
 NAME = 'name'
+CHALLENGE_COLLECT = "challenges"
 
 # We expect the CHALLENGE database to change frequently:
 # For now, we will consider ID and CHALLENGE_ID to be
@@ -15,23 +15,25 @@ REQUIRED_FLDS = [TEST_SKILL]
 
 
 challenges = {TEST_CHALLENGE: {TEST_SKILL: 'swimming'},
-              'Seven Hells': {TEST_SKILL: 'surviving'},
-              'Spacing Void': {TEST_SKILL: 'breathing'}}
+              'Seven_Hells': {TEST_SKILL: 'climb'},
+              'Spacing_Void': {TEST_SKILL: 'breathing'}}
 
 
 def challenge_exists(name):
     """
-    Returns whether or not a CHALLENGE exists.
+    Returns whether or not a challenge exists.
     """
     return name in challenges
 
 
 def get_challenges_dict():
-    return challenges
+    dbc.connect_db()
+    return dbc.fetch_all(CHALLENGE_COLLECT)
 
 
 def get_challenges():
-    return list(challenges.keys())
+    dbc.connect_db()
+    return dbc.fetch_all(CHALLENGE_COLLECT)
 
 
 def get_challenge_details(challenge):

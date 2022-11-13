@@ -24,9 +24,9 @@ REQUIRED_FLDS = [HEROS]
 
 quests = {TEST_QUEST: {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
           CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False},
-          'quest2': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
+           'quest2': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
           CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False},
-          'quest3': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
+           'quest3': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
           CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False}}
 
 
