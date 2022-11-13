@@ -20,26 +20,26 @@ characters = {TEST_CHARACTER: {ATTRIBUTES: []},
               'CHARACTER3': {ATTRIBUTES: []}}
 
 
-def CHARACTER_exists(name):
+def character_exists(name):
     """
     Returns whether or not a CHARACTER exists.
     """
     return name in characters
 
 
-def get_CHARACTERs_dict():
+def get_characters_dict():
     return characters
 
 
-def get_CHARACTERs():
+def get_characters():
     return list(characters.keys())
 
 
-def get_CHARACTER_details(CHARACTER):
+def get_character_details(CHARACTER):
     return characters.get(CHARACTER, None)
 
 
-def add_CHARACTER(name, details):
+def add_character(name, details):
     if not isinstance(name, str):
         raise TypeError(f'Wrong type for name: {type(name)=}')
     if not isinstance(details, dict):
@@ -51,9 +51,9 @@ def add_CHARACTER(name, details):
 
 
 def main():
-    characters = get_CHARACTERs()
+    characters = get_characters()
     print(f'{characters=}')
-    print(f'{get_CHARACTER_details(TEST_CHARACTER)=}')
+    print(f'{get_character_details(TEST_CHARACTER)=}')
 
 
 if __name__ == '__main__':

@@ -28,9 +28,9 @@ def test_GetHeroes():
     pass
 
 def test_GET_QUEST():
-    # res = TEST_CLIENT.get(ep.GET_QUEST).get_json()
-    # assert isinstance(res[ep.RESULT], list)
-    pass
+    res = TEST_CLIENT.get(ep.GET_QUEST).get_json()
+    assert isinstance(res[ep.TYPE], str)
+    assert isinstance(res[ep.TITLE], str)
 
 HireHeroes_sample = {
     "HireList": "Data ..."
@@ -49,6 +49,7 @@ def test_HireHeroes_error():
     pass
 
 def test_List():
-    # res = TEST_CLIENT.get(ep.LIST).get_json()
-    # assert isinstance(res[ep.RESULT], list)
-    pass
+    res = TEST_CLIENT.get(ep.LIST).get_json()
+    assert isinstance(res[ep.TYPE], str)
+    assert isinstance(res[ep.TITLE], str)
+    
