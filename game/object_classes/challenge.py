@@ -14,4 +14,4 @@ class Challenge:
         self.test_skill = new_skill
 
     def __repr__(self) -> str:
-        return "Name: {}, Skill: {}".format(self.name, self.test_skill)
+        return "Name: {} Skill: {}".format(self.name, self.test_skill)

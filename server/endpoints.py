@@ -14,8 +14,12 @@ GET_HEROES = '/get_heroes'
 GET_QUEST = '/get_quest'
 HIRE_HEROES = '/hire_heroes'
 LIST = '/list'
-RESULT = 'Results'
+
 ERROR = 'Error'
+RESULT = 'Result'
+DATA = 'Data'
+TYPE = 'Type'
+TITLE = 'Title'
 
 game = Game()
 
@@ -25,19 +29,20 @@ class MainMenu(Resource):
     # Returns a list of commands
     def get(self):
         return {'Title': 'Main Menu',
-                'Options': {
-                    '1': {'text': 'Add_To_Party'},
-                    '2': {'text': 'Do_Quest'},
-                    '3': {'text': 'Get_Heroes'},
-                    '4': {'text': 'Get_Quests'},
-                    '5': {'text': 'Hire_Heroes'},
-                    '6': {'text': 'List_Guild_Members'},
+                'Default': 0,
+                'Choices': {
+                    '1': {'text': 'Add_To_Party', 'url': '/add_to_party', 'method': 'post'},
+                    '2': {'text': 'Do_Quest', 'url': '/do_quest', 'method': 'post'},
+                    '3': {'text': 'Get_Heroes', 'url': '/get_heroes', 'method': 'post'},
+                    '4': {'text': 'Get_Quests', 'url': '/get_quest', 'method': 'get'},
+                    '5': {'text': 'Hire_Heroes', 'url': '/hire_heroes', 'method': 'post'},
+                    '6': {'text': 'List_Guild_Members', 'url': '/list', 'method': 'get'},
                     'X': {'text': 'Exit'},
                 }
                 }
 
 
-add_to_party_input = api.model('example', {
+add_to_party_input = api.model('add_to_party', {
     "HeroIDs": fields.String(default="data... ", required=True),
     "PartyID": fields.Integer(default="data... ", required=True)
 })
@@ -56,7 +61,7 @@ class AddToParty(Resource):
         game.Add_Party(PartyID, parse_hero_ID)
 
 
-do_quest_input = api.model('example', {
+do_quest_input = api.model('do_quest', {
     "PartyID": fields.Integer(default="data... ", required=True),
     "QuestID": fields.Integer(default="data... ", required=True)
 })
@@ -78,7 +83,7 @@ class DoQuest(Resource):
             return {RESULT: "{} failed".format(party_ID)}
 
 
-get_heroes_input = api.model('example', {
+get_heroes_input = api.model('get_heroes', {
     "Count": fields.Integer(default="data... ", required=True),
     "Type": fields.String(default="data... ", required=True)
 })
@@ -101,11 +106,15 @@ class GetHeroes(Resource):
 @api.route(GET_QUEST)
 class GetQuest(Resource):
     def get(self):
-        res = game.Get_Quest()
-        return {RESULT: res}
+        res = str(game.Get_Quest()).split(" ")
+        name = res[1]
+        skill = res[3]
+        return {DATA: {"Name": {"": name}, "Skill": {"": skill}},
+                TYPE: 'Data',
+                TITLE: 'Get Quest'}
 
 
-hire_heroes_input = api.model('example', {
+hire_heroes_input = api.model('hire_heroes', {
     "HireList": fields.Integer(default="data... ", required=True),
 })
 
@@ -127,5 +136,11 @@ class HireHeroes(Resource):
 @api.route(LIST)
 class List(Resource):
     def get(self):
-        res = game.Guild_Status()
-        return {RESULT: res}
+        res =str(game.Guild_Status()).split(" ")
+        funds = res[1]
+        heros = res[3]
+        parties = res[5]
+        quests = res[7]
+        return {DATA: {"Funds": {"": funds}, "Heros": {"": heros}, "Parties": {"": parties}, "Quests": {"": quests}},
+                TYPE: 'Data',
+                TITLE: 'List Guild Members'}
