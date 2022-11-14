@@ -1,5 +1,6 @@
 
 from random import randint, randrange
+from typing import Tuple
 from game.object_classes.quest import Quest
 from game.object_classes.hero import Hero
 from game.object_classes.challenge import Challenge
@@ -60,7 +61,7 @@ class Party:
         return self.hero_list[randint(0, len(self.hero_list)-1)]
 
     # quest functions
-    def Complete_Quest(self, quest: Quest) -> tuple[list, bool]:
+    def Complete_Quest(self, quest: Quest) -> Tuple[list, bool]:
         quest.start(self.best_stats, self.mean_stats)
         report = []
         while self.Is_Alive() and not quest.done:
