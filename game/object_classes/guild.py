@@ -15,7 +15,7 @@ class Guild:
         self.funds = 100
 
     def __str__(self):
-        return "Funds: {}, Heros: {}, Parties: {}, Quests: {}".format(
+        return "Funds: {} Heros: {} Parties: {} Quests: {}".format(
             self.funds,
             self.hired_heros_list,
             self.party_list,
