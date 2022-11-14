@@ -84,8 +84,8 @@ class DoQuest(Resource):
 
 
 get_heroes_input = api.model('get_heroes', {
-    "Count": fields.Integer(default="data... ", required=True),
-    "Type": fields.String(default="data... ", required=True)
+    "Count": fields.Integer(default="data... ", required=False),
+    "Type": fields.String(default="data... ", required=False)
 })
 
 

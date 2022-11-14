@@ -1,10 +1,15 @@
 
 from random import randint, randrange
 from game.object_classes.quest import Quest
+from game.object_classes.hero import Hero
+from game.object_classes.challenge import Challenge
 
 
 class Party:
-    def __init__(self, new_id, new_hero_list=[], name="test") -> None:
+    def __init__(self,
+                 new_id: int,
+                 new_hero_list: list = [],
+                 name: str = "test" ) -> None:
         self.id = new_id
         self.hero_list = new_hero_list
         self.name = name
@@ -21,17 +26,17 @@ class Party:
         return str(self)
 
     # if any heroes in the party are still alive
-    def Is_Alive(self):
+    def Is_Alive(self) -> bool:
         for h in self.hero_list:
             if h.alive:
                 return True
         return False
 
-    def Add_Hero(self, new_hero):
+    def Add_Hero(self, new_hero: Hero) -> None:
         self.hero_list.append(new_hero)
         self.Calc_Stats()
 
-    def Calc_Stats(self):
+    def Calc_Stats(self) -> None:
         stat_names = ["STR", "CON", "DEX", "WIS", "INT", "CHA"]
         # best stats
         for h in self.hero_list:
@@ -51,11 +56,11 @@ class Party:
         for s in stat_names:
             self.mean_stats[s] = self.mean_stats[s] // len(self.hero_list)
 
-    def Get_Random_Hero(self):
+    def Get_Random_Hero(self) -> Hero:
         return self.hero_list[randint(0, len(self.hero_list)-1)]
 
     # quest functions
-    def Complete_Quest(self, quest: Quest) -> list:
+    def Complete_Quest(self, quest: Quest) -> tuple[list, bool]:
         quest.start(self.best_stats, self.mean_stats)
         report = []
         while self.Is_Alive() and not quest.done:
@@ -67,9 +72,9 @@ class Party:
             else:   # failure
                 report.append(curr_node.challenge.fail_message)
                 quest.fail_node(curr_node)
-        return report
+        return report, self.Is_Alive()
 
-    def Take_Challenge(self, challenge):
+    def Take_Challenge(self, challenge: Challenge) -> bool:
         skill = challenge.Get_Skill()
         if challenge.type == "Random":
             curr_hero = self.Get_Random_Hero()
