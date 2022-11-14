@@ -3,7 +3,7 @@ This module encapsulates details about challenges.
 """
 import db_connect as dbc
 
-TEST_CHALLENGE = 'test_challenge'
+TEST_CHALLENGE_NAME = 'test_challenge'
 TEST_SKILL = 'test_skill'
 NAME = 'name'
 
@@ -12,7 +12,7 @@ NAME = 'name'
 # For now, we will consider ID and CHALLENGE_ID to be
 # our mandatory fields.
 REQUIRED_FLDS = [TEST_SKILL]
-challenges = {TEST_CHALLENGE: {TEST_SKILL: 'swimming'},
+challenges = {TEST_CHALLENGE_NAME: {TEST_SKILL: 'swimming'},
               'Seven_Hells': {TEST_SKILL: 'climb'},
               'Spacing_Void': {TEST_SKILL: 'breathing'}}
 
@@ -58,7 +58,7 @@ def main():
     print("Geting challenges a s a dict:")
     challenges = get_challenges_dict()
     print(f'{challenges=}')
-    print(f'{get_challenge_details(TEST_CHALLENGE)=}')
+    print(f'{get_challenge_details(TEST_CHALLENGE_NAME)=}')
 
 
 if __name__ == '__main__':
