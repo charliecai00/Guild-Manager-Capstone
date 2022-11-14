@@ -6,18 +6,18 @@ import db_connect as dbc
 TEST_CHALLENGE = 'test_challenge'
 TEST_SKILL = 'test_skill'
 NAME = 'name'
-CHALLENGE_COLLECT = "challenges"
+
 
 # We expect the CHALLENGE database to change frequently:
 # For now, we will consider ID and CHALLENGE_ID to be
 # our mandatory fields.
 REQUIRED_FLDS = [TEST_SKILL]
-
-
 challenges = {TEST_CHALLENGE: {TEST_SKILL: 'swimming'},
               'Seven_Hells': {TEST_SKILL: 'climb'},
               'Spacing_Void': {TEST_SKILL: 'breathing'}}
 
+CHALLENGE_COLLECT = "challenges"
+CHALLENGE_KEY = "name"
 
 def challenge_exists(name):
     """
@@ -28,7 +28,7 @@ def challenge_exists(name):
 
 def get_challenges_dict():
     dbc.connect_db()
-    return dbc.fetch_all(CHALLENGE_COLLECT)
+    return dbc.fetch_all_as_dict(CHALLENGE_KEY, CHALLENGE_COLLECT)
 
 
 def get_challenges():
@@ -52,7 +52,11 @@ def add_challenge(name, details):
 
 
 def main():
+    print("Geting challenges as a list:")
     challenges = get_challenges()
+    print(f'{challenges=}')
+    print("Geting challenges a s a dict:")
+    challenges = get_challenges_dict()
     print(f'{challenges=}')
     print(f'{get_challenge_details(TEST_CHALLENGE)=}')
 

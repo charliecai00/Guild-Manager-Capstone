@@ -28,3 +28,10 @@ def fetch_all(collection, db=GAME_DB):
     for doc in client[db][collection].find():
         ret.append(doc)
     return ret
+
+def fetch_all_as_dict(key, collection, db=GAME_DB):
+    ret = {} 
+    for doc in client[db][collection].find():
+        del ret['_id']
+        ret[doc[key]]=doc
+    return ret
