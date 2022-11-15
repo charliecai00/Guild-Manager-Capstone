@@ -106,10 +106,8 @@ class GetHeroes(Resource):
 @api.route(GET_QUEST)
 class GetQuest(Resource):
     def get(self):
-        res = str(game.Get_Quest()).split(" ")
-        name = res[1]
-        skill = res[3]
-        return {DATA: {"Name": {"": name}, "Skill": {"": skill}},
+        res = game.Get_Quest().get_info()
+        return {DATA: {"Name": {"": res[0]}, "Skill": {"": res[1:]}},
                 TYPE: 'Data',
                 TITLE: 'Get Quest'}
 

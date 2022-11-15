@@ -33,8 +33,12 @@ class Quest:
                 self.done = True
             return result
 
+        def __str__(self) -> str:
+            return "|Stat: {}, End?: {}|".format(self.check_stat, self.terminal)
+
     # leave default constructor for the MAP
     def __init__(self) -> None:
+        self.name = "A Great Quest"
         self.done = False
         self.root = None    # Quest.Node(Challenge)
         self.curr_nodes = [self.root]
@@ -43,7 +47,14 @@ class Quest:
         self.mean_p_stats = {}  # overriden for each party
 
     def __str__(self) -> str:
-        pass
+        info = self.get_info()
+        return "Name: {}, {}".format(info[0], info[1:])
+
+    def get_info(self) -> list:
+        ret_list = [self.name]
+        for c in self.curr_nodes:
+            ret_list.append(str(c))
+        return ret_list
 
     def generate_nodes(self) -> None:
         pass    # TODO: a system to generate nodes
