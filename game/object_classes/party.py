@@ -9,7 +9,7 @@ from game.object_classes.challenge import Challenge
 class Party:
     def __init__(self,
                  new_id: int,
-                 new_hero_list: list = [],
+                 new_hero_list: list[Hero] = [],
                  name: str = "test" ) -> None:
         self.id = new_id
         self.hero_list = new_hero_list
@@ -19,8 +19,7 @@ class Party:
         self.Calc_Stats()
 
     def __str__(self) -> str:
-        hero_names = [h.name for h in self.hero]
-
+        hero_names = [h.name for h in self.hero_list]
         return "Party: {}, Heros: {}".format(self.name, hero_names)
 
     def __repr__(self) -> str:
@@ -33,9 +32,13 @@ class Party:
                 return True
         return False
 
-    def Add_Hero(self, new_hero: Hero) -> None:
-        self.hero_list.append(new_hero)
-        self.Calc_Stats()
+    def Add_Hero(self, new_hero: Hero) -> bool:
+        try:
+            self.hero_list.append(new_hero)
+            self.Calc_Stats()
+            return True
+        except:
+            return False
 
     def Calc_Stats(self) -> None:
         stat_names = ["STR", "CON", "DEX", "WIS", "INT", "CHA"]
