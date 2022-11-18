@@ -58,7 +58,11 @@ class AddToParty(Resource):
         PartyID = request.json["PartyID"]
 
         parse_hero_ID = HeroIDs.split(",")
-        game.Add_Party(PartyID, parse_hero_ID)
+        # ToDo: implment game.Add_Party()
+        # if game.Add_Party(PartyID, parse_hero_ID):
+        #     return {RESULT: "Success"}
+        # return {RESULT: "Fail"}
+        return {RESULT: HeroIDs + " " +  PartyID}
 
 
 do_quest_input = api.model('do_quest', {

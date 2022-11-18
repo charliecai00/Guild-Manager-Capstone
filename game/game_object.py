@@ -50,7 +50,9 @@ class Game:
         return self.guild
 
     def Add_Party(self, name, list):
-        self.guild.Form_Party(list, name)
+        if self.guild.Form_Party(list, name):
+            return True
+        return False
 
     def Get_Quest(self):
         new_quest = Challenge('STR')
