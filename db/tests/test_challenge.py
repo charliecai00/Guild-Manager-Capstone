@@ -12,6 +12,12 @@ def test_get_challenges():
     assert len(chs) > 0 #or 1
 
 
+def test_get_challenges_dict():
+    chs = ch.get_challenges()
+    assert isinstance(chs, dict)
+    assert len(chs) > 0 #or 1
+
+
 def test_get_challenge_details():
     ch_dets = ch.get_challenge_details(ch.TEST_CHALLENGE_NAME)
     assert isinstance(ch_dets, dict)
