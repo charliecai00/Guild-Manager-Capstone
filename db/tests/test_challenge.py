@@ -1,7 +1,10 @@
+import os 
+
 import pytest
 
 import challenge as ch
 
+RUNNING_ON_GIT = os.environ.get("CI", False)
 
 def test_get_challenges():
     chs = ch.get_challenges()
