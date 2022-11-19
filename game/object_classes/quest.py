@@ -2,6 +2,7 @@
 from random import randint
 from game.object_classes.challenge import Challenge
 
+
 class Quest:
     class Node:
         def __init__(self,
@@ -38,7 +39,9 @@ class Quest:
             return result
 
         def __str__(self) -> str:
-            return "|Challenge: {}, End?: {}|".format(self.challenge, self.terminal)
+            return "|Challenge: {}, End?: {}|".format(
+                self.challenge,
+                self.terminal)
 
     # leave default constructor for the MAP
     def __init__(self) -> None:
@@ -71,10 +74,11 @@ class Quest:
         max_depth = 5
         while len(curr_layer) != 0:
             curr_node: self.Node = curr_layer.pop(0)
-            num_of_children = randint(0,3)
+            num_of_children = randint(0, 3)
             if num_of_children != 0 and curr_node.depth < max_depth:
                 for i in range(num_of_children):
-                    new_node = self.Node(Challenge(stat_names[randint(0, len(stat_names)-1)]))
+                    new_node = self.Node(Challenge(
+                        stat_names[randint(0, len(stat_names)-1)]))
                     new_node.parent = curr_node
                     new_node.depth = new_node.parent.depth + 1
                     curr_node.children.append(new_node)

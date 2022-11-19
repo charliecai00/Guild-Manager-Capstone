@@ -9,8 +9,8 @@ from game.object_classes.challenge import Challenge
 class Party:
     def __init__(self,
                  new_id: int,
-                 new_hero_list: list[Hero] = [],
-                 name: str = "test" ) -> None:
+                 new_hero_list: list = [],
+                 name: str = "test") -> None:
         self.id = new_id
         self.hero_list = new_hero_list
         self.name = name
@@ -37,7 +37,7 @@ class Party:
             self.hero_list.append(new_hero)
             self.Calc_Stats()
             return True
-        except:
+        except Exception:
             return False
 
     def Calc_Stats(self) -> None:
