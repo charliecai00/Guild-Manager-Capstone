@@ -19,6 +19,7 @@ challenges = {TEST_CHALLENGE_NAME: {TEST_SKILL: 'swimming'},
 CHALLENGE_COLLECT = "challenges"
 CHALLENGE_KEY = "name"
 
+
 def challenge_exists(name):
     """
     Returns whether or not a challenge exists.
