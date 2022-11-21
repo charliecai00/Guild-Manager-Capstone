@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_restx import Resource, Api, fields
 # import werkzeug.exceptions as wz
+import copy
 
 from game.game_object import Game
 
@@ -43,8 +44,8 @@ class MainMenu(Resource):
 
 
 add_to_party_input = api.model('add_to_party', {
-    "HeroIDs": fields.String(default="data... ", required=True),
-    "PartyID": fields.Integer(default="data... ", required=True)
+    "HeroIDs": fields.String(default="0,1,2", required=True),
+    "PartyID": fields.Integer(default="0", required=True)
 })
 
 
@@ -58,16 +59,12 @@ class AddToParty(Resource):
         PartyID = request.json["PartyID"]
 
         parse_hero_ID = HeroIDs.split(",")
-        # ToDo: implment game.Add_Party()
-        # if game.Add_Party(PartyID, parse_hero_ID):
-        #     return {RESULT: "Success"}
-        # return {RESULT: "Fail"}
-        return {RESULT: HeroIDs + " " +  PartyID}
+        game.Add_Party(PartyID, parse_hero_ID)
 
 
 do_quest_input = api.model('do_quest', {
-    "PartyID": fields.Integer(default="data... ", required=True),
-    "QuestID": fields.Integer(default="data... ", required=True)
+    "PartyID": fields.Integer(default="0", required=True),
+    "QuestID": fields.Integer(default="0", required=True)
 })
 
 
@@ -84,12 +81,12 @@ class DoQuest(Resource):
         if result:
             return {RESULT: "{} completed the quest!".format(party_ID)}
         else:
-            return {RESULT: "{} failed".format(party_ID)}
+            return {RESULT: "Request failed. Check input."}
 
 
 get_heroes_input = api.model('get_heroes', {
-    "Count": fields.Integer(default="data... ", required=False),
-    "Type": fields.String(default="data... ", required=False)
+    "Count": fields.Integer(default="10", required=False),
+    "Type": fields.String(default="Mage", required=False)
 })
 
 
@@ -103,8 +100,10 @@ class GetHeroes(Resource):
         hero_class = request.json["Type"]
 
         # Todo: function to call
-        res = game.Get_Heros()
-        return {RESULT: res}
+        res = str(game.Get_Heros())
+        return {DATA: {"Heros": {"": res}},
+                TYPE: 'Data',
+                TITLE: 'Get Quest'}
 
 
 @api.route(GET_QUEST)
@@ -117,7 +116,7 @@ class GetQuest(Resource):
 
 
 hire_heroes_input = api.model('hire_heroes', {
-    "HireList": fields.Integer(default="data... ", required=True),
+    "HireList": fields.String(default="0,1,2", required=True),
 })
 
 
