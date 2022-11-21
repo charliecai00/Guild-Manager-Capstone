@@ -8,3 +8,11 @@ lint: FORCE
 
 unit: FORCE
 	pytest $(PYTESTFLAGS)
+
+# test a python file:
+%.py: FORCE
+	pytest -s tests/test_$*.py
+
+docs: FORCE
+	pydoc3 -w ./*py
+	git add *html
