@@ -60,7 +60,7 @@ class AddToParty(Resource):
 
         parse_hero_ID = HeroIDs.split(",")
         game.Add_Party(PartyID, parse_hero_ID)
-
+        #ToDo: How do I know this hasn't failed?
 
 do_quest_input = api.model('do_quest', {
     "PartyID": fields.Integer(default="0", required=True),
@@ -100,7 +100,7 @@ class GetHeroes(Resource):
         hero_class = request.json["Type"]
 
         # Todo: function to call
-        res = str(game.Get_Heros())
+        res = str(game.Get_Heros(count, hero_class))
         return {DATA: {"Heros": {"": res}},
                 TYPE: 'Data',
                 TITLE: 'Get Quest'}
