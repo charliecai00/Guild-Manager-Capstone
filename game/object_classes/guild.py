@@ -1,4 +1,3 @@
-
 from game.object_classes.hero import Hero
 from game.object_classes.party import Party
 from game.object_classes.quest import Quest
@@ -23,7 +22,7 @@ class Guild:
             self.quest_list
         )
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return str(self)
 
     def Hire_Hero(self, new_hero: Hero) -> bool:

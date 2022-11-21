@@ -65,6 +65,8 @@ class Game:
         return None
 
     def Do_Quest(self, quest_name, party_name) -> bool:
+        if self.Find_Quest(quest_name) is None:
+            return False
         return self.guild.Send_Quest(party_name, self.Find_Quest(quest_name))
     
     def Create_Map(self) -> Map:

@@ -22,7 +22,7 @@ class Party:
         hero_names = [h.name for h in self.hero_list]
         return "Party: {}, Heros: {}".format(self.name, hero_names)
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return str(self)
 
     # if any heroes in the party are still alive
