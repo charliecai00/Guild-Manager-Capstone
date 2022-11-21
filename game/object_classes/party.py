@@ -1,6 +1,6 @@
 
 from random import randint, randrange
-from typing import Tuple
+from typing import Tuple, Self
 from game.object_classes.quest import Quest
 from game.object_classes.hero import Hero
 from game.object_classes.challenge import Challenge
@@ -22,7 +22,7 @@ class Party:
         hero_names = [h.name for h in self.hero_list]
         return "Party: {}, Heros: {}".format(self.name, hero_names)
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> Self:
         return str(self)
 
     # if any heroes in the party are still alive

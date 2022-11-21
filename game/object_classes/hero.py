@@ -1,4 +1,4 @@
-
+from typing import Self
 from random import randrange
 from game.object_classes.character import Character
 from game.game_math.random import RandomNormalClamped
@@ -34,7 +34,7 @@ class Hero(Character):
         )
         return s
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> Self:
         return str(self)
 
     def Test_Skill(self, skill):

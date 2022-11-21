@@ -1,3 +1,4 @@
+from typing import Self
 
 class Challenge:
     def __init__(self, skill=None, new_type='Random') -> None:
@@ -7,11 +8,11 @@ class Challenge:
         self.success_message = ""
         self.fail_message = ""
 
-    def Get_Skill(self):
+    def Get_Skill(self) -> str :
         return self.test_skill
 
     def Set_Skill(self, new_skill):
         self.test_skill = new_skill
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> Self:
         return "Name: {} Skill: {}".format(self.name, self.test_skill)
