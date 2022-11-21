@@ -2,6 +2,7 @@ API_DIR = server
 DB_DIR = db
 GAME_DIR = game
 
+
 FORCE: 
 
 test: dev unit
@@ -18,6 +19,7 @@ lint: FORCE
 unit: FORCE
 	cd $(API_DIR); make unit
 	cd $(GAME_DIR); make unit
+	cd $(DB_DIR); make unit
 
 game_cmd: FORCE
 	python3 $(GAME_DIR)/command_line.py
