@@ -36,7 +36,6 @@ jobs:
       - name: MongoDB in GitHub Actions
         uses: supercharge/mongodb-github-action@1.8.0
 
-
       - name: Run Python tests.
         run: make unit
         
