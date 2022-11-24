@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager made by JV · CC · ZQ · ZF
+
 import os 
 
 import pytest
