@@ -1,6 +1,10 @@
-# This is a workflow to test and deploy our demo app.
+###
+A NYU Capstone Project
+The Guild Manager made by JV · CC · ZQ · ZF
+###
 
-name: CI/CD
+# This is a workflow to test and deploy The Guild Manager.
+name: Master_CI/CD
 
 # Controls when the workflow will run
 on:
@@ -23,7 +27,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    # environment: heroku-deploy
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -36,13 +39,5 @@ jobs:
       - name: MongoDB in GitHub Actions
         uses: supercharge/mongodb-github-action@1.8.0
 
-
       - name: Run Python tests.
         run: make unit
-        
-      # Deploy to Heroku
-      #  - uses: akhileshns/heroku-deploy@v3.12.12
-      #    with:
-      #        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-      #        heroku_app_name: "demo-repo3"
-      #        heroku_email: "ejc369@nyu.edu"
