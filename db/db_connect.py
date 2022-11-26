@@ -38,6 +38,13 @@ def fetch_one(collection, filt, db=CHALLENGE_DB):
         return doc
 
 
+def del_one(collection, filt, db=CHALLENGE_DB):
+    """
+    Find with a filter and return on the first doc found.
+    """
+    client[db][collection].delete_one(filt)
+
+
 def fetch_all(collection, db=CHALLENGE_DB):
     ret = []
     for doc in client[db][collection].find():

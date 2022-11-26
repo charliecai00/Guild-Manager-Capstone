@@ -5,6 +5,8 @@ import pytest
 import db.challenge as ch
 
 
+TEST_DEL_NAME = 'Challenge to be deleted'
+
 
 def create_challenge_details():
     details = {}
@@ -12,28 +14,37 @@ def create_challenge_details():
         details[field] = 2
     return details
 
+
 @pytest.fixture(scope='function')
 def temp_challenge():
     ch.add_challenge(ch.TEST_CHALLENGE_NAME, create_challenge_details())
     yield
-    return True
-    # ch.del_challenge(ch.TEST_CHALLENGE_NAME)
+    ch.del_challenge(ch.TEST_CHALLENGE_NAME)
     
 
+@pytest.fixture(scope='function')
+def new_challenge():
+    return ch.add_challenge(TEST_DEL_NAME, create_challenge_details())
 
-def test_get_challenges():
+
+def test_del_challenge(new_challenge):
+    ch.del_challenge(TEST_DEL_NAME)
+    assert not ch.challenge_exists(TEST_DEL_NAME)
+
+
+def test_get_challenges(temp_challenge):
     chs = ch.get_challenges()
     assert isinstance(chs, list)
     assert len(chs) > 0 #or 1
 
 
-def test_get_challenges_dict():
+def test_get_challenges_dict(temp_challenge):
     chs = ch.get_challenges_dict()
     assert isinstance(chs, dict)
     assert len(chs) > 0 #or 1
 
 
-def test_get_challenge_details():
+def test_get_challenge_details(temp_challenge):
     ch_dets = ch.get_challenge_details(ch.TEST_CHALLENGE_NAME)
     assert isinstance(ch_dets, dict)
 
@@ -42,7 +53,7 @@ def test_challenge_exists(temp_challenge):
     assert ch.challenge_exists(ch.TEST_CHALLENGE_NAME)
 
 
-def test_challenge_not_exists():
+def test_challenge_not_exists(temp_challenge):
     assert not ch.challenge_exists('Surely this is not a challenge name!')
 
 
@@ -63,4 +74,5 @@ def test_add_missing_field():
 
 def test_add_challenge():
     ch.add_challenge(ch.TEST_CHALLENGE_NAME, create_challenge_details())
-    # assert gm.game_exists(gm.TEST_GAME_NAME)
+    assert ch.challenge_exists(ch.TEST_CHALLENGE_NAME)
+    ch.del_challenge(ch.TEST_CHALLENGE_NAME)
