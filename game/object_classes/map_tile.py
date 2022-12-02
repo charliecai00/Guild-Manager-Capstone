@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 import game.object_classes.static_consts as sc
 
 class MapTile:

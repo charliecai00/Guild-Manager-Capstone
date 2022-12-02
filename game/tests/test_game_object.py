@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 import pytest
 import game_object as game_object
 from game.object_classes.map import Map

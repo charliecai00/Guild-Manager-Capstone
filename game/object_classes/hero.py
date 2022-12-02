@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 from random import randrange
 from game.object_classes.character import Character
 from game.game_math.random import RandomNormalClamped
