@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 import os
 
 import pymongo as pm
@@ -36,6 +39,13 @@ def fetch_one(collection, filt, db=CHALLENGE_DB):
     """
     for doc in client[db][collection].find(filt):
         return doc
+
+
+def del_one(collection, filt, db=CHALLENGE_DB):
+    """
+    Find with a filter and return on the first doc found.
+    """
+    client[db][collection].delete_one(filt)
 
 
 def fetch_all(collection, db=CHALLENGE_DB):

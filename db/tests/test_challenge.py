@@ -1,5 +1,5 @@
 # A NYU Capstone Project
-# The Guild Manager made by JV · CC · ZQ · ZF
+# The Guild Manager by JV · CC · ZQ · ZF
 
 import os 
 
