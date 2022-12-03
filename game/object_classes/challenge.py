@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 class Challenge:
     def __init__(self, skill=None, new_type='Random') -> None:
         self.test_skill = skill

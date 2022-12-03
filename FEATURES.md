@@ -1,3 +1,6 @@
+<!-- A NYU Capstone Project
+The Guild Manager by JV · CC · ZQ · ZF -->
+
 # Features
 All of the features and systems needed for the game to function.
 

@@ -1,3 +1,5 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
 
 from game.game_math.random import RandomRange
 from game.object_classes.challenge import Challenge

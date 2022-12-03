@@ -1,7 +1,9 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 """
 This module encapsulates details about enemys.
 """
-
 
 # from telnetlib import TELNET_PORT
 

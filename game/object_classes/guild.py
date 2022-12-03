@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 from game.object_classes.hero import Hero
 from game.object_classes.party import Party
 from game.object_classes.quest import Quest
