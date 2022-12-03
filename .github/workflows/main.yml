@@ -1,6 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
+
 # This is a workflow to test and deploy The Guild Manager.
 name: Master_CI/CD
 
@@ -31,11 +32,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Install Python packages.
-        run: make dev
-      
       - name: MongoDB in GitHub Actions
         uses: supercharge/mongodb-github-action@1.8.0
+
+      - name: Install Python packages.
+        run: make dev
 
       - name: Run Python tests.
         run: make unit

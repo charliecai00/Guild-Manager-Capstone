@@ -59,6 +59,10 @@ def add_challenge(name, details):
     return dbc.insert_one(CHALLENGE_COLLECT, doc)
 
 
+def del_challenge(name):
+    return dbc.del_one(CHALLENGE_COLLECT, {CHALLENGE_KEY: name})
+
+
 def main():
     print("Geting challenges as a list:")
     challenges = get_challenges()
