@@ -6,6 +6,8 @@ PYTESTFLAGS = -vv --verbose --tb=short
 
 FORCE:
 
+tests: lint unit
+
 lint: FORCE
 	$(LINTER) *.py
 

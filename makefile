@@ -5,15 +5,18 @@ API_DIR = server
 DB_DIR = db
 GAME_DIR = game
 
+CURRDIR = $(shell pwd)
+export PYTHONPATH = $(CURRDIR)
 
 FORCE: 
 
-test: dev unit
+tests: lint unit
 
 dev: FORCE
 	pip3 install -r ./requirements-dev.txt
 
 lint: FORCE
+	echo "PYTHONPATH=$(PYTHONPATH)"
 	cd $(API_DIR); make lint
 	cd $(DB_DIR); make lint
 	cd $(GAME_DIR); make lint

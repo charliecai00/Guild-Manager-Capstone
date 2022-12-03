@@ -26,11 +26,14 @@ DONE = 'done'
 REQUIRED_FLDS = [HEROS]
 
 quests = {TEST_QUEST: {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
-          CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False},
-           'quest2': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
-          CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False},
-           'quest3': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
-          CHILDREN: [], TERMINAL: False, PARENT: None, DONE: False}}
+                       CHILDREN: [], TERMINAL: False,
+                       PARENT: None, DONE: False},
+          'quest2': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
+                     CHILDREN: [], TERMINAL: False,
+                     PARENT: None, DONE: False},
+          'quest3': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
+                     CHILDREN: [], TERMINAL: False,
+                     PARENT: None, DONE: False}}
 
 
 def quest_exists(name):
