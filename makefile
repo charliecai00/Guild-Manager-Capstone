@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 API_DIR = server
 DB_DIR = db
 GAME_DIR = game

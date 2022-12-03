@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 # run our server locally:
 export PYTHONPATH=$(pwd):$PYTHONPATH
 export FLASK_DEBUG=1

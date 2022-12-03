@@ -1,7 +1,9 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 from flask import Flask, request
 from flask_restx import Resource, Api, fields
 # import werkzeug.exceptions as wz
-import copy
 
 from game.game_object import Game
 
@@ -60,7 +62,8 @@ class AddToParty(Resource):
 
         parse_hero_ID = HeroIDs.split(",")
         game.Add_Party(PartyID, parse_hero_ID)
-        #ToDo: How do I know this hasn't failed?
+        # ToDo: How do I know this hasn't failed?
+
 
 do_quest_input = api.model('do_quest', {
     "PartyID": fields.Integer(default="0", required=True),
@@ -137,7 +140,7 @@ class HireHeroes(Resource):
 @api.route(LIST)
 class List(Resource):
     def get(self):
-        res =str(game.Guild_Status()).split(" ")
+        res = str(game.Guild_Status()).split(" ")
         funds = res[1]
         heros = res[3]
         parties = res[5]
