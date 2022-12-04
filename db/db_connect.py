@@ -7,7 +7,7 @@ import pymongo as pm
 
 REMOTE = "0"
 LOCAL = "1"
-CHALLENGE_DB = "challengedb"
+GUILD_DB = "guild_db"
 
 client = None
 
@@ -26,14 +26,14 @@ def connect_db():
             client = pm.MongoClient()
 
 
-def insert_one(collection, doc, db=CHALLENGE_DB):
+def insert_one(collection, doc, db=GUILD_DB):
     """
     Insert a single doc into collection.
     """
     client[db][collection].insert_one(doc)
 
 
-def fetch_one(collection, filt, db=CHALLENGE_DB):
+def fetch_one(collection, filt, db=GUILD_DB):
     """
     Find a filter and return on the first foc found.
     """
@@ -41,21 +41,21 @@ def fetch_one(collection, filt, db=CHALLENGE_DB):
         return doc
 
 
-def del_one(collection, filt, db=CHALLENGE_DB):
+def del_one(collection, filt, db=GUILD_DB):
     """
     Find with a filter and return on the first doc found.
     """
     client[db][collection].delete_one(filt)
 
 
-def fetch_all(collection, db=CHALLENGE_DB):
+def fetch_all(collection, db=GUILD_DB):
     ret = []
     for doc in client[db][collection].find():
         ret.append(doc)
     return ret
 
 
-def fetch_all_as_dict(key, collection, db=CHALLENGE_DB):
+def fetch_all_as_dict(key, collection, db=GUILD_DB):
     ret = {}
     for doc in client[db][collection].find():
         del doc['_id']

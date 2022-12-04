@@ -7,7 +7,7 @@ import pytest
 
 import db.db_connect as dbc
 
-TEST_DB = dbc.CHALLENGE_DB
+TEST_DB = dbc.GUILD_DB
 TEST_COLLECT = 'test_collect'
 # can be used for field and value:
 TEST_NAME = 'test'
