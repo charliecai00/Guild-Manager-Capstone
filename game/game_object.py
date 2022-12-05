@@ -51,7 +51,11 @@ class Game:
         return str(self.guild)
 
     def Add_Party(self, name, list) -> None:
-        self.guild.Form_Party(list, name)
+        hero_lst = []
+        for h in self.full_hero_list:
+            if h.name in list:
+                hero_lst.append(h)
+        self.guild.Form_Party(hero_lst, name)
 
     def Get_Quest(self) -> Quest:
         new_quest = Quest()
