@@ -2,39 +2,47 @@
 # The Guild Manager by JV · CC · ZQ · ZF
 
 import pytest
-import game_object as game_object
+
+import game_object as go
+
 from game.object_classes.map import Map
 
-def test_create_guild(self):
-    #object = game_object.Game()
-    self.assertIsInstance(str(self.test_game.Create_Guild()), str)
+@pytest.fixture(scope='class', autouse=True)
+def temp_game_object():
+    test_game = go.Game()
+    yield test_game
+    test_game = None
 
-def test_get_heros(self):
-    #object = game_object.Game()
-    self.assertIsInstance(self.test_game.Get_Heros(), list)
+def test_create_guild(temp_game_object):
+    #object = go.Game()
+    assert isinstance(str(temp_game_object.Create_Guild()), str)
 
-def test_find_hero(self):
-    #object = game_object.Game()
-    self.assertEqual(self.test_game.Find_Hero('Nonexistent'), None)
+def test_get_heros(temp_game_object):
+    #object = go.Game()
+    assert isinstance(temp_game_object.Get_Heros(), list)
 
-def test_hire_hero(self):
-    #object = game_object.Game()
-    self.assertEqual(self.test_game.Hire_Hero('Nonexistent'), False)
+def test_find_hero(temp_game_object):
+    #object = go.Game()
+    assert temp_game_object.Find_Hero('Nonexistent') == None
 
-def test_guild_status(self):
-    #object = game_object.Game()
-    print(self.test_game.Guild_Status)
+def test_hire_hero(temp_game_object):
+    #object = go.Game()
+    assert temp_game_object.Hire_Hero('Nonexistent') == False
+
+def test_guild_status(temp_game_object):
+    #object = go.Game()
+    print(temp_game_object.Guild_Status)
     pass
     
-def test_get_quest(self):
-    #object = game_object.Game()
-    print(self.test_game.Get_Quest)
+def test_get_quest(temp_game_object):
+    #object = go.Game()
+    print(temp_game_object.Get_Quest)
     pass
 
-def test_find_quest(self):
-    #object = game_object.Game()
-    self.assertEqual(self.test_game.Find_Quest('Nonexistent'), None)
+def test_find_quest(temp_game_object):
+    #object = go.Game()
+    assert temp_game_object.Find_Quest('Nonexistent') == None
 
-def test_create_map():
-    game_map = game_object.Game.Create_Map()
+def test_create_map(temp_game_object):
+    game_map = go.Game.Create_Map()
     assert isinstance(game_map, Map)
