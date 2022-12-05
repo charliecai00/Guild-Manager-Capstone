@@ -106,7 +106,7 @@ class GetHeroes(Resource):
         res = str(game.Get_Heros(count, hero_class))
         return {DATA: {"Heros": {"": res}},
                 TYPE: 'Data',
-                TITLE: 'Get Quest'}
+                TITLE: 'Get Heroes'}
 
 
 @api.route(GET_QUEST)
