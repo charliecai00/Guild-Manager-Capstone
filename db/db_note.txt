@@ -1,0 +1,4 @@
+db objects
+hero
+quest
+game
