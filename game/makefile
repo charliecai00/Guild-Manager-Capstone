@@ -1,12 +1,19 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-LINTER = python3 -m flake8
+LINTER = python3 -m flake8 
+PYTESTFLAGS = -vv --verbose --tb=short
 
 FORCE:
+
+tests: lint unit
 
 lint: FORCE
 	$(LINTER) *.py
 
 unit: FORCE
-	python3 tests/game_object_test.py -v
+	pytest $(PYTESTFLAGS)
+
+# test a python file:
+%.py: FORCE
+	pytest -s tests/test_$*.py
