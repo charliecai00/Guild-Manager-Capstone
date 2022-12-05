@@ -52,7 +52,7 @@ def add_character(name, details):
             raise ValueError(f'Required {field=} missing from details.')
     characters[name] = details
 
-
+# test
 def main():
     characters = get_characters()
     print(f'{characters=}')
