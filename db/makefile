@@ -1,12 +1,12 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-LINTER = python3 -m flake8
+LINTER = flake8 --ignore=E501,W291,E128,W293
 PYTESTFLAGS = -vv --verbose --tb=short
 
 FORCE:
 
-tests: lint unit
+all_tests: lint unit
 
 lint: FORCE
 	$(LINTER) *.py

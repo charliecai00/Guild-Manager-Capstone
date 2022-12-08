@@ -1,39 +1,42 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import os
-
 import pymongo as pm
 
 REMOTE = "0"
 LOCAL = "1"
-GUILD_DB = "guild_db"
+
+DB = "Guild_Manager"
 
 client = None
 
 
 def connect_db():
-    """
-    Connect to DB across all uses
-    Return a mongo client object
-    Set global client variable
-    """
     global client
-    if client is None:
+    if client is None:  # not connected yet!
         print("Setting client because it is None.")
-        if os.environ.get("LOCAL_MONGO", LOCAL) == LOCAL:
-            print("Connecting to Mongo locally.")
-            client = pm.MongoClient()
+        # if os.environ.get("CLOUD_MONGO", LOCAL) == CLOUD:
+        #     password = os.environ.get("GAME_MONGO_PW")
+        #     if not password:
+        #         raise ValueError('You must set your password '
+        #                          + 'to use Mongo in the cloud.')
+        #     print("Connecting to Mongo in the cloud.")
+        #     client = pm.MongoClient(f'mongodb+srv://gcallah:{password}'
+        #                             + '@cluster0.eqxbbqd.mongodb.net/'
+        #                             + '?retryWrites=true&w=majority')
+        # else:
+        print("Connecting to Mongo locally.")
+        client = pm.MongoClient()
 
 
-def insert_one(collection, doc, db=GUILD_DB):
+def insert_one(collection, doc, db=DB):
     """
     Insert a single doc into collection.
     """
     client[db][collection].insert_one(doc)
 
 
-def fetch_one(collection, filt, db=GUILD_DB):
+def fetch_one(collection, filt, db=DB):
     """
     Find a filter and return on the first foc found.
     """
@@ -41,21 +44,21 @@ def fetch_one(collection, filt, db=GUILD_DB):
         return doc
 
 
-def del_one(collection, filt, db=GUILD_DB):
+def del_one(collection, filt, db=DB):
     """
     Find with a filter and return on the first doc found.
     """
     client[db][collection].delete_one(filt)
 
 
-def fetch_all(collection, db=GUILD_DB):
+def fetch_all(collection, db=DB):
     ret = []
     for doc in client[db][collection].find():
         ret.append(doc)
     return ret
 
 
-def fetch_all_as_dict(key, collection, db=GUILD_DB):
+def fetch_all_as_dict(key, collection, db=DB):
     ret = {}
     for doc in client[db][collection].find():
         del doc['_id']
