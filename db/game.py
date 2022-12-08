@@ -66,18 +66,18 @@ def del_game(name):
     return dbc.del_one(GAME_COLLECT, {GAME_KEY: name})
 
 
-def main():
-    print('Adding games')
-    add_game(TEST_GAME_NAME1, dummy_game[TEST_GAME_NAME1])
-    add_game(TEST_GAME_NAME2, dummy_game[TEST_GAME_NAME2])
-    print('Getting games as a list:')
-    games = get_games()
-    print(f'{games=}')
-    print('Getting games as a dict:')
-    games = get_games_dict()
-    print(f'{games=}')
-    print(f'{get_game_details(TEST_GAME_NAME1)=}')
+# def main():
+#     print('Adding games')
+#     add_game(TEST_GAME_NAME1, dummy_game[TEST_GAME_NAME1])
+#     add_game(TEST_GAME_NAME2, dummy_game[TEST_GAME_NAME2])
+#     print('Getting games as a list:')
+#     games = get_games()
+#     print(f'{games=}')
+#     print('Getting games as a dict:')
+#     games = get_games_dict()
+#     print(f'{games=}')
+#     print(f'{get_game_details(TEST_GAME_NAME1)=}')
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
