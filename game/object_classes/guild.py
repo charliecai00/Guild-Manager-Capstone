@@ -50,6 +50,18 @@ class Guild:
             self.party_list.append(Party(self.PARTY_ID, hero_list))
         self.PARTY_ID += 1
 
+    def Disband_Party(self, name) -> bool:
+        remove_ind = None
+        for i in range(len(self.party_list)):
+            if self.party_list[i].name == name:
+                remove_ind = i
+        if remove_ind != None:
+            self.party_list.pop(remove_ind)
+            # call disband function
+            return True
+        else:
+            return False
+
     def Get_Party(self, name) -> Party:
         for party in self.party_list:
             if party.name == name:

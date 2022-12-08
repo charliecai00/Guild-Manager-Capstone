@@ -65,6 +65,9 @@ class Game:
                 hero_lst.append(h)
         self.guild.Form_Party(hero_lst, name)
 
+    def Disband_Party(self, name) -> bool:
+        return self.guild.Disband_Party(name)
+
     def Get_Quest(self) -> Quest:
         new_quest = Quest()
         self.full_quest_list.append(new_quest)
