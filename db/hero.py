@@ -1,72 +1,62 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-"""
-This module encapsulates details about heros.
-"""
-
-
-# from telnetlib import TELNET_PORT
-
-
 TEST_HERO = 'test_hero'
 ID = 'id'
-HERO_ID = 'HERO_ID'
 STATS = 'stats'
 ITEMS = 'items'
 NAME = 'name'
+HERO_ID = 'HERO_ID'
 HEALTH = 'health'
 ALIVE = 'alive'
 COST = 'cost'
+REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
 
-
-# We expect the hero database to change frequently:
-# For now, we will consider ID and hero_ID to be
-# our mandatory fields.
-REQUIRED_FLDS = [ID, HERO_ID, STATS]
-
-heros = {TEST_HERO: {ID: 4, HERO_ID: 3, STATS: {}, ITEMS: [], NAME: "",
-                     HEALTH: 2, ALIVE: True, COST: 5},
-         'hero2': {ID: 3, HERO_ID: 9, STATS: {}, ITEMS: [], NAME: "",
-                   HEALTH: 2, ALIVE: True, COST: 3},
-         'hero3': {ID: 2, HERO_ID: 1, STATS: {}, ITEMS: [], NAME: "",
-                   HEALTH: 2, ALIVE: False, COST: 2}}
+dummy_hero = {TEST_HERO: {ID: 1,
+                          STATS: {"STR": 20, "CON": 20, "DEX": 20, "WIS": 20, "INT": 20, "CHA": 20},
+                          ITEMS: [],
+                          NAME : "1",
+                          HERO_ID: 1,
+                          HEALTH: 2,
+                          ALIVE: True,
+                          COST: 5
+                          }}
 
 
 def hero_exists(name):
     """
     Returns whether or not a hero exists.
     """
-    return name in heros
-
-
-def get_heros_dict():
-    return heros
+    return name in dummy_hero
 
 
 def get_heros():
-    return list(heros.keys())
+    return list(dummy_hero.keys())
+
+
+def get_heros_dict():
+    return dummy_hero
 
 
 def get_hero_details(hero):
-    return heros.get(hero, None)
+    return dummy_hero.get(hero, None)
+
+
+def del_hero(name):
+    del dummy_hero[name]
 
 
 def add_hero(name, details):
-    if not isinstance(name, str):
-        raise TypeError(f'Wrong type for name: {type(name)=}')
-    if not isinstance(details, dict):
-        raise TypeError(f'Wrong type for details: {type(details)=}')
-    for field in REQUIRED_FLDS:
-        if field not in details:
-            raise ValueError(f'Required {field=} missing from details.')
-    heros[name] = details
+    dummy_hero[name] = details
 
 
 def main():
-    heros = get_heros()
-    print(f'{heros=}')
-    print(f'{get_hero_details(TEST_HERO)=}')
+    print(hero_exists(TEST_HERO))
+    print(get_heros())
+    print(get_heros_dict())
+    print(get_hero_details(TEST_HERO))
+    del_hero(TEST_HERO)
+    add_hero(TEST_HERO, "Testing add_hero()")
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ import os
 
 import pytest
 
-import db.game as gm
+import db.game_db as gm
 
 
 TEST_DEL_NAME = 'game to be deleted'
