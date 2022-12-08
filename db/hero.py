@@ -1,7 +1,9 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-TEST_HERO = 'test_hero'
+import db.db_connect as dbc
+
+
 ID = 'id'
 STATS = 'stats'
 ITEMS = 'items'
@@ -10,8 +12,12 @@ HERO_ID = 'HERO_ID'
 HEALTH = 'health'
 ALIVE = 'alive'
 COST = 'cost'
-REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
 
+HERO_KEY = 'name'
+HERO_COLLECT = 'heros'
+
+TEST_HERO = 'test_hero'
+REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
 dummy_hero = {TEST_HERO: {ID: 1,
                           STATS: {"STR": 20, "CON": 20, "DEX": 20, "WIS": 20, "INT": 20, "CHA": 20},
                           ITEMS: [],
@@ -23,40 +29,49 @@ dummy_hero = {TEST_HERO: {ID: 1,
                           }}
 
 
+def get_hero_details(name):
+    dbc.connect_db()
+    return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: name})
+
+
 def hero_exists(name):
-    """
-    Returns whether or not a hero exists.
-    """
-    return name in dummy_hero
-
-
-def get_heros():
-    return list(dummy_hero.keys())
+    return get_hero_details(name) is not None
 
 
 def get_heros_dict():
-    return dummy_hero
+    dbc.connect_db()
+    return dbc.fetch_all_as_dict(HERO_KEY, HERO_COLLECT)
 
 
-def get_hero_details(hero):
-    return dummy_hero.get(hero, None)
-
-
-def del_hero(name):
-    del dummy_hero[name]
+def get_heros():
+    dbc.connect_db()
+    return dbc.fetch_all(HERO_COLLECT)
 
 
 def add_hero(name, details):
-    dummy_hero[name] = details
+    doc = details
+    dbc.connect_db()
+    doc[HERO_KEY] = name
+    return dbc.insert_one(HERO_COLLECT, doc)
+
+
+def del_hero(name):
+    return dbc.del_one(HERO_COLLECT, {HERO_KEY: name})
 
 
 def main():
-    print(hero_exists(TEST_HERO))
-    print(get_heros())
-    print(get_heros_dict())
-    print(get_hero_details(TEST_HERO))
-    del_hero(TEST_HERO)
-    add_hero(TEST_HERO, "Testing add_hero()")
+    print('Adding a hero')
+    add_hero(TEST_HERO, dummy_hero[TEST_HERO])
+    
+    print('Getting heros as a list:')
+    heros = get_heros()
+    print(f'{heros=}')
+    
+    print('Getting heros as a dict:')
+    games = get_heros_dict()
+    print(f'{games=}')
+    
+    print(f'{get_hero_details(TEST_HERO)=}')
 
 
 if __name__ == '__main__':

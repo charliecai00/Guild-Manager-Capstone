@@ -30,42 +30,42 @@ def get_quest_details(name):
     return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
-def game_exists(name):
+def quest_exists(name):
     return get_quest_details(name) is not None
 
 
-def get_games_dict():
+def get_quests_dict():
     dbc.connect_db()
     return dbc.fetch_all_as_dict(QUEST_KEY, QUEST_COLLECT)
 
 
-def get_games():
+def get_quests():
     dbc.connect_db()
     return dbc.fetch_all(QUEST_COLLECT)
 
 
-def add_game(name, details):
+def add_quest(name, details):
     doc = details
     dbc.connect_db()
     doc[QUEST_KEY] = name
     return dbc.insert_one(QUEST_COLLECT, doc)
 
 
-def del_game(name):
+def del_quest(name):
     return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
 def main():
     print('Adding a quest')
-    add_game(TEST_QUEST, dummy_quest[TEST_QUEST])
+    add_quest(TEST_QUEST, dummy_quest[TEST_QUEST])
     
-    print('Getting games as a list:')
-    games = get_games()
-    print(f'{games=}')
+    print('Getting quests as a list:')
+    quests = get_quests()
+    print(f'{quests=}')
     
-    print('Getting games as a dict:')
-    games = get_games_dict()
-    print(f'{games=}')
+    print('Getting quests as a dict:')
+    quests = get_quests_dict()
+    print(f'{quests=}')
     
     print(f'{get_quest_details(TEST_QUEST)=}')
 
