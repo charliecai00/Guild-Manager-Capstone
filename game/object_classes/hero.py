@@ -39,6 +39,9 @@ class Hero(Character):
     def __repr__(self):
         return str(self)
 
+    def __eq__(self, __o: object) -> bool:
+        return __o.id == self.id
+
     def Test_Skill(self, skill):
         roll = randrange(99)
         return roll <= self.stats[skill]

@@ -36,12 +36,31 @@ class Guild:
             self.funds -= new_hero.cost
             return True
 
+    def Fire_Hero(self, del_hero: Hero) -> bool:
+        try:
+            self.hired_heros_list.remove(del_hero)
+        except ValueError:
+            return False
+        return True
+
     def Form_Party(self, hero_list, name=None) -> None:
         if name is not None:
             self.party_list.append(Party(self.PARTY_ID, hero_list, name))
         else:
             self.party_list.append(Party(self.PARTY_ID, hero_list))
         self.PARTY_ID += 1
+
+    def Disband_Party(self, name) -> bool:
+        remove_ind = None
+        for i in range(len(self.party_list)):
+            if self.party_list[i].name == name:
+                remove_ind = i
+        if remove_ind is not None:
+            self.party_list.pop(remove_ind)
+            # call disband function
+            return True
+        else:
+            return False
 
     def Get_Party(self, name) -> Party:
         for party in self.party_list:
