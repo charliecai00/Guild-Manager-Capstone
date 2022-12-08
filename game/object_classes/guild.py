@@ -55,7 +55,7 @@ class Guild:
         for i in range(len(self.party_list)):
             if self.party_list[i].name == name:
                 remove_ind = i
-        if remove_ind != None:
+        if remove_ind is not None:
             self.party_list.pop(remove_ind)
             # call disband function
             return True
