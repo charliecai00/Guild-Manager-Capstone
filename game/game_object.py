@@ -2,13 +2,12 @@
 # The Guild Manager by JV · CC · ZQ · ZF
 
 from game.game_math.random import RandomRange
-from game.object_classes.challenge import Challenge
+# from game.object_classes.challenge import Challenge
 from game.object_classes.quest import Quest
 from game.object_classes.guild import Guild
 from game.object_classes.hero import Hero
 from game.object_classes.map_tile import MapTile
 from game.object_classes.map import Map
-
 
 
 class Game:
@@ -22,7 +21,6 @@ class Game:
         self.map = self.Create_Map()
         self.full_hero_list = []
         self.full_quest_list = []
-
 
     def Create_Guild(self) -> Guild:
         ret_guild = Guild(self.GUILD_ID)
@@ -75,7 +73,7 @@ class Game:
         locales = Map()
         coordinates = []
         while len(coordinates) < 5:
-            coords = (RandomRange(0,10), RandomRange(0,10))
+            coords = (RandomRange(0, 10), RandomRange(0, 10))
             if coords in coordinates:
                 continue
             coordinates.append(coords)

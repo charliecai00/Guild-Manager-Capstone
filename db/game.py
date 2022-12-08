@@ -36,7 +36,6 @@ dummy_game = {TEST_GAME_NAME1: {GUILD_ID: 0,
                           FULL_QUEST_LIST: []}}
 
 
-
 def get_game_details(game):
     dbc.connect_db()
     return dbc.fetch_one(GAME_COLLECT, {GAME_KEY: game})
@@ -71,15 +70,12 @@ def main():
     print('Adding games')
     add_game(TEST_GAME_NAME1, dummy_game[TEST_GAME_NAME1])
     add_game(TEST_GAME_NAME2, dummy_game[TEST_GAME_NAME2])
-    
     print('Getting games as a list:')
     games = get_games()
     print(f'{games=}')
-    
     print('Getting games as a dict:')
     games = get_games_dict()
     print(f'{games=}')
-    
     print(f'{get_game_details(TEST_GAME_NAME1)=}')
 
 

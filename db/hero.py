@@ -21,7 +21,7 @@ REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
 dummy_hero = {TEST_HERO: {ID: 1,
                           STATS: {"STR": 20, "CON": 20, "DEX": 20, "WIS": 20, "INT": 20, "CHA": 20},
                           ITEMS: [],
-                          NAME : "1",
+                          NAME: "1",
                           HERO_ID: 1,
                           HEALTH: 2,
                           ALIVE: True,
@@ -59,20 +59,17 @@ def del_hero(name):
     return dbc.del_one(HERO_COLLECT, {HERO_KEY: name})
 
 
-def main():
-    print('Adding a hero')
-    add_hero(TEST_HERO, dummy_hero[TEST_HERO])
-    
-    print('Getting heros as a list:')
-    heros = get_heros()
-    print(f'{heros=}')
-    
-    print('Getting heros as a dict:')
-    games = get_heros_dict()
-    print(f'{games=}')
-    
-    print(f'{get_hero_details(TEST_HERO)=}')
+# def main():
+#     print('Adding a hero')
+#     add_hero(TEST_HERO, dummy_hero[TEST_HERO])
+#     print('Getting heros as a list:')
+#     heros = get_heros()
+#     print(f'{heros=}')
+#     print('Getting heros as a dict:')
+#     games = get_heros_dict()
+#     print(f'{games=}')
+#     print(f'{get_hero_details(TEST_HERO)=}')
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

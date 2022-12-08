@@ -1,7 +1,6 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import os
 import pymongo as pm
 
 REMOTE = "0"

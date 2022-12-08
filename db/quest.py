@@ -55,20 +55,17 @@ def del_quest(name):
     return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
-def main():
-    print('Adding a quest')
-    add_quest(TEST_QUEST, dummy_quest[TEST_QUEST])
-    
-    print('Getting quests as a list:')
-    quests = get_quests()
-    print(f'{quests=}')
-    
-    print('Getting quests as a dict:')
-    quests = get_quests_dict()
-    print(f'{quests=}')
-    
-    print(f'{get_quest_details(TEST_QUEST)=}')
+# def main():
+#     print('Adding a quest')
+#     add_quest(TEST_QUEST, dummy_quest[TEST_QUEST])
+#     print('Getting quests as a list:')
+#     quests = get_quests()
+#     print(f'{quests=}')
+#     print('Getting quests as a dict:')
+#     quests = get_quests_dict()
+#     print(f'{quests=}')
+#     print(f'{get_quest_details(TEST_QUEST)=}')
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
