@@ -23,7 +23,6 @@ class Game:
         self.full_hero_list = []
         self.full_quest_list = []
 
-
     def Create_Guild(self) -> Guild:
         ret_guild = Guild(self.GUILD_ID)
         self.GUILD_ID += 1
