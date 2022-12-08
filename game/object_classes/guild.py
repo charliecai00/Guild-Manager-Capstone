@@ -36,6 +36,13 @@ class Guild:
             self.funds -= new_hero.cost
             return True
 
+    def Fire_Hero(self, del_hero: Hero) -> bool:
+        try:
+            self.hired_heros_list.remove(del_hero)
+        except ValueError:
+            return False
+        return True
+
     def Form_Party(self, hero_list, name=None) -> None:
         if name is not None:
             self.party_list.append(Party(self.PARTY_ID, hero_list, name))

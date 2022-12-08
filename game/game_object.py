@@ -49,6 +49,12 @@ class Game:
             return self.guild.Hire_Hero(hero)
         return False
 
+    def Fire_Hero(self, name) -> bool:
+        hero = self.Find_Hero(name)
+        if hero:
+            return self.guild.Fire_Hero(hero)
+        return False
+
     def Guild_Status(self) -> str:
         return str(self.guild)
 
