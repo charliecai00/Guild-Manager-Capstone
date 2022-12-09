@@ -12,7 +12,7 @@ DONE = 'done'
 DEPTH = 'depth'
 
 QUEST_KEY = 'name'
-QUEST_COLLECT = 'quests'
+QUEST_COLLECT = 'Quests'
 
 TEST_QUEST = 'test_quest'
 REQUIRED_FLDS = [CHALLENGE, CHILDREN, TERMINAL, PARENT, DONE, DEPTH]

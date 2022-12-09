@@ -14,7 +14,7 @@ ALIVE = 'alive'
 COST = 'cost'
 
 HERO_KEY = 'name'
-HERO_COLLECT = 'heros'
+HERO_COLLECT = 'Heros'
 
 TEST_HERO = 'test_hero'
 REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
