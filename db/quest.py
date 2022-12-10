@@ -12,7 +12,7 @@ DONE = 'done'
 DEPTH = 'depth'
 
 QUEST_KEY = 'name'
-QUEST_COLLECT = 'quests'
+QUEST_COLLECT = 'Quests'
 
 TEST_QUEST = 'test_quest'
 REQUIRED_FLDS = [CHALLENGE, CHILDREN, TERMINAL, PARENT, DONE, DEPTH]
@@ -52,6 +52,7 @@ def add_quest(name, details):
 
 
 def del_quest(name):
+    dbc.connect_db()
     return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 

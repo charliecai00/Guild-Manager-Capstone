@@ -13,7 +13,7 @@ FULL_HERO_LIST = "full_hero_list"
 FULL_QUEST_LIST = "full_quest_list"
 
 GAME_KEY = 'name'
-GAME_COLLECT = 'games'
+GAME_COLLECT = 'Games'
 
 TEST_GAME_NAME1 = 'test_game1'
 TEST_GAME_NAME2 = 'test_game2'
@@ -63,6 +63,7 @@ def add_game(name, details):
 
 
 def del_game(name):
+    dbc.connect_db()
     return dbc.del_one(GAME_COLLECT, {GAME_KEY: name})
 
 
