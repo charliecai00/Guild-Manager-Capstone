@@ -63,6 +63,7 @@ def add_game(name, details):
 
 
 def del_game(name):
+    dbc.connect_db()
     return dbc.del_one(GAME_COLLECT, {GAME_KEY: name})
 
 

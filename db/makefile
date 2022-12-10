@@ -12,7 +12,7 @@ lint: FORCE
 	$(LINTER) *.py
 
 unit: FORCE
-	pytest $(PYTESTFLAGS)
+	python3 -m pytest $(PYTESTFLAGS)
 
 # test a python file:
 %.py: FORCE

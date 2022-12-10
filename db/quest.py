@@ -52,6 +52,7 @@ def add_quest(name, details):
 
 
 def del_quest(name):
+    dbc.connect_db()
     return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
