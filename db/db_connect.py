@@ -1,10 +1,11 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
+import os
 import pymongo as pm
 
-REMOTE = "0"
-LOCAL = "1"
+LOCAL = "0"
+CLOUD = "1"
 
 DB = "Guild_Manager"
 
@@ -15,18 +16,19 @@ def connect_db():
     global client
     if client is None:  # not connected yet!
         print("Setting client because it is None.")
-        # if os.environ.get("CLOUD_MONGO", LOCAL) == CLOUD:
-        #     password = os.environ.get("GAME_MONGO_PW")
-        #     if not password:
-        #         raise ValueError('You must set your password '
-        #                          + 'to use Mongo in the cloud.')
-        #     print("Connecting to Mongo in the cloud.")
-        #     client = pm.MongoClient(f'mongodb+srv://gcallah:{password}'
-        #                             + '@cluster0.eqxbbqd.mongodb.net/'
-        #                             + '?retryWrites=true&w=majority')
-        # else:
-        print("Connecting to Mongo locally.")
-        client = pm.MongoClient()
+        if os.environ.get("CLOUD_MONGO", LOCAL) == CLOUD:
+            password = os.environ.get("MONGO_PW")
+            if not password:
+                raise ValueError('You must set your password '
+                                 + 'to use Mongo in the cloud.')
+            print("Connecting to Mongo in the cloud.")
+            # client = pm.MongoClient('mongodb+srv://db_connecr:{password}'
+            #                         + '@guild-manager.kr7jklo.mongodb.net/'
+            #                         + '?retryWrites=true&w=majority')
+            client = pm.MongoClient("mongodb+srv://db_connect:{}@guild-manager.kr7jklo.mongodb.net/?retryWrites=true&w=majority".format(password))
+        else:
+            print("Connecting to Mongo locally.")
+            client = pm.MongoClient()
 
 
 def insert_one(collection, doc, db=DB):

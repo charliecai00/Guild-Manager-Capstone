@@ -14,7 +14,7 @@ ALIVE = 'alive'
 COST = 'cost'
 
 HERO_KEY = 'name'
-HERO_COLLECT = 'heros'
+HERO_COLLECT = 'Heros'
 
 TEST_HERO = 'test_hero'
 REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
@@ -56,6 +56,7 @@ def add_hero(name, details):
 
 
 def del_hero(name):
+    dbc.connect_db()
     return dbc.del_one(HERO_COLLECT, {HERO_KEY: name})
 
 
