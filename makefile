@@ -5,6 +5,8 @@ API_DIR = server
 DB_DIR = db
 GAME_DIR = game
 
+CURRDIR = $(shell pwd)
+export PYTHONPATH = $(CURRDIR)
 
 FORCE: 
 
@@ -25,4 +27,3 @@ unit: FORCE
 	cd $(API_DIR); make unit
 	cd $(GAME_DIR); make unit
 	cd $(DB_DIR); make unit
-
