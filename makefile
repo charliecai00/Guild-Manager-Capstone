@@ -25,5 +25,5 @@ lint: FORCE
 
 unit: FORCE
 	cd $(API_DIR); make unit
-	cd $(GAME_DIR); make unit
 	cd $(DB_DIR); make unit
+	cd $(GAME_DIR); make unit
