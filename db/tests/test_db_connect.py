@@ -2,15 +2,12 @@
 # The Guild Manager by JV · CC · ZQ · ZF
 
 import pymongo as pm
-
 import pytest
-
 import db.db_connect as dbc
 
-TEST_DB = dbc.GUILD_DB
-TEST_COLLECT = 'test_collect'
-# can be used for field and value:
+TEST_DB = dbc.DB
 TEST_NAME = 'test'
+TEST_COLLECT = 'test_collect'
 
 
 @pytest.fixture(scope='function')

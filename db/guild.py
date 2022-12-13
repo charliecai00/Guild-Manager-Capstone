@@ -1,12 +1,11 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
+import db.db_connect as dbc
+
 """
 This module encapsulates details about guilds.
 """
-
-
-# from telnetlib import TELNET_PORT
 
 
 TEST_GUILD = 'test_guild'
@@ -19,10 +18,9 @@ QUEST_HISTORY = 'quest_history'
 PARTIES = 'party_list'
 FUNDS = 'funds'
 
+GUILD_KEY = 'name'
+GUILD_COLLECT = 'Guilds'
 
-# We expect the guild database to change frequently:
-# For now, we will consider ID and guild_ID to be
-# our mandatory fields.
 REQUIRED_FLDS = [ID, GUILD_ID, HIRED_HEROS]
 
 guilds = {TEST_GUILD: {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS: [],
@@ -33,41 +31,32 @@ guilds = {TEST_GUILD: {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS: [],
                      QEUSTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0}}
 
 
+def get_guild_details(guild):
+    dbc.connect_db()
+    return dbc.fetch_one(GUILD_COLLECT, {GUILD_KEY: guild})
+
+
 def guild_exists(name):
-    """
-    Returns whether or not a guild exists.
-    """
-    return name in guilds
+    return get_guild_details(name) is not None
 
 
 def get_guilds_dict():
-    return guilds
+    dbc.connect_db()
+    return dbc.fetch_all_as_dict(GUILD_KEY, GUILD_COLLECT)
 
 
 def get_guilds():
-    return list(guilds.keys())
-
-
-def get_guild_details(guild):
-    return guilds.get(guild, None)
+    dbc.connect_db()
+    return dbc.fetch_all(GUILD_COLLECT)
 
 
 def add_guild(name, details):
-    if not isinstance(name, str):
-        raise TypeError(f'Wrong type for name: {type(name)=}')
-    if not isinstance(details, dict):
-        raise TypeError(f'Wrong type for details: {type(details)=}')
-    for field in REQUIRED_FLDS:
-        if field not in details:
-            raise ValueError(f'Required {field=} missing from details.')
-    guilds[name] = details
+    doc = details
+    dbc.connect_db()
+    doc[GUILD_KEY] = name
+    return dbc.insert_one(GUILD_COLLECT, doc)
 
 
-def main():
-    guilds = get_guilds()
-    print(f'{guilds=}')
-    print(f'{get_guild_details(TEST_GUILD)=}')
-
-
-if __name__ == '__main__':
-    main()
+def del_guild(name):
+    dbc.connect_db()
+    return dbc.del_one(GUILD_COLLECT, {GUILD_KEY: name})

@@ -1,76 +1,72 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-"""
-This module encapsulates details about quests.
-"""
+import db.db_connect as dbc
 
-
-# import challenge
-# from telnetlib import TELNET_PORT
-
-
-TEST_QUEST = 'test_quest'
-NAME = 'name'
-HEROS = 'hero_list'
 CHALLENGE = 'challenge'
 CHECK_STAT = 'check_stat'
 CHILDREN = 'children'
 TERMINAL = 'terminal'
 PARENT = 'parent'
 DONE = 'done'
+DEPTH = 'depth'
 
-# We expect the quest database to change frequently:
-# For now, we will consider ID and quest_ID to be
-# our mandatory fields.
-REQUIRED_FLDS = [HEROS]
+QUEST_KEY = 'name'
+QUEST_COLLECT = 'Quests'
 
-quests = {TEST_QUEST: {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
-                       CHILDREN: [], TERMINAL: False,
-                       PARENT: None, DONE: False},
-          'quest2': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
-                     CHILDREN: [], TERMINAL: False,
-                     PARENT: None, DONE: False},
-          'quest3': {HEROS: [], CHALLENGE: 'challenge', CHECK_STAT: None,
-                     CHILDREN: [], TERMINAL: False,
-                     PARENT: None, DONE: False}}
+TEST_QUEST = 'test_quest'
+REQUIRED_FLDS = [CHALLENGE, CHILDREN, TERMINAL, PARENT, DONE, DEPTH]
+dummy_quest = {TEST_QUEST: {CHALLENGE: "object",
+                            CHILDREN: [],
+                            TERMINAL: False,
+                            PARENT: None,
+                            DONE: False,
+                            DEPTH: 0
+                            }}
+
+
+def get_quest_details(name):
+    dbc.connect_db()
+    return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
 def quest_exists(name):
-    """
-    Returns whether or not a quest exists.
-    """
-    return name in quests
+    return get_quest_details(name) is not None
 
 
 def get_quests_dict():
-    return quests
+    dbc.connect_db()
+    return dbc.fetch_all_as_dict(QUEST_KEY, QUEST_COLLECT)
 
 
 def get_quests():
-    return list(quests.keys())
-
-
-def get_quest_details(quest):
-    return quests.get(quest, None)
+    dbc.connect_db()
+    return dbc.fetch_all(QUEST_COLLECT)
 
 
 def add_quest(name, details):
-    if not isinstance(name, str):
-        raise TypeError(f'Wrong type for name: {type(name)=}')
-    if not isinstance(details, dict):
-        raise TypeError(f'Wrong type for details: {type(details)=}')
-    for field in REQUIRED_FLDS:
-        if field not in details:
-            raise ValueError(f'Required {field=} missing from details.')
-    quests[name] = details
+    doc = details
+    dbc.connect_db()
+    doc[QUEST_KEY] = name
+    return dbc.insert_one(QUEST_COLLECT, doc)
 
 
-def main():
-    quests = get_quests()
-    print(f'{quests=}')
-    print(f'{get_quest_details(TEST_QUEST)=}')
+def del_quest(name):
+    dbc.connect_db()
+    return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
-if __name__ == '__main__':
-    main()
+# def main():
+#     print('Adding a quest')
+#     add_quest(TEST_QUEST, dummy_quest[TEST_QUEST])
+#     print('Getting quests as a list:')
+#     quests = get_quests()
+#     print(f'{quests=}')
+#     print('Getting quests as a dict:')
+#     quests = get_quests_dict()
+#     print(f'{quests=}')
+#     print(f'{get_quest_details(TEST_QUEST)=}')
+
+
+# if __name__ == '__main__':
+#     main()

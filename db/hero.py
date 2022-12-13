@@ -1,73 +1,76 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-"""
-This module encapsulates details about heros.
-"""
+import db.db_connect as dbc
 
 
-# from telnetlib import TELNET_PORT
-
-
-TEST_HERO = 'test_hero'
 ID = 'id'
-HERO_ID = 'HERO_ID'
 STATS = 'stats'
 ITEMS = 'items'
 NAME = 'name'
+HERO_ID = 'HERO_ID'
 HEALTH = 'health'
 ALIVE = 'alive'
 COST = 'cost'
 
+HERO_KEY = 'name'
+HERO_COLLECT = 'Heros'
 
-# We expect the hero database to change frequently:
-# For now, we will consider ID and hero_ID to be
-# our mandatory fields.
-REQUIRED_FLDS = [ID, HERO_ID, STATS]
+TEST_HERO = 'test_hero'
+REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
+dummy_hero = {TEST_HERO: {ID: 1,
+                          STATS: {"STR": 20, "CON": 20, "DEX": 20, "WIS": 20, "INT": 20, "CHA": 20},
+                          ITEMS: [],
+                          NAME: "1",
+                          HERO_ID: 1,
+                          HEALTH: 2,
+                          ALIVE: True,
+                          COST: 5
+                          }}
 
-heros = {TEST_HERO: {ID: 4, HERO_ID: 3, STATS: {}, ITEMS: [], NAME: "",
-                     HEALTH: 2, ALIVE: True, COST: 5},
-         'hero2': {ID: 3, HERO_ID: 9, STATS: {}, ITEMS: [], NAME: "",
-                   HEALTH: 2, ALIVE: True, COST: 3},
-         'hero3': {ID: 2, HERO_ID: 1, STATS: {}, ITEMS: [], NAME: "",
-                   HEALTH: 2, ALIVE: False, COST: 2}}
+
+def get_hero_details(name):
+    dbc.connect_db()
+    return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: name})
 
 
 def hero_exists(name):
-    """
-    Returns whether or not a hero exists.
-    """
-    return name in heros
+    return get_hero_details(name) is not None
 
 
 def get_heros_dict():
-    return heros
+    dbc.connect_db()
+    return dbc.fetch_all_as_dict(HERO_KEY, HERO_COLLECT)
 
 
 def get_heros():
-    return list(heros.keys())
-
-
-def get_hero_details(hero):
-    return heros.get(hero, None)
+    dbc.connect_db()
+    return dbc.fetch_all(HERO_COLLECT)
 
 
 def add_hero(name, details):
-    if not isinstance(name, str):
-        raise TypeError(f'Wrong type for name: {type(name)=}')
-    if not isinstance(details, dict):
-        raise TypeError(f'Wrong type for details: {type(details)=}')
-    for field in REQUIRED_FLDS:
-        if field not in details:
-            raise ValueError(f'Required {field=} missing from details.')
-    heros[name] = details
+    doc = details
+    dbc.connect_db()
+    doc[HERO_KEY] = name
+    return dbc.insert_one(HERO_COLLECT, doc)
 
 
-def main():
-    heros = get_heros()
-    print(f'{heros=}')
-    print(f'{get_hero_details(TEST_HERO)=}')
+def del_hero(name):
+    dbc.connect_db()
+    return dbc.del_one(HERO_COLLECT, {HERO_KEY: name})
 
 
-if __name__ == '__main__':
-    main()
+# def main():
+#     print('Adding a hero')
+#     add_hero(TEST_HERO, dummy_hero[TEST_HERO])
+#     print('Getting heros as a list:')
+#     heros = get_heros()
+#     print(f'{heros=}')
+#     print('Getting heros as a dict:')
+#     games = get_heros_dict()
+#     print(f'{games=}')
+#     print(f'{get_hero_details(TEST_HERO)=}')
+
+
+# if __name__ == '__main__':
+#     main()
