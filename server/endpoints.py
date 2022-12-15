@@ -159,8 +159,11 @@ class HireHero(Resource):
 
         hero = request.json["Hiree"]
 
-        if not game.Hire_Hero(hero):
-            return {ERROR: "Could not hire hero, out of money"}
+        result = game.Hire_Hero(hero)
+        if result:
+            return {RESULT: "Hero hired."}
+        else:
+            return {RESULT: "Could not hire hero, out of money."}
 
 
 fire_hero_input = api.model('fire_hero', {
@@ -176,8 +179,11 @@ class FireHero(Resource):
         
         hero = request.json["Firee"]
         
-        if not game.Fire_Hero(hero):
-            return {ERROR: "Could not hire hero, out of money"}
+        result = game.Fire_Hero(hero)
+        if result:
+            return {RESULT: "Hero Fried."}
+        else:
+            return {RESULT: "Request failed. Check input."}
 
 
 @api.route(LIST)
