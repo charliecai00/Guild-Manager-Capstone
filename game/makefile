@@ -12,3 +12,6 @@ lint: FORCE
 
 unit: FORCE
 	python3 tests/game_object_test.py -v
+
+lint_local:
+	python3 -m $(LINTER) *.py
