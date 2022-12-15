@@ -58,7 +58,6 @@ class Game:
 
     def Add_Party(self, name, list) -> None:
         hero_lst = []
-        failed_hero_lst = []
         for h in self.full_hero_list:
             if h.name in list:
                 hero_lst.append(h)
