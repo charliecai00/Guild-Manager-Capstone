@@ -58,10 +58,17 @@ class Game:
 
     def Add_Party(self, name, list) -> None:
         hero_lst = []
+        failed_hero_lst = []
         for h in self.full_hero_list:
             if h.name in list:
                 hero_lst.append(h)
-        self.guild.Form_Party(hero_lst, name)
+                list.remove(h.name)
+        """Commenting out because function fails"""
+        # self.guild.Form_Party(hero_lst, name)
+        if len(list) != 0:
+            return False
+        else:
+            return True
 
     def Disband_Party(self, name) -> bool:
         return self.guild.Disband_Party(name)

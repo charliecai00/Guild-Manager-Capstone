@@ -17,7 +17,7 @@ DO_QUEST = '/do_quest'
 GET_HEROES = '/get_heroes'
 GET_QUEST = '/get_quest'
 HIRE_HERO = '/hire_hero'
-FIRE_HERO = 'fire_hero'
+FIRE_HERO = '/fire_hero'
 LIST = '/list'
 
 ERROR = 'Error'
@@ -65,8 +65,13 @@ class AddToParty(Resource):
         PartyID = request.json["PartyID"]
 
         parse_hero_ID = HeroIDs.split(",")
-        game.Add_Party(PartyID, parse_hero_ID)
+        result = game.Add_Party(PartyID, parse_hero_ID)
         
+        if result:
+            return {RESULT: "Heros added to party."}
+        else:
+            return {RESULT: "Some heros were not added. Check input."}
+
 
 disband_party_input = api.model('disband_party', {
     "PartyID": fields.Integer(default=0, required=True)
@@ -79,10 +84,14 @@ class DisbandParty(Resource):
     def post(self):
         print(f'{request.json=}')
 
-        PartyID = request.json["PartyID"]
+        party_ID = request.json["PartyID"]
 
-        game.Disband_Party(PartyID)
-        
+        result = game.Disband_Party(party_ID)
+        if result:
+            return {RESULT: "{} disbanded.".format(party_ID)}
+        else:
+            return {RESULT: "Request failed. Check input."}
+
 
 do_quest_input = api.model('do_quest', {
     "PartyID": fields.Integer(default="0", required=True),
