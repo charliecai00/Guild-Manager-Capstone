@@ -27,6 +27,9 @@ class Party:
     def __repr__(self):
         return str(self)
 
+    def __eq__(self, __o: object) -> bool:
+        return __o.id == self.id
+
     # if any heroes in the party are still alive
     def Is_Alive(self) -> bool:
         for h in self.hero_list:

@@ -47,6 +47,12 @@ class Game:
             return self.guild.Hire_Hero(hero)
         return False
 
+    def Fire_Hero(self, name) -> bool:
+        hero = self.Find_Hero(name)
+        if hero:
+            return self.guild.Fire_Hero(hero)
+        return False
+
     def Guild_Status(self) -> str:
         return str(self.guild)
 
@@ -55,7 +61,16 @@ class Game:
         for h in self.full_hero_list:
             if h.name in list:
                 hero_lst.append(h)
-        self.guild.Form_Party(hero_lst, name)
+                list.remove(h.name)
+        """Commenting out because function fails"""
+        # self.guild.Form_Party(hero_lst, name)
+        if len(list) != 0:
+            return False
+        else:
+            return True
+
+    def Disband_Party(self, name) -> bool:
+        return self.guild.Disband_Party(name)
 
     def Get_Quest(self) -> Quest:
         new_quest = Quest()
