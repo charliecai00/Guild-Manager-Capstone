@@ -12,10 +12,12 @@ api = Api(app)
 
 MAIN_MENU = '/main_menu'
 ADD_TO_PARTY = '/add_to_party'
+DISBAND_PARTY = '/disband_party'
 DO_QUEST = '/do_quest'
 GET_HEROES = '/get_heroes'
 GET_QUEST = '/get_quest'
-HIRE_HEROES = '/hire_heroes'
+HIRE_HERO = '/hire_hero'
+FIRE_HERO = '/fire_hero'
 LIST = '/list'
 
 ERROR = 'Error'
@@ -38,8 +40,10 @@ class MainMenu(Resource):
                     '2': {'text': 'Do_Quest', 'url': '/do_quest', 'method': 'post'},
                     '3': {'text': 'Get_Heroes', 'url': '/get_heroes', 'method': 'post'},
                     '4': {'text': 'Get_Quests', 'url': '/get_quest', 'method': 'get'},
-                    '5': {'text': 'Hire_Heroes', 'url': '/hire_heroes', 'method': 'post'},
+                    '5': {'text': 'Hire_Hero', 'url': '/hire_hero', 'method': 'post'},
                     '6': {'text': 'List_Guild_Members', 'url': '/list', 'method': 'get'},
+                    '7': {'text': 'Disband_Party', 'url': '/disband_party', 'method': 'post'},
+                    '8': {'text': 'Fire_Hero', 'url': '/fire_hero', 'method': 'post'},
                     'X': {'text': 'Exit'},
                 }
                 }
@@ -47,7 +51,7 @@ class MainMenu(Resource):
 
 add_to_party_input = api.model('add_to_party', {
     "HeroIDs": fields.String(default="0,1,2", required=True),
-    "PartyID": fields.Integer(default="0", required=True)
+    "PartyID": fields.Integer(default=0, required=True)
 })
 
 
@@ -61,8 +65,32 @@ class AddToParty(Resource):
         PartyID = request.json["PartyID"]
 
         parse_hero_ID = HeroIDs.split(",")
-        game.Add_Party(PartyID, parse_hero_ID)
-        # ToDo: How do I know this hasn't failed?
+        result = game.Add_Party(PartyID, parse_hero_ID)
+        
+        if result:
+            return {RESULT: "Heros added to party."}
+        else:
+            return {RESULT: "Some heros were not added. Check input."}
+
+
+disband_party_input = api.model('disband_party', {
+    "PartyID": fields.Integer(default=0, required=True)
+})
+
+
+@api.route(DISBAND_PARTY)
+class DisbandParty(Resource):
+    @api.expect(disband_party_input)
+    def post(self):
+        print(f'{request.json=}')
+
+        party_ID = request.json["PartyID"]
+
+        result = game.Disband_Party(party_ID)
+        if result:
+            return {RESULT: "{} disbanded.".format(party_ID)}
+        else:
+            return {RESULT: "Request failed. Check input."}
 
 
 do_quest_input = api.model('do_quest', {
@@ -118,23 +146,44 @@ class GetQuest(Resource):
                 TITLE: 'Get Quest'}
 
 
-hire_heroes_input = api.model('hire_heroes', {
-    "HireList": fields.String(default="0,1,2", required=True),
+hire_hero_input = api.model('hire_hero', {
+    "Hiree": fields.String(default="0", required=True),
 })
 
 
-@api.route(HIRE_HEROES)
-class HireHeroes(Resource):
-    @api.expect(hire_heroes_input)
+@api.route(HIRE_HERO)
+class HireHero(Resource):
+    @api.expect(hire_hero_input)
     def post(self):
         print(f'{request.json=}')
 
-        hero_list = request.json["HireList"]
+        hero = request.json["Hiree"]
 
-        hero_list = hero_list.split(",")
-        for i in hero_list:
-            if not game.Hire_Hero(i):
-                return {ERROR: "Could not hire hero, out of money"}
+        result = game.Hire_Hero(hero)
+        if result:
+            return {RESULT: "Hero hired."}
+        else:
+            return {RESULT: "Could not hire hero, out of money."}
+
+
+fire_hero_input = api.model('fire_hero', {
+    "Firee": fields.String(default="0", required=True),
+})
+
+
+@api.route(FIRE_HERO)
+class FireHero(Resource):
+    @api.expect(fire_hero_input)
+    def post(self):
+        print(f'{request.json=}')
+        
+        hero = request.json["Firee"]
+        
+        result = game.Fire_Hero(hero)
+        if result:
+            return {RESULT: "Hero Fried."}
+        else:
+            return {RESULT: "Request failed. Check input."}
 
 
 @api.route(LIST)

@@ -27,3 +27,16 @@ unit: FORCE
 	cd $(API_DIR); make unit
 	cd $(DB_DIR); make unit
 	cd $(GAME_DIR); make unit
+
+# Rule for local testing (includes python3 -m)
+all_tests_local: lint_local unit_local
+
+lint_local: FORCE
+	cd $(API_DIR); make lint_local
+	cd $(DB_DIR); make lint_local
+	cd $(GAME_DIR); make lint_local
+
+unit_local: FORCE
+	cd $(API_DIR); make unit_local
+	cd $(GAME_DIR); make unit
+	cd $(DB_DIR); make unit_local

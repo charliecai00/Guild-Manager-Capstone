@@ -17,3 +17,9 @@ unit: FORCE
 # test a python file:
 %.py: FORCE
 	pytest -s tests/test_$*.py
+
+lint_local:
+	python3 -m $(LINTER) *.py
+
+unit_local:
+	python3 -m pytest $(PYTESTFLAGS)

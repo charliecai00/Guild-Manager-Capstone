@@ -21,7 +21,7 @@ The project is called "Guild Manager", a game where you organize a guild of adve
 `TBD`
 
 ### Development
-`make dev && sh local.sh`
+`make dev_env; sh server.sh`
 
 
 
