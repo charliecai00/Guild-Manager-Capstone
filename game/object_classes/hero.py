@@ -8,17 +8,21 @@ import game.object_classes.static_consts as sc
 
 
 class Hero(Character):
-    def __init__(self, new_id) -> None:
+    def __init__(self, new_id, type=None) -> None:
         Character.__init__(self)
         self.id = new_id
+        self.type = type
+        # which party and guild the hero belongs
+        self.party_id = None
+        self.guild = None
         self.stats = {
-                "STR": RandomNormalClamped(20, 10, 5, 95),
-                "CON": RandomNormalClamped(20, 10, 5, 95),
-                "DEX": RandomNormalClamped(20, 10, 5, 95),
-                "WIS": RandomNormalClamped(20, 10, 5, 95),
-                "INT": RandomNormalClamped(20, 10, 5, 95),
-                "CHA": RandomNormalClamped(20, 10, 5, 95),
-            }
+            "STR": RandomNormalClamped(20, 10, 5, 95),
+            "CON": RandomNormalClamped(20, 10, 5, 95),
+            "DEX": RandomNormalClamped(20, 10, 5, 95),
+            "WIS": RandomNormalClamped(20, 10, 5, 95),
+            "INT": RandomNormalClamped(20, 10, 5, 95),
+            "CHA": RandomNormalClamped(20, 10, 5, 95),
+        }
         self.items = []
         self.name = str(sc.HERO_ID)
         sc.HERO_ID += 1

@@ -70,7 +70,7 @@ class Quest:
     def generate_nodes(self) -> Node:
         stat_names = ["STR", "CON", "DEX", "WIS", "INT", "CHA"]
         curr_layer: list[self.Node] = []
-        root = self.Node(Challenge(stat_names[randint(0, len(stat_names)-1)]))
+        root = self.Node(Challenge(stat_names[randint(0, len(stat_names) - 1)]))
         self.root = root
         curr_layer.append(root)
         max_depth = 5
@@ -80,7 +80,7 @@ class Quest:
             if num_of_children != 0 and curr_node.depth < max_depth:
                 for i in range(num_of_children):
                     new_node = self.Node(Challenge(
-                        stat_names[randint(0, len(stat_names)-1)]))
+                        stat_names[randint(0, len(stat_names) - 1)]))
                     new_node.parent = curr_node
                     new_node.depth = new_node.parent.depth + 1
                     curr_node.children.append(new_node)

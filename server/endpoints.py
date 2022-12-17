@@ -11,12 +11,12 @@ app = Flask(__name__)
 api = Api(app)
 
 MAIN_MENU = '/main_menu'
-ADD_TO_PARTY = '/add_to_party'
+ADD_PARTY_WITH_HEROS = '/add_party_with_heros'
 DISBAND_PARTY = '/disband_party'
 DO_QUEST = '/do_quest'
-GET_HEROES = '/get_heroes'
+ADD_HEROES = '/add_heroes'
 GET_QUEST = '/get_quest'
-HIRE_HERO = '/hire_hero'
+HIRE_HEROS = '/hire_heros'
 FIRE_HERO = '/fire_hero'
 LIST = '/list'
 
@@ -36,11 +36,11 @@ class MainMenu(Resource):
         return {'Title': 'Main Menu',
                 'Default': 0,
                 'Choices': {
-                    '1': {'text': 'Add_To_Party', 'url': '/add_to_party', 'method': 'post'},
+                    '1': {'text': 'ADD_PARTY_WITH_HEROS', 'url': '/add_party_with_heros', 'method': 'post'},
                     '2': {'text': 'Do_Quest', 'url': '/do_quest', 'method': 'post'},
-                    '3': {'text': 'Get_Heroes', 'url': '/get_heroes', 'method': 'post'},
+                    '3': {'text': 'Add_Heroes', 'url': '/add_heroes', 'method': 'post'},
                     '4': {'text': 'Get_Quests', 'url': '/get_quest', 'method': 'get'},
-                    '5': {'text': 'Hire_Hero', 'url': '/hire_hero', 'method': 'post'},
+                    '5': {'text': 'Hire_Heros', 'url': '/hire_heros', 'method': 'post'},
                     '6': {'text': 'List_Guild_Members', 'url': '/list', 'method': 'get'},
                     '7': {'text': 'Disband_Party', 'url': '/disband_party', 'method': 'post'},
                     '8': {'text': 'Fire_Hero', 'url': '/fire_hero', 'method': 'post'},
@@ -49,28 +49,93 @@ class MainMenu(Resource):
                 }
 
 
-add_to_party_input = api.model('add_to_party', {
-    "HeroIDs": fields.String(default="0,1,2", required=True),
-    "PartyID": fields.Integer(default=0, required=True)
+add_heroes_input = api.model('add_heroes', {
+    "Count": fields.Integer(default="10", required=False),
+    "Type": fields.String(default="Mage", required=False)
 })
 
 
-@api.route(ADD_TO_PARTY)
-class AddToParty(Resource):
-    @api.expect(add_to_party_input)
+@api.route(ADD_HEROES)
+class AddHeroes(Resource):
+    @api.expect(add_heroes_input)
+    def post(self):
+        print(f'{request.json=}')
+
+        count = request.json["Count"]
+        hero_class = request.json["Type"]
+
+        # Todo: function to call
+        res = str(game.Add_Heros(count, hero_class))
+        return {DATA: {"Heros": {"": res}},
+                TYPE: hero_class,
+                TITLE: 'Add Heroes'}
+
+
+hire_heros_input = api.model('hire_heros', {
+    "Hiree": fields.Integer(default=0, required=True)
+})
+
+
+@api.route(HIRE_HEROS)
+class HireHeros(Resource):
+    @api.expect(hire_heros_input)
+    def post(self):
+        print(f'{request.json=}')
+
+        hero_id = request.json["Hiree"]
+
+        result = game.Hire_Hero(hero_id)
+        if result:
+            return {RESULT: "Hero hired."}
+        else:
+            return {RESULT: "Could not hire hero, out of money."}
+
+
+fire_hero_input = api.model('fire_hero', {
+    "Firee": fields.Integer(default=0, required=True),
+})
+
+
+@api.route(FIRE_HERO)
+class FireHero(Resource):
+    @api.expect(fire_hero_input)
+    def post(self):
+        print(f'{request.json=}')
+        
+        hero_id = request.json["Firee"]
+        print("hero id in fire hero ", hero_id)
+        result = game.Fire_Hero(hero_id)
+        if result:
+            return {RESULT: "Hero Fired."}
+        else:
+            return {RESULT: "Request failed. Check input."}
+
+
+add_party_with_heros_input = api.model('add_party_with_heros', {
+    "HeroIDs": fields.String(default="0,1,2", required=True),
+    "PartyName": fields.String(default="testPartyName")
+})
+
+
+@api.route(ADD_PARTY_WITH_HEROS)
+class AddPartyWithHeros(Resource):
+    @api.expect(add_party_with_heros_input)
     def post(self):
         print(f'{request.json=}')
 
         HeroIDs = request.json["HeroIDs"]
-        PartyID = request.json["PartyID"]
-
+        PartyName = request.json["PartyName"]
         parse_hero_ID = HeroIDs.split(",")
-        result = game.Add_Party(PartyID, parse_hero_ID)
+
+        # for i in range(len(parse_hero_ID)):
+        #     parse_hero_ID[i] = int(parse_hero_ID[i])
+        # print("endpoint ", type(parse_hero_ID[0]))
+        result = game.Add_Party_With_Heros(parse_hero_ID, PartyName)
         
         if result:
-            return {RESULT: "Heros added to party."}
+            return {RESULT: "Heros added to a new party."}
         else:
-            return {RESULT: "Some heros were not added. Check input."}
+            return {RESULT: "Some heros were not hired in the guild. Check input."}
 
 
 disband_party_input = api.model('disband_party', {
@@ -85,8 +150,9 @@ class DisbandParty(Resource):
         print(f'{request.json=}')
 
         party_ID = request.json["PartyID"]
+        print("check party in the test: ", game.guild.party_dic)
 
-        result = game.Disband_Party(party_ID)
+        result = game.Disband_Party(int(party_ID))
         if result:
             return {RESULT: "{} disbanded.".format(party_ID)}
         else:
@@ -115,28 +181,6 @@ class DoQuest(Resource):
             return {RESULT: "Request failed. Check input."}
 
 
-get_heroes_input = api.model('get_heroes', {
-    "Count": fields.Integer(default="10", required=False),
-    "Type": fields.String(default="Mage", required=False)
-})
-
-
-@api.route(GET_HEROES)
-class GetHeroes(Resource):
-    @api.expect(get_heroes_input)
-    def post(self):
-        print(f'{request.json=}')
-
-        count = request.json["Count"]
-        hero_class = request.json["Type"]
-
-        # Todo: function to call
-        res = str(game.Get_Heros(count, hero_class))
-        return {DATA: {"Heros": {"": res}},
-                TYPE: 'Data',
-                TITLE: 'Get Heroes'}
-
-
 @api.route(GET_QUEST)
 class GetQuest(Resource):
     def get(self):
@@ -144,46 +188,6 @@ class GetQuest(Resource):
         return {DATA: {"Name": {"": res[0]}, "Skill": {"": res[1:]}},
                 TYPE: 'Data',
                 TITLE: 'Get Quest'}
-
-
-hire_hero_input = api.model('hire_hero', {
-    "Hiree": fields.String(default="0", required=True),
-})
-
-
-@api.route(HIRE_HERO)
-class HireHero(Resource):
-    @api.expect(hire_hero_input)
-    def post(self):
-        print(f'{request.json=}')
-
-        hero = request.json["Hiree"]
-
-        result = game.Hire_Hero(hero)
-        if result:
-            return {RESULT: "Hero hired."}
-        else:
-            return {RESULT: "Could not hire hero, out of money."}
-
-
-fire_hero_input = api.model('fire_hero', {
-    "Firee": fields.String(default="0", required=True),
-})
-
-
-@api.route(FIRE_HERO)
-class FireHero(Resource):
-    @api.expect(fire_hero_input)
-    def post(self):
-        print(f'{request.json=}')
-        
-        hero = request.json["Firee"]
-        
-        result = game.Fire_Hero(hero)
-        if result:
-            return {RESULT: "Hero Fried."}
-        else:
-            return {RESULT: "Request failed. Check input."}
 
 
 @api.route(LIST)

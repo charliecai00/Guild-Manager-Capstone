@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import os 
+# import os 
 import pytest
 import db.quest as qs
 
@@ -36,13 +36,13 @@ def test_del_quest(new_quest):
 def test_get_quests(temp_quest):
     chs = qs.get_quests()
     assert isinstance(chs, list)
-    assert len(chs) > 0 #or 1
+    assert len(chs) > 0  # or 1
 
 
 def test_get_quests_dict(temp_quest):
     chs = qs.get_quests_dict()
     assert isinstance(chs, dict)
-    assert len(chs) > 0 #or 1
+    assert len(chs) > 0  # or 1
 
 
 def test_get_quest_details(temp_quest):

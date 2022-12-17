@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The mpild Manager by JV · CC · ZQ · ZF
 
-import os 
+# import os 
 import pytest
 import db.map as mp
 
@@ -36,13 +36,13 @@ def test_del_map(new_map):
 def test_get_maps(temp_map):
     chs = mp.get_maps()
     assert isinstance(chs, list)
-    assert len(chs) > 0 #or 1
+    assert len(chs) > 0  # or 1
 
 
 def test_get_maps_dict(temp_map):
     chs = mp.get_maps_dict()
     assert isinstance(chs, dict)
-    assert len(chs) > 0 #or 1
+    assert len(chs) > 0  # or 1
 
 
 def test_get_map_details(temp_map):

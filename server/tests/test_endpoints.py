@@ -6,43 +6,104 @@ import server.endpoints as ep
 
 TEST_CLIENT = ep.app.test_client()
 
-# AddToParty_TestData = {
-#     "HeroIDs": "0,1,2",
-#     "PartyID": "0"
-# }
 
-# def test_AddToParty():
-#     res = TEST_CLIENT.post(ep.ADD_TO_PARTY, json=AddToParty_TestData).get_json()
-#     assert res[ep.RESULT] == "Heros added to party."
-    
-AddToParty_TestData_fail = {
+AddHeroes_TestData = {
+    "Count": 10,
+    "Type": "Mage"
+}
+
+HireHeroes_TestData = {
+    "Hiree": 0
+}
+
+HireHeroes_TestData_fail = {
+    "Hiree": "DNE"
+}
+
+AddPartyWithHeros_TestData = {
     "HeroIDs": "0",
-    "PartyID": "0"
+    "PartyName": "test_party_name"
 }
 
-def test_AddToParty_fail():
-    res = TEST_CLIENT.post(ep.ADD_TO_PARTY, json=AddToParty_TestData_fail).get_json()
-    print(res[ep.RESULT])
-    assert res[ep.RESULT] == "Some heros were not added. Check input."
+AddPartyWithHeros_TestData_fail = {
+    "HeroIDs": "1",
+    "PartyName": "testPartyName"
+}
 
+DisbandParty_TestData = {
+    "PartyID": 0
+}
 
-# DisbandParty_TestData = {
-#     "PartyID": "0"
-# }
-
-# def test_DisbandParty():
-#     res = TEST_CLIENT.post(ep.DISBAND_PARTY, json=DisbandParty_TestData).get_json()
-#     assert res[ep.RESULT] == "{} disbanded.".format(DisbandParty_TestData["PartyID"])
-    
 DisbandParty_TestData_fail = {
-    "PartyID": "0"
+    "PartyID": 1
 }
 
-def test_DisbandParty_fail():
+FireHeroes_TestData = {
+    "Firee": 0
+}
+
+FireHeroes_TestData_fail = {
+    "Firee": "DNE"
+}
+    
+    
+def test_AddHeroes():
+    res = TEST_CLIENT.post(ep.ADD_HEROES, json=AddHeroes_TestData).get_json()
+    assert res[ep.TITLE] == "Add Heroes"
+
+
+def test_HireHeroes():
+    TEST_CLIENT.post(ep.ADD_HEROES, json=AddHeroes_TestData).get_json()
+    res = TEST_CLIENT.post(ep.HIRE_HEROS, json=HireHeroes_TestData).get_json()
+    assert res[ep.RESULT] == "Hero hired."
+    res = TEST_CLIENT.post(ep.FIRE_HERO, json=FireHeroes_TestData).get_json()
+
+
+def test_HireHeroes_fail():
+    TEST_CLIENT.post(ep.ADD_HEROES, json=AddHeroes_TestData).get_json()
+    res = TEST_CLIENT.post(ep.HIRE_HEROS, json=HireHeroes_TestData_fail).get_json()
+    assert res[ep.RESULT] == "Could not hire hero, out of money."
+
+
+@pytest.fixture(scope='function')
+def temp_rec():
+    TEST_CLIENT.post(ep.ADD_HEROES, json=AddHeroes_TestData).get_json()
+    TEST_CLIENT.post(ep.HIRE_HEROS, json=HireHeroes_TestData).get_json()
+    yield
+    # TEST_CLIENT.post(ep.FIRE_HERO, json=FireHeroes_TestData).get_json()
+
+
+def test_AddPartyWithHeros(temp_rec):
+    res = TEST_CLIENT.post(ep.ADD_PARTY_WITH_HEROS, json=AddPartyWithHeros_TestData).get_json()
+    assert res[ep.RESULT] == "Heros added to a new party."
+
+
+def test_AddPartyWithHeros_fail(temp_rec):
+    res = TEST_CLIENT.post(ep.ADD_PARTY_WITH_HEROS, json=AddPartyWithHeros_TestData_fail).get_json()
+    assert res[ep.RESULT] == "Some heros were not hired in the guild. Check input."
+
+
+def test_FireHero(temp_rec):
+    res = TEST_CLIENT.post(ep.FIRE_HERO, json=FireHeroes_TestData).get_json()
+    assert res[ep.RESULT] == "Hero Fired."
+
+
+def test_FireHeroes_fail(temp_rec):
+    res = TEST_CLIENT.post(ep.FIRE_HERO, json=FireHeroes_TestData_fail).get_json()
+    assert res[ep.RESULT] == "Request failed. Check input."
+
+
+def test_DisbandParty(temp_rec):
+    res = TEST_CLIENT.post(ep.DISBAND_PARTY, json=DisbandParty_TestData).get_json()
+    assert res[ep.RESULT] == "{} disbanded.".format(DisbandParty_TestData["PartyID"])
+
+
+def test_DisbandParty_fail(temp_rec):
     res = TEST_CLIENT.post(ep.DISBAND_PARTY, json=DisbandParty_TestData_fail).get_json()
     assert res[ep.RESULT] == "Request failed. Check input."
-    
 
+
+# To Be Added Later
 # DoQuest_TestData = {
 #     "PartyID": "0",
 #     "QuestID": "0"
@@ -57,19 +118,10 @@ DoQuest_TestData_fail = {
     "QuestID": "0"
 }
 
+
 def test_DoQuest_fail():
     res = TEST_CLIENT.post(ep.DO_QUEST, json=DoQuest_TestData_fail).get_json()
     assert res[ep.RESULT] == "Request failed. Check input."
-
-
-GetHeroes_TestData = {
-    "Count": 10,
-    "Type": "Mage"
-}
-
-def test_GetHeroes():
-    res = TEST_CLIENT.post(ep.GET_HEROES, json=GetHeroes_TestData).get_json()
-    assert res[ep.TITLE] == "Get Heroes"
 
 
 def test_GET_QUEST():
@@ -77,41 +129,6 @@ def test_GET_QUEST():
     assert res[ep.TITLE] == "Get Quest"
 
 
-# HireHeroes_TestData = {
-#     "Hiree": "0"
-# }
-
-# def test_HireHeroes():
-#     res = TEST_CLIENT.post(ep.HIRE_HERO, json=HireHeroes_TestData).get_json()
-#     assert res[ep.RESULT] == "Hero hired."
-
-HireHeroes_TestData_fail = {
-    "Hiree": "DNE"
-}
-
-def test_HireHeroes_fail():
-    res = TEST_CLIENT.post(ep.HIRE_HERO, json=HireHeroes_TestData_fail).get_json()
-    assert res[ep.RESULT] == "Could not hire hero, out of money."
-
-
-# FireHeroes_TestData = {
-#     "Firee": "0"
-# }
-
-# def test_FireHeroes():
-#     res = TEST_CLIENT.post(ep.FIRE_HERO, json=FireHeroes_TestData).get_json()
-#     assert res[ep.RESULT] == "Hero fried."
-
-FireHeroes_TestData_fail = {
-    "Firee": "DNE"
-}
-
-def test_FireHeroes_fail():
-    res = TEST_CLIENT.post(ep.FIRE_HERO, json=FireHeroes_TestData_fail).get_json()
-    assert res[ep.RESULT] == "Request failed. Check input."
-    
-    
 def test_List():
     res = TEST_CLIENT.get(ep.LIST).get_json()
     assert res[ep.TITLE] == "List Guild Members"
-    

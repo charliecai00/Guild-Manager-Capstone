@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import pymongo as pm
+# import pymongo as pm
 import pytest
 import db.db_connect as dbc
 

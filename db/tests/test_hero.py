@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import os 
+# import os 
 import pytest
 import db.hero as hr
 
@@ -36,13 +36,13 @@ def test_del_hero(new_hero):
 def test_get_heros(temp_hero):
     chs = hr.get_heros()
     assert isinstance(chs, list)
-    assert len(chs) > 0 #or 1
+    assert len(chs) > 0  # or 1
 
 
 def test_get_heros_dict(temp_hero):
     chs = hr.get_heros_dict()
     assert isinstance(chs, dict)
-    assert len(chs) > 0 #or 1
+    assert len(chs) > 0  # or 1
 
 
 def test_get_hero_details(temp_hero):
