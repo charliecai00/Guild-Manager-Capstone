@@ -116,6 +116,6 @@ class Game:
     
     def Get_Location(self, name) -> MapTile:
         for locale in self.map:
-            if locale[0] == name:
+            if locale[1].name == name:
                 return locale
         return None
