@@ -54,5 +54,5 @@ def test_create_map(temp_game_object):
     game_map = go.Game.Create_Map()
     assert isinstance(game_map, Map)
 
-# def test_get_map(temp_game_object):
-#     assert temp_game_object.Get_Location('0') is str
+def test_get_map(temp_game_object):
+    assert temp_game_object.Get_Location('0') is str
