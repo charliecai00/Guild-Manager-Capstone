@@ -1,8 +1,10 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
+import random
 from random import randint
 from game.object_classes.challenge import Challenge
+from game.startgame import game
 
 
 class Quest:
@@ -56,6 +58,7 @@ class Quest:
         self.nodes_master_list.append(self.root)
         self.best_p_stats = {}  # local party stats
         self.mean_p_stats = {}  # overriden for each party
+        self.location = random.choice(list(game.map.locations.values()))
 
     def __str__(self) -> str:
         info = self.get_info()
