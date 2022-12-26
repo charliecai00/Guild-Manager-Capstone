@@ -56,8 +56,9 @@ class Guild:
             hero = self.hired_heros_dic[id]
             print("before fire the hero: ", hero)
             print("party ", self.party_dic)
-            self.party_dic[hero.party_id].Remove_Hero(id)
-            hero.party_id = None
+            if hero.party_id:
+                self.party_dic[hero.party_id].Remove_Hero(id)
+                hero.party_id = None
             print("going to fire")
             del self.hired_heros_dic[id]
             return hero

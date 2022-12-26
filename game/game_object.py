@@ -33,6 +33,12 @@ class Game:
             self.HERO_ID += 1
         return self.HERO_ID
 
+    def Find_Heros(self, hero_id) -> int:
+        if hero_id not in self.full_hero_dic.keys():
+            return None
+        else:
+            return self.full_hero_dic[hero_id]
+
     def Hire_Hero(self, id) -> bool:
         guild = self.guild  # will select from the function argument
         if id not in self.full_hero_dic.keys():
@@ -45,7 +51,7 @@ class Game:
         if isinstance(hero, Hero):
             is_hired = guild.Hire_Hero(hero)
             if is_hired:
-                self.full_hero_dic[id] = "guild+id"
+                self.full_hero_dic[id] = "hiredByGuild"
             return is_hired
         return False
 
