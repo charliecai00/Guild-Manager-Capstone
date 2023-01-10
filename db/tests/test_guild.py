@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import os 
+# import os 
 import pytest
 import db.guild as gu
 
@@ -36,13 +36,13 @@ def test_del_guild(new_guild):
 def test_get_guilds(temp_guild):
     chs = gu.get_guilds()
     assert isinstance(chs, list)
-    assert len(chs) > 0 #or 1
+    assert len(chs) > 0  # or 1
 
 
 def test_get_guilds_dict(temp_guild):
     chs = gu.get_guilds_dict()
     assert isinstance(chs, dict)
-    assert len(chs) > 0 #or 1
+    assert len(chs) > 0  # or 1
 
 
 def test_get_guild_details(temp_guild):

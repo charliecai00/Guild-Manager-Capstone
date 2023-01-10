@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import os 
+# import os 
 import pytest
 import db.game as gm
 
@@ -36,13 +36,13 @@ def test_del_game(new_game):
 def test_get_games(temp_game):
     gms = gm.get_games()
     assert isinstance(gms, list)
-    assert len(gms) > 0 #or 1
+    assert len(gms) > 0  # or 1
 
 
 def test_get_games_dict(temp_game):
     gms = gm.get_games_dict()
     assert isinstance(gms, dict)
-    assert len(gms) > 0 #or 1
+    assert len(gms) > 0  # or 1
 
 
 def test_get_game_details(temp_game):

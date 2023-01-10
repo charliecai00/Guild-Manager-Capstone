@@ -10,6 +10,7 @@ all_tests: lint unit
 
 lint: FORCE
 	$(LINTER) *.py
+	$(LINTER) tests/*.py
 
 unit: FORCE
 	pytest $(PYTESTFLAGS)
@@ -20,6 +21,7 @@ unit: FORCE
 
 lint_local:
 	python3 -m $(LINTER) *.py
+	python3 -m $(LINTER) tests/*.py
 
 unit_local:
 	python3 -m pytest $(PYTESTFLAGS)

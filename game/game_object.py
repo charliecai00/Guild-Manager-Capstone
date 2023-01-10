@@ -17,9 +17,9 @@ class Game:
         self.HERO_ID = 0
         self.QUEST_ID = 0
         self.LOCALE_ID = 0
-        self.guild = self.Create_Guild()
+        self.guild = self.Create_Guild()  # will be modified to multiple guilds in the future
         self.map = self.Create_Map()
-        self.full_hero_list = []
+        self.full_hero_dic = {}
         self.full_quest_list = []
 
     def Create_Guild(self) -> Guild:
@@ -27,50 +27,70 @@ class Game:
         self.GUILD_ID += 1
         return ret_guild
 
-    def Get_Heros(self, count=10, type=None) -> list:
-        hero_list = []
+    def Add_Heros(self, count=10, type=None) -> int:
         for i in range(count):
-            hero_list.append(Hero(self.HERO_ID))
+            self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID, type)
             self.HERO_ID += 1
-        self.full_hero_list.extend(hero_list)
-        return hero_list
+        return self.HERO_ID
 
-    def Find_Hero(self, name) -> Hero:
-        for hero in self.full_hero_list:
-            if hero.name == name:
-                return hero
-        return None
+    def Find_Heros(self, hero_id) -> int:
+        if hero_id not in self.full_hero_dic.keys():
+            return None
+        else:
+            return self.full_hero_dic[hero_id]
 
-    def Hire_Hero(self, name) -> bool:
-        hero = self.Find_Hero(name)
-        if hero:
-            return self.guild.Hire_Hero(hero)
+    def Hire_Hero(self, id) -> bool:
+        guild = self.guild  # will select from the function argument
+        if id not in self.full_hero_dic.keys():
+            print("Hero with id {} hasn't been added to the game".format(id))
+            return False
+        if id in guild.hired_heros_dic.keys():
+            print("Hero with id {} has already been hired".format(id))
+            return False
+        hero = self.full_hero_dic[id]
+        if isinstance(hero, Hero):
+            is_hired = guild.Hire_Hero(hero)
+            if is_hired:
+                self.full_hero_dic[id] = "hiredByGuild"
+            return is_hired
         return False
 
-    def Fire_Hero(self, name) -> bool:
-        hero = self.Find_Hero(name)
-        if hero:
-            return self.guild.Fire_Hero(hero)
-        return False
+    def Fire_Hero(self, id) -> bool:
+        guild = self.guild  # will select from a list of guild in the future
+        if not isinstance(id, int):
+            return False
+        fired_hero = guild.Fire_Hero(id)
+        if fired_hero:
+            self.full_hero_dic[id] = fired_hero
+            return True
+        else:
+            return False
 
     def Guild_Status(self) -> str:
         return str(self.guild)
 
-    def Add_Party(self, name, list) -> None:
-        hero_lst = []
-        for h in self.full_hero_list:
-            if h.name in list:
-                hero_lst.append(h)
-                list.remove(h.name)
-        """Commenting out because function fails"""
-        # self.guild.Form_Party(hero_lst, name)
-        if len(list) != 0:
-            return False
-        else:
-            return True
+    def Add_Party_With_Heros(self, hero_id_lst, party_name=None) -> bool:
+        print("add party with heros function called in game")
+        parsed_hero_id_lst = list(map(int, hero_id_lst))
+        # for i in range(len(hero_id_lst)):
+        #     parsed_hero_id_lst[i] = int(hero_id_lst[i])
+        print("check hero id lst in add party with heros in Game:", hero_id_lst)
+        print("game_obj ", type(parsed_hero_id_lst[0]))
 
-    def Disband_Party(self, name) -> bool:
-        return self.guild.Disband_Party(name)
+        guild = self.guild  # will select from a list of guild in the future
+        if party_name:
+            return guild.Add_Party_With_Heros(parsed_hero_id_lst, party_name)
+        else:
+            return guild.Add_Party_With_Heros(parsed_hero_id_lst)
+    
+    def Assign_Heros_To_Party(self, hero_lst, party_id):
+        guild = self.guild  # will select from a list of guild in the future
+        guild.Assign_Heros_To_Party(hero_lst, party_id)
+        return True
+
+    def Disband_Party(self, party_id) -> bool:
+        guild = self.guild  # will be selected from the funtion argument
+        return guild.Disband_Party(party_id) is not None
 
     def Get_Quest(self) -> Quest:
         new_quest = Quest()

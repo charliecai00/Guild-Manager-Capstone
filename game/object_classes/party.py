@@ -21,8 +21,8 @@ class Party:
         self.Calc_Stats()
 
     def __str__(self) -> str:
-        hero_names = [h.name for h in self.hero_list]
-        return "Party: {}, Heros: {}".format(self.name, hero_names)
+        # heros = [h.id for h in self.hero_list]
+        return "<<Party named '{}' with Heros: {}>>".format(self.name, self.hero_list)
 
     def __repr__(self):
         return str(self)
@@ -45,6 +45,17 @@ class Party:
         except Exception:
             return False
 
+    def Remove_Hero(self, hero_id: int) -> bool:
+        try:
+            for i in range(len(self.hero_list)):
+                if self.hero_list[i].id == hero_id:
+                    self.hero_list.pop(i)
+                    self.Calc_Stats()
+                    return True
+            return False
+        except Exception:
+            return False
+
     def Calc_Stats(self) -> None:
         stat_names = ["STR", "CON", "DEX", "WIS", "INT", "CHA"]
         # best stats
@@ -63,10 +74,11 @@ class Party:
                 else:
                     self.mean_stats[s] = h.stats[s]
         for s in stat_names:
-            self.mean_stats[s] = self.mean_stats[s] // len(self.hero_list)
+            if len(self.hero_list) != 0:
+                self.mean_stats[s] = self.mean_stats[s] // len(self.hero_list)
 
     def Get_Random_Hero(self) -> Hero:
-        return self.hero_list[randint(0, len(self.hero_list)-1)]
+        return self.hero_list[randint(0, len(self.hero_list) - 1)]
 
     # quest functions
     def Complete_Quest(self, quest: Quest) -> Tuple[list, bool]:

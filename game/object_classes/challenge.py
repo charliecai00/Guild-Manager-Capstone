@@ -9,7 +9,7 @@ class Challenge:
         self.success_message = ""
         self.fail_message = ""
 
-    def Get_Skill(self) -> str :
+    def Get_Skill(self) -> str:
         return self.test_skill
 
     def Set_Skill(self, new_skill):
