@@ -3,7 +3,8 @@
 
 import unittest
 import game.game_object as game_object
-from game.object_classes.map import Map
+# from game.object_classes.map import Map
+from game.object_classes.hero import Hero
 
 
 class Test(unittest.TestCase):
@@ -12,40 +13,73 @@ class Test(unittest.TestCase):
     
     def tearDown(self):
         self.test_game = None
+        
+    def addHeroes(self, num=10):
+        last_hero_id = self.test_game.Add_Heros(num, "mage")
+        return last_hero_id
 
-    def test_create_guild(self):
-        # object = game_object.Game()
-        self.assertIsInstance(str(self.test_game.Create_Guild()), str)
+    def test_AddHeroes(self):
+        last_hero_id = self.addHeroes()
+        print("last hero id is ", last_hero_id)
+        self.assertIsInstance(self.test_game.full_hero_dic[last_hero_id - 1], Hero)
 
-    def test_get_heros(self):
-        # object = game_object.Game()
-        self.assertIsInstance(self.test_game.Get_Heros(), list)
+    def hireHeroes(self, id=0):
+        is_hired = self.test_game.Hire_Hero(id)
+        return is_hired
 
-    def test_find_hero(self):
-        # object = game_object.Game()
-        self.assertEqual(self.test_game.Find_Hero('Nonexistent'), None)
+    def test_HireHeroes(self):
+        self.addHeroes()
+        is_hired = self.hireHeroes(0)
+        self.assertEqual(is_hired, True)
+        self.assertEqual(self.test_game.full_hero_dic[0], "hiredByGuild")
 
-    def test_hire_hero(self):
-        # object = game_object.Game()
-        self.assertEqual(self.test_game.Hire_Hero('Nonexistent'), False)
+    def test_HireHeroes_fail(self):
+        self.addHeroes()
+        self.hireHeroes(0)
+        hero_already_hired_by_guild = self.hireHeroes(0)
+        hero_not_in_game = self.hireHeroes(10)
+        self.assertEqual(hero_already_hired_by_guild, False)
+        self.assertEqual(hero_not_in_game, False)
 
-    def test_guild_status(self):
-        # object = game_object.Game()
-        print(self.test_game.Guild_Status)
-        pass
-    
-    def test_get_quest(self):
-        # object = game_object.Game()
-        print(self.test_game.Get_Quest)
-        pass
+    def test_AddPartyWithHeros(self):
+        self.addHeroes()
+        self.hireHeroes(0)
+        self.hireHeroes(1)
+        res = self.test_game.Add_Party_With_Heros([0, 1], "test_party")
+        self.assertEqual(res, True)
 
-    def test_find_quest(self):
-        # object = game_object.Game()
-        self.assertEqual(self.test_game.Find_Quest('Nonexistent'), None)
-    
-    def test_create_map(self):
-        # object = game_object.Game()
-        self.assertIsInstance(self.test_game.Create_Map(), Map)
+    def test_AddPartyWithHeros_fail(self):
+        self.addHeroes()
+        self.hireHeroes(0)
+        self.hireHeroes(1)
+        hero_not_hired_by_guild = self.test_game.Add_Party_With_Heros([0, 2], "test_party")
+        self.assertEqual(hero_not_hired_by_guild, False)
+
+    def test_FireHero(self):
+        self.addHeroes()
+        self.hireHeroes(0)
+        fired = self.test_game.Fire_Hero(0)
+        self.assertEqual(fired, True)
+
+    def test_FireHeroes_fail(self):
+        self.addHeroes()
+        self.hireHeroes(0)
+        fired = self.test_game.Fire_Hero(1)
+        self.assertEqual(fired, False)
+
+    def test_DisbandParty(self):
+        self.addHeroes()
+        self.hireHeroes(0)
+        self.test_game.Add_Party_With_Heros([0])
+        res = self.test_game.Disband_Party(0)
+        self.assertEqual(res, True)
+
+    def test_DisbandParty_fail(self):
+        self.addHeroes()
+        self.hireHeroes(0)
+        self.test_game.Add_Party_With_Heros([0])
+        res = self.test_game.Disband_Party(1)
+        self.assertEqual(res, False)
 
 
 if __name__ == '__main__':
