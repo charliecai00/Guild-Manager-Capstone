@@ -31,3 +31,4 @@ We have several ideas we would like to see in Guild Manager to make it even bett
 This can be your way to support and contribute to Guild Manager  - extend it to do something cool.
 
 For everyone who wants to contribute (and send pull requests), please read our [contributing guidelines](./CONTRIBUTING.md) before you submit.
+
