@@ -15,5 +15,6 @@
 &nbsp;
 
 - API Endpoints
-> 1. Working endpoints for all game functions listed and Main Menu -> This is how user(s) play our game
+> 1. Working endpoints for all Game Functions listed -> This is how user(s) play our game
+> 2. Implemented Main Menu using HATEOAS -> Visually, our game uses menus and screens. No character sprites or level designs
 
