@@ -31,3 +31,7 @@ We have several ideas we would like to see in Guild Manager to make it even bett
 This can be your way to support and contribute to Guild Manager  - extend it to do something cool.
 
 For everyone who wants to contribute (and send pull requests), please read our [contributing guidelines](./CONTRIBUTING.md) before you submit.
+
+## Project Status
+- <a href="https://github.com/Jorge-A-Velasquez/Guild-Manager-Capstone/blob/master/PROGRESS.md"> Progress as of January 2023</a>
+- <a href="https://github.com/Jorge-A-Velasquez/Guild-Manager-Capstone/blob/master/NEWGOALS.md"> Spring 2023 Goals</a>
