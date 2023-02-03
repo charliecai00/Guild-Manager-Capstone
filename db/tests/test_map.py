@@ -1,7 +1,6 @@
 # A NYU Capstone Project
 # The mpild Manager by JV · CC · ZQ · ZF
 
-# import os 
 import pytest
 import db.map as mp
 
@@ -21,7 +20,7 @@ def temp_map():
     mp.add_map(mp.TEST_MAP, create_map_details())
     yield
     mp.del_map(mp.TEST_MAP)
-    
+
 
 @pytest.fixture(scope='function')
 def new_map():
@@ -49,7 +48,7 @@ def test_get_map_details(temp_map):
     ch_dets = mp.get_map_details(mp.TEST_MAP)
     assert isinstance(ch_dets, dict)
 
-    
+
 def TEST_MAP_exists(temp_map):
     assert mp.map_exists(mp.TEST_MAP)
 

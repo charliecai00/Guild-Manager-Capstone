@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-# import os 
+# import os
 import pytest
 import db.game as gm
 
@@ -49,7 +49,7 @@ def test_get_game_details(temp_game):
     gm_dets = gm.get_game_details(gm.TEST_GAME_NAME1)
     assert isinstance(gm_dets, dict)
 
-    
+
 def test_game_exists(temp_game):
     assert gm.game_exists(gm.TEST_GAME_NAME1)
 

@@ -17,7 +17,8 @@ class Game:
         self.HERO_ID = 0
         self.QUEST_ID = 0
         self.LOCALE_ID = 0
-        self.guild = self.Create_Guild()  # will be modified to multiple guilds in the future
+        # will be modified to multiple guilds in the future
+        self.guild = self.Create_Guild()
         self.map = self.Create_Map()
         self.full_hero_dic = {}
         self.full_quest_list = []
@@ -74,7 +75,8 @@ class Game:
         parsed_hero_id_lst = list(map(int, hero_id_lst))
         # for i in range(len(hero_id_lst)):
         #     parsed_hero_id_lst[i] = int(hero_id_lst[i])
-        print("check hero id lst in add party with heros in Game:", hero_id_lst)
+        print("check hero id lst in add party with heros in Game:",
+              hero_id_lst)
         print("game_obj ", type(parsed_hero_id_lst[0]))
 
         guild = self.guild  # will select from a list of guild in the future
@@ -82,7 +84,7 @@ class Game:
             return guild.Add_Party_With_Heros(parsed_hero_id_lst, party_name)
         else:
             return guild.Add_Party_With_Heros(parsed_hero_id_lst)
-    
+
     def Assign_Heros_To_Party(self, hero_lst, party_id):
         guild = self.guild  # will select from a list of guild in the future
         guild.Assign_Heros_To_Party(hero_lst, party_id)
@@ -107,7 +109,7 @@ class Game:
         if self.Find_Quest(quest_name) is None:
             return False
         return self.guild.Send_Quest(party_name, self.Find_Quest(quest_name))
-    
+
     def Create_Map(self) -> Map:
         locales = Map()
         coordinates = []
@@ -119,7 +121,6 @@ class Game:
             locales.locations[coords] = MapTile(self.LOCALE_ID)
             self.LOCALE_ID += 1
         return locales
-    
     # def Get_Location(self, name) -> MapTile:
     #     for locale in self.map:
     #         if locale[1].name == name:

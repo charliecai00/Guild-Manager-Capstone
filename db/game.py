@@ -17,23 +17,24 @@ GAME_COLLECT = 'Games'
 
 TEST_GAME_NAME1 = 'test_game1'
 TEST_GAME_NAME2 = 'test_game2'
-REQUIRED_FLDS = [GUILD_ID, HERO_ID, QUEST_ID, LOCALE_ID, GUILD_ID, MAP, FULL_HERO_LIST, FULL_QUEST_LIST]
-dummy_game = {TEST_GAME_NAME1: {GUILD_ID: 0, 
-                          HERO_ID: 0, 
-                          QUEST_ID: 0, 
-                          LOCALE_ID: 0,
-                          GUILD: "refer to guild object",
-                          MAP: "refer to map object",
-                          FULL_HERO_LIST: [], 
-                          FULL_QUEST_LIST: []},
-              TEST_GAME_NAME2: {GUILD_ID: 1, 
-                          HERO_ID: 1, 
-                          QUEST_ID: 1, 
-                          LOCALE_ID: 1,
-                          GUILD: "refer to guild object",
-                          MAP: "refer to map object",
-                          FULL_HERO_LIST: [], 
-                          FULL_QUEST_LIST: []}}
+REQUIRED_FLDS = [GUILD_ID, HERO_ID, QUEST_ID, LOCALE_ID, GUILD_ID, MAP,
+                 FULL_HERO_LIST, FULL_QUEST_LIST]
+dummy_game = {TEST_GAME_NAME1: {GUILD_ID: 0,
+                                HERO_ID: 0,
+                                QUEST_ID: 0,
+                                LOCALE_ID: 0,
+                                GUILD: "refer to guild object",
+                                MAP: "refer to map object",
+                                FULL_HERO_LIST: [],
+                                FULL_QUEST_LIST: []},
+              TEST_GAME_NAME2: {GUILD_ID: 1,
+                                HERO_ID: 1,
+                                QUEST_ID: 1,
+                                LOCALE_ID: 1,
+                                GUILD: "refer to guild object",
+                                MAP: "refer to map object",
+                                FULL_HERO_LIST: [],
+                                FULL_QUEST_LIST: []}}
 
 
 def get_game_details(game):

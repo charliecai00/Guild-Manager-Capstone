@@ -73,7 +73,8 @@ class Quest:
     def generate_nodes(self) -> Node:
         stat_names = ["STR", "CON", "DEX", "WIS", "INT", "CHA"]
         curr_layer: list[self.Node] = []
-        root = self.Node(Challenge(stat_names[randint(0, len(stat_names) - 1)]))
+        root = self.Node(Challenge(stat_names[randint(0,
+                                                      len(stat_names) - 1)]))
         self.root = root
         curr_layer.append(root)
         max_depth = 5
