@@ -16,4 +16,3 @@ while curr_input != 'quit':
         print('hired heros:', game.guild.hired_heros_dic)
         print('parties: ', game.guild.party_dic)
     curr_input = input()
-    
