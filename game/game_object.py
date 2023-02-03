@@ -8,6 +8,8 @@ from game.object_classes.guild import Guild
 from game.object_classes.hero import Hero
 from game.object_classes.map_tile import MapTile
 from game.object_classes.map import Map
+from db.guild import *
+from db.hero import *
 from db.quest import *
 
 
@@ -21,35 +23,39 @@ class Game:
         # will be modified to multiple guilds in the future
         self.guild = self.Create_Guild()
         self.map = self.Create_Map()
-        self.full_hero_dic = {}
-        self.full_quest_list = []
+        # self.full_hero_dic = {}
+        # self.full_quest_list = []
 
     def Create_Guild(self) -> Guild:
         ret_guild = Guild(self.GUILD_ID)
+        ### ret_guild should return a dictionary because add_guild() takes (name, detail as dic)
+        add_guild(GUILD_ID, ret_guild)
         self.GUILD_ID += 1
         return ret_guild
 
     def Add_Heros(self, count=10, type=None) -> int:
         for i in range(count):
-            self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID, type)
+            # self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID, type)
+            ret_hero = Hero(self.HERO_ID, type)
+            add_hero(self.HERO_ID, ret_hero)
             self.HERO_ID += 1
         return self.HERO_ID
 
-    def Find_Heros(self, hero_id) -> int:
-        if hero_id not in self.full_hero_dic.keys():
+    def Find_Heros(self, hero_id) -> int: #return int?
+        if hero_exists(hero_id):
             return None
         else:
-            return self.full_hero_dic[hero_id]
+            return get_hero_details(hero_id)
 
     def Hire_Hero(self, id) -> bool:
         guild = self.guild  # will select from the function argument
-        if id not in self.full_hero_dic.keys():
+        if hero_exists(id):
             print("Hero with id {} hasn't been added to the game".format(id))
             return False
         if id in guild.hired_heros_dic.keys():
             print("Hero with id {} has already been hired".format(id))
             return False
-        hero = self.full_hero_dic[id]
+        hero = get_hero_details(id)
         if isinstance(hero, Hero):
             is_hired = guild.Hire_Hero(hero)
             if is_hired:
@@ -100,11 +106,11 @@ class Game:
         self.full_quest_list.append(new_quest)
         return new_quest
 
-    def Find_Quest(self, name) -> Quest:
-        for quest in self.full_quest_list:
-            if quest.name == name:
-                return quest
-        return None
+    # def Find_Quest(self, name) -> Quest:
+    #     for quest in self.full_quest_list:
+    #         if quest.name == name:
+    #             return quest
+    #     return None
 
     def Do_Quest(self, quest_name, party_name) -> bool:
         if quest_exists(quest_name) is None:
