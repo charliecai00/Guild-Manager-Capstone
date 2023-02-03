@@ -8,6 +8,7 @@ from game.object_classes.guild import Guild
 from game.object_classes.hero import Hero
 from game.object_classes.map_tile import MapTile
 from game.object_classes.map import Map
+from db.quest import *
 
 
 class Game:
@@ -106,9 +107,9 @@ class Game:
         return None
 
     def Do_Quest(self, quest_name, party_name) -> bool:
-        if self.Find_Quest(quest_name) is None:
+        if quest_exists(quest_name) is None:
             return False
-        return self.guild.Send_Quest(party_name, self.Find_Quest(quest_name))
+        return self.guild.Send_Quest(party_name, get_quest_details(quest_name))
 
     def Create_Map(self) -> Map:
         locales = Map()
