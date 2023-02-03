@@ -83,8 +83,7 @@ def test_AddPartyWithHeros(temp_rec):
 def test_AddPartyWithHeros_fail(temp_rec):
     res = TEST_CLIENT.post(ep.ADD_PARTY_WITH_HEROS,
                            json=AddPartyWithHeros_TestData_fail).get_json()
-    assert res[ep.RESULT] == "Some heros were not hired in the guild. \
-        Check input."
+    assert res[ep.RESULT] == "Some heros were not hired in the guild."
 
 
 def test_FireHero(temp_rec):

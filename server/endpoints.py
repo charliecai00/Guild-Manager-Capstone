@@ -172,7 +172,7 @@ class AddPartyWithHeros(Resource):
                     "Heros added to a new party."}
         else:
             return {RESULT:
-                    "Some heros were not hired in the guild. Check input."}
+                    "Some heros were not hired in the guild."}
 
 
 disband_party_input = api.model('disband_party', {
