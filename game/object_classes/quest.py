@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import random
+# import random
 from random import randint
 from game.object_classes.challenge import Challenge
 # from game.startgame import game
