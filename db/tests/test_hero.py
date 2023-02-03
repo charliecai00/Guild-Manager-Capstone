@@ -1,7 +1,6 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-# import os 
 import pytest
 import db.hero as hr
 
@@ -21,7 +20,7 @@ def temp_hero():
     hr.add_hero(hr.TEST_HERO, create_hero_details())
     yield
     hr.del_hero(hr.TEST_HERO)
-    
+
 
 @pytest.fixture(scope='function')
 def new_hero():
@@ -49,7 +48,7 @@ def test_get_hero_details(temp_hero):
     ch_dets = hr.get_hero_details(hr.TEST_HERO)
     assert isinstance(ch_dets, dict)
 
-    
+
 def test_hero_exists(temp_hero):
     assert hr.hero_exists(hr.TEST_HERO)
 

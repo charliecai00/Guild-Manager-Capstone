@@ -34,7 +34,8 @@ class Guild:
             return False
         elif new_hero.id in self.hired_heros_dic.keys():
             try:
-                raise ValueError('The hero has already been hired in the guild')
+                raise ValueError('The hero has already been \
+                                 hired in the guild')
             except ValueError as error:
                 print('Caught this error: ' + repr(error))
                 return False
@@ -42,7 +43,7 @@ class Guild:
             self.hired_heros_dic[new_hero.id] = new_hero
             self.funds -= new_hero.cost
             return True
-    
+
     def Hire_Heros(self, new_heros) -> bool:
         for id in new_heros:
             if not self.Hire_Hero(id):
@@ -50,7 +51,7 @@ class Guild:
                 return False
         print("hire successful")
         return True
-    
+
     def Fire_Hero(self, id: int) -> Hero:
         if id in self.hired_heros_dic.keys():
             hero = self.hired_heros_dic[id]
@@ -73,7 +74,9 @@ class Guild:
             print("Party name already exists!")
             return False
         if party_name is not None:
-            self.party_dic[self.PARTY_ID] = Party(self.PARTY_ID, [], party_name)
+            self.party_dic[self.PARTY_ID] = Party(self.PARTY_ID,
+                                                  [],
+                                                  party_name)
         else:
             self.party_dic[self.PARTY_ID] = Party(self.PARTY_ID)
         self.PARTY_ID += 1
@@ -90,7 +93,8 @@ class Guild:
             return False
         if dest_party_id not in self.party_dic.keys():
             print("Party with id {} not in the guild. +\
-                  Change the party id or add the party first".format(dest_party_id))
+                  Change the party id or add the party first".format(
+                      dest_party_id))
             return False
         hero = self.hired_heros_dic[hero_id]
         prev_party_id = hero.party_id
@@ -116,15 +120,18 @@ class Guild:
         return True
 
     def Assign_Heros_To_Party(self, hero_id_lst, dest_party_id) -> bool:
-        print("check hero list in assign heros to party in Guild: ", hero_id_lst)
+        print("check hero list in assign heros to party in Guild: ",
+              hero_id_lst)
         if not self.check_heros(hero_id_lst):
             return False
         for i in range(len(hero_id_lst)):
             if not self.Assign_Hero_To_Party(hero_id_lst[i], dest_party_id):
-                print("Error adding the hero with id {} to the party".format(hero_id_lst[i]))
+                print("Error adding the hero with id {} to the party"
+                      .format(hero_id_lst[i]))
                 return False
             else:
-                print("hero with id {} added to party with id {} successful".format(hero_id_lst[i], dest_party_id))
+                print("hero with id {} added to party with id {} successful"
+                      .format(hero_id_lst[i], dest_party_id))
         return True
 
     def Add_Party_With_Heros(self, hero_lst, party_name=None) -> bool:
@@ -135,8 +142,10 @@ class Guild:
         3. Assign the heros to this new party
         """
         print("guild ", type(hero_lst[0]))
-        print("check hero id list in add_party_with_heros in Guild", hero_lst)
-        print('before new party is added to the guild, the self.party_id is ', self.PARTY_ID)
+        print("check hero id list in add_party_with_heros in Guild",
+              hero_lst)
+        print('before new party is added to the guild, \
+            the self.party_id is ', self.PARTY_ID)
 
         if not self.check_heros(hero_lst):
             return False
@@ -145,9 +154,11 @@ class Guild:
         else:
             party_added = self.Add_Party()
         if party_added:
-            print('after new party is added to the guild, the self.party_id is ', self.PARTY_ID)
+            print('after new party is added to the guild, \
+                the self.party_id is ', self.PARTY_ID)
             if self.Assign_Heros_To_Party(hero_lst, self.PARTY_ID - 1):
-                print("after hero assigned to the party:", self.party_dic[self.PARTY_ID - 1])
+                print("after hero assigned to the party:",
+                      self.party_dic[self.PARTY_ID - 1])
                 return True
             else:
                 return False
@@ -165,9 +176,11 @@ class Guild:
         for i in range(len(hero_list)):
             hero_list[i].party_id = None
         self.party_dic[partyId] = "Disbanded"
-        print("in guild, after the party {} has been disbanded: ".format(partyId), self.party_dic[partyId])
-        # return the relic of this party in case the disbanded party will be used in the future
-        return hero_list_copy 
+        print("in guild, after the party {} has been disbanded: "
+              .format(partyId), self.party_dic[partyId])
+        # return the relic of this party in case the disbanded party
+        # will be used in the future
+        return hero_list_copy
 
     def Get_Party(self, party_id) -> Party:
         if party_id in self.party_dic.keys():

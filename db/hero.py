@@ -19,7 +19,8 @@ HERO_COLLECT = 'Heros'
 TEST_HERO = 'test_hero'
 REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
 dummy_hero = {TEST_HERO: {ID: 1,
-                          STATS: {"STR": 20, "CON": 20, "DEX": 20, "WIS": 20, "INT": 20, "CHA": 20},
+                          STATS: {"STR": 20, "CON": 20, "DEX": 20,
+                                  "WIS": 20, "INT": 20, "CHA": 20},
                           ITEMS: [],
                           NAME: "1",
                           HERO_ID: 1,

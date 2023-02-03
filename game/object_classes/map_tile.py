@@ -16,6 +16,6 @@ class MapTile:
             self.terrain
         )
         return s
-    
+
     def __repr__(self) -> str:
         return str(self)

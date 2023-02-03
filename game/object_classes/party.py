@@ -22,7 +22,8 @@ class Party:
 
     def __str__(self) -> str:
         # heros = [h.id for h in self.hero_list]
-        return "<<Party named '{}' with Heros: {}>>".format(self.name, self.hero_list)
+        return "<<Party named '{}' with Heros: {}>>".format(self.name,
+                                                            self.hero_list)
 
     def __repr__(self):
         return str(self)
