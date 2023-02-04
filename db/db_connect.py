@@ -19,12 +19,15 @@ def connect_db():
         if os.environ.get("CLOUD_MONGO", LOCAL) == CLOUD:
             password = os.environ.get("MONGO_PW")
             if not password:
-                raise ValueError('You must set your password to use Mongo in the cloud.')
+                raise ValueError('You must set your password to use \
+                    Mongo in the cloud.')
             print("Connecting to Mongo in the cloud.")
             # client = pm.MongoClient('mongodb+srv://db_connecr:{password}'
             #                         + '@guild-manager.kr7jklo.mongodb.net/'
             #                         + '?retryWrites=true&w=majority')
-            client = pm.MongoClient("mongodb+srv://db_connect:{}@guild-manager.kr7jklo.mongodb.net/?retryWrites=true&w=majority".format(password))
+            client = pm.MongoClient("mongodb+srv://db_connect:\
+                {}@guild-manager.kr7jklo.mongodb.net/?\
+                retryWrites=true&w=majority".format(password))
         else:
             print("Connecting to Mongo locally.")
             client = pm.MongoClient()

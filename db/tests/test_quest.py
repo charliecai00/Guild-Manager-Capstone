@@ -1,7 +1,6 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-# import os 
 import pytest
 import db.quest as qs
 
@@ -21,7 +20,7 @@ def temp_quest():
     qs.add_quest(qs.TEST_QUEST, create_quest_details())
     yield
     qs.del_quest(qs.TEST_QUEST)
-    
+
 
 @pytest.fixture(scope='function')
 def new_quest():
@@ -49,7 +48,7 @@ def test_get_quest_details(temp_quest):
     ch_dets = qs.get_quest_details(qs.TEST_QUEST)
     assert isinstance(ch_dets, dict)
 
-    
+
 def test_quest_exists(temp_quest):
     assert qs.quest_exists(qs.TEST_QUEST)
 

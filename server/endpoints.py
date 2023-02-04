@@ -36,14 +36,30 @@ class MainMenu(Resource):
         return {'Title': 'Main Menu',
                 'Default': 0,
                 'Choices': {
-                    '1': {'text': 'ADD_PARTY_WITH_HEROS', 'url': '/add_party_with_heros', 'method': 'post'},
-                    '2': {'text': 'Do_Quest', 'url': '/do_quest', 'method': 'post'},
-                    '3': {'text': 'Add_Heroes', 'url': '/add_heroes', 'method': 'post'},
-                    '4': {'text': 'Get_Quests', 'url': '/get_quest', 'method': 'get'},
-                    '5': {'text': 'Hire_Heros', 'url': '/hire_heros', 'method': 'post'},
-                    '6': {'text': 'List_Guild_Members', 'url': '/list', 'method': 'get'},
-                    '7': {'text': 'Disband_Party', 'url': '/disband_party', 'method': 'post'},
-                    '8': {'text': 'Fire_Hero', 'url': '/fire_hero', 'method': 'post'},
+                    '1': {'text': 'ADD_PARTY_WITH_HEROS',
+                          'url': '/add_party_with_heros',
+                          'method': 'post'},
+                    '2': {'text': 'Do_Quest',
+                          'url': '/do_quest',
+                          'method': 'post'},
+                    '3': {'text': 'Add_Heroes',
+                          'url': '/add_heroes',
+                          'method': 'post'},
+                    '4': {'text': 'Get_Quests',
+                          'url': '/get_quest',
+                          'method': 'get'},
+                    '5': {'text': 'Hire_Heros',
+                          'url': '/hire_heros',
+                          'method': 'post'},
+                    '6': {'text': 'List_Guild_Members',
+                          'url': '/list',
+                          'method': 'get'},
+                    '7': {'text': 'Disband_Party',
+                          'url': '/disband_party',
+                          'method': 'post'},
+                    '8': {'text': 'Fire_Hero',
+                          'url': '/fire_hero',
+                          'method': 'post'},
                     'X': {'text': 'Exit'},
                 }
                 }
@@ -57,6 +73,12 @@ add_heroes_input = api.model('add_heroes', {
 
 @api.route(ADD_HEROES)
 class AddHeroes(Resource):
+    """
+    The endpoint adds hero to DB.
+    It takes 2 arguments:
+        Count - how many heros to add?
+        Type - what is the type of hero?
+    """
     @api.expect(add_heroes_input)
     def post(self):
         print(f'{request.json=}')
@@ -78,6 +100,11 @@ hire_heros_input = api.model('hire_heros', {
 
 @api.route(HIRE_HEROS)
 class HireHeros(Resource):
+    """
+    The endpoint hire heros as requested by the user.
+    It takes 1 argument:
+        Hero ID - what is the hero ID?
+    """
     @api.expect(hire_heros_input)
     def post(self):
         print(f'{request.json=}')
@@ -98,10 +125,14 @@ fire_hero_input = api.model('fire_hero', {
 
 @api.route(FIRE_HERO)
 class FireHero(Resource):
+    """
+    The endpoint fire hero as requested by the user.
+    It takes 1 argument:
+        Hero ID - what is the hero ID to fire?
+    """
     @api.expect(fire_hero_input)
     def post(self):
         print(f'{request.json=}')
-        
         hero_id = request.json["Firee"]
         print("hero id in fire hero ", hero_id)
         result = game.Fire_Hero(hero_id)
@@ -119,10 +150,15 @@ add_party_with_heros_input = api.model('add_party_with_heros', {
 
 @api.route(ADD_PARTY_WITH_HEROS)
 class AddPartyWithHeros(Resource):
+    """
+    The endpoint adds hero to a party
+    It takes 2 arguments:
+        Hero ID - what is the hero ID that you're hiring?
+        Party ID - what is the party ID that you're adding the hero to?
+    """
     @api.expect(add_party_with_heros_input)
     def post(self):
         print(f'{request.json=}')
-
         HeroIDs = request.json["HeroIDs"]
         PartyName = request.json["PartyName"]
         parse_hero_ID = HeroIDs.split(",")
@@ -131,11 +167,12 @@ class AddPartyWithHeros(Resource):
         #     parse_hero_ID[i] = int(parse_hero_ID[i])
         # print("endpoint ", type(parse_hero_ID[0]))
         result = game.Add_Party_With_Heros(parse_hero_ID, PartyName)
-        
         if result:
-            return {RESULT: "Heros added to a new party."}
+            return {RESULT:
+                    "Heros added to a new party."}
         else:
-            return {RESULT: "Some heros were not hired in the guild. Check input."}
+            return {RESULT:
+                    "Some heros were not hired in the guild."}
 
 
 disband_party_input = api.model('disband_party', {
@@ -145,6 +182,11 @@ disband_party_input = api.model('disband_party', {
 
 @api.route(DISBAND_PARTY)
 class DisbandParty(Resource):
+    """
+    The endpoint removes a party from the Guild.
+    It takes 1 argument:
+        Party ID - what is the party ID?
+    """
     @api.expect(disband_party_input)
     def post(self):
         print(f'{request.json=}')
@@ -167,6 +209,12 @@ do_quest_input = api.model('do_quest', {
 
 @api.route(DO_QUEST)
 class DoQuest(Resource):
+    """
+    User can start on a quest.
+    The endpoint takes 2 arguments:
+        Party ID - what is the party doing the quest?
+        Quest ID - what is the quest that you want to do?
+    """
     @api.expect(do_quest_input)
     def post(self):
         print(f'{request.json=}')
@@ -183,6 +231,9 @@ class DoQuest(Resource):
 
 @api.route(GET_QUEST)
 class GetQuest(Resource):
+    """
+    Get details on a quest.
+    """
     def get(self):
         res = game.Get_Quest().get_info()
         return {DATA: {"Name": {"": res[0]}, "Skill": {"": res[1:]}},
@@ -192,12 +243,22 @@ class GetQuest(Resource):
 
 @api.route(LIST)
 class List(Resource):
+    """
+    Get all informations on the Guild including:
+        Funds
+        Heros
+        Parties
+        Quests
+    """
     def get(self):
         res = str(game.Guild_Status()).split(" ")
         funds = res[1]
         heros = res[3]
         parties = res[5]
         quests = res[7]
-        return {DATA: {"Funds": {"": funds}, "Heros": {"": heros}, "Parties": {"": parties}, "Quests": {"": quests}},
+        return {DATA: {"Funds": {"": funds},
+                       "Heros": {"": heros},
+                       "Parties": {"": parties},
+                       "Quests": {"": quests}},
                 TYPE: 'Data',
                 TITLE: 'List Guild Members'}
