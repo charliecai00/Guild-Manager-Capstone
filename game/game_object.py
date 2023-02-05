@@ -29,7 +29,7 @@ class Game:
     def Create_Guild(self) -> Guild:
         ret_guild = Guild(self.GUILD_ID)
         ### ret_guild should return a dictionary because add_guild() takes (name, detail as dic)
-        add_guild(GUILD_ID, ret_guild)
+        add_guild(GUILD_ID, vars(ret_guild))
         self.GUILD_ID += 1
         return ret_guild
 
