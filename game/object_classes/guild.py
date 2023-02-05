@@ -18,13 +18,13 @@ class Guild:
         self.quest_history = []
         self.funds = 100
         db.guild.add_guild(str(self.id), {
-            "ID" : self.id,
-            "GUILD_ID" : self.id,
-            "HIRED_HEROS" : self.hired_heros_dic,
-            "QUESTS" : self.quest_list,
-            "QUEST_HISTORY" : self.quest_history,
-            "PARTIES" : self.party_dic,
-            "FUNDS" : self.funds
+            "ID": self.id,
+            "GUILD_ID": self.id,
+            "HIRED_HEROS": self.hired_heros_dic,
+            "QUESTS": self.quest_list,
+            "QUEST_HISTORY": self.quest_history,
+            "PARTIES": self.party_dic,
+            "FUNDS": self.funds
         })
 
     def __str__(self) -> str:
