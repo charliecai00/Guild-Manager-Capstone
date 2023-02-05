@@ -8,9 +8,13 @@ from game.object_classes.guild import Guild
 from game.object_classes.hero import Hero
 from game.object_classes.map_tile import MapTile
 from game.object_classes.map import Map
-from db.guild import *
-from db.hero import *
-from db.quest import *
+from db.guild import add_guild
+from db.guild import GUILD_ID
+from db.hero import add_hero
+from db.hero import hero_exists
+from db.hero import get_hero_details
+from db.quest import get_quest_details
+from db.quest import quest_exists
 
 
 class Game:
@@ -28,7 +32,8 @@ class Game:
 
     def Create_Guild(self) -> Guild:
         ret_guild = Guild(self.GUILD_ID)
-        ### ret_guild should return a dictionary because add_guild() takes (name, detail as dic)
+        #** ret_guild should return a dictionary because
+        #** add_guild() takes (name, detail as dic)
         add_guild(GUILD_ID, vars(ret_guild))
         self.GUILD_ID += 1
         return ret_guild
@@ -41,7 +46,7 @@ class Game:
             self.HERO_ID += 1
         return self.HERO_ID
 
-    def Find_Heros(self, hero_id) -> int: #return int?
+    def Find_Heros(self, hero_id) -> int:  # return int?
         if hero_exists(hero_id):
             return None
         else:
