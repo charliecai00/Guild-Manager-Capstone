@@ -5,6 +5,7 @@ from random import randrange
 from game.object_classes.character import Character
 from game.game_math.random import RandomNormalClamped
 import game.object_classes.static_consts as sc
+import db.hero
 
 
 class Hero(Character):
@@ -29,6 +30,16 @@ class Hero(Character):
         self.health = 2
         self.alive = True
         self.cost = 5
+        db.hero.add_hero(self.name, {
+            "ID": self.id,
+            "STATS": self.stats,
+            "ITEMS": self.items,
+            "NAME": self.name,
+            "HERO_ID": self.id,
+            "HEALTH": self.health,
+            "ALIVE": self.alive,
+            "COST": self.cost
+        })
 
     def __str__(self) -> str:
         s = "Name: {}, Health: {}, Stats: {}, Items: {}, Cost: {}\n".format(
