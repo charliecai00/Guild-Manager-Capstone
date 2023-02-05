@@ -31,14 +31,14 @@ class Hero(Character):
         self.alive = True
         self.cost = 5
         db.hero.add_hero(self.name, {
-            "ID": self.id,
-            "STATS": self.stats,
-            "ITEMS": self.items,
-            "NAME": self.name,
+            "id": self.id,
+            "stats": self.stats,
+            "items": self.items,
+            "name": self.name,
             "HERO_ID": self.id,
-            "HEALTH": self.health,
-            "ALIVE": self.alive,
-            "COST": self.cost
+            "health": self.health,
+            "alive": self.alive,
+            "cost": self.cost
         })
 
     def __str__(self) -> str:
