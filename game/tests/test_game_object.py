@@ -32,7 +32,7 @@ def test_hire_hero(temp_game_object):
 def test_guild_status(temp_game_object):
     print(temp_game_object.Guild_Status)
     pass
-    
+
 
 def test_get_quest(temp_game_object):
     print(temp_game_object.Get_Quest)
@@ -46,3 +46,6 @@ def test_find_quest(temp_game_object):
 def test_create_map(temp_game_object):
     game_map = go.Game.Create_Map()
     assert isinstance(game_map, Map)
+
+# def test_get_map(temp_game_object):
+#     assert temp_game_object.Get_Location('0') is str

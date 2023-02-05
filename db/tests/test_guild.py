@@ -1,7 +1,6 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-# import os 
 import pytest
 import db.guild as gu
 
@@ -21,7 +20,7 @@ def temp_guild():
     gu.add_guild(gu.TEST_GUILD, create_guild_details())
     yield
     gu.del_guild(gu.TEST_GUILD)
-    
+
 
 @pytest.fixture(scope='function')
 def new_guild():
@@ -49,7 +48,7 @@ def test_get_guild_details(temp_guild):
     ch_dets = gu.get_guild_details(gu.TEST_GUILD)
     assert isinstance(ch_dets, dict)
 
-    
+
 def TEST_GUILD_exists(temp_guild):
     assert gu.guild_exists(gu.TEST_GUILD)
 

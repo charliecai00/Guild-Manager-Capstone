@@ -1,7 +1,7 @@
 # Useful local testing script for game_object
 # Informal file; created for convenience
 
-from game_object import Game
+from game.game_object import Game
 
 game = Game()
 

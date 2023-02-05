@@ -10,10 +10,10 @@ from game.object_classes.hero import Hero
 class Test(unittest.TestCase):
     def setUp(self):
         self.test_game = game_object.Game()
-    
+
     def tearDown(self):
         self.test_game = None
-        
+
     def addHeroes(self, num=10):
         last_hero_id = self.test_game.Add_Heros(num, "mage")
         return last_hero_id
@@ -21,7 +21,8 @@ class Test(unittest.TestCase):
     def test_AddHeroes(self):
         last_hero_id = self.addHeroes()
         print("last hero id is ", last_hero_id)
-        self.assertIsInstance(self.test_game.full_hero_dic[last_hero_id - 1], Hero)
+        self.assertIsInstance(self.test_game.full_hero_dic[last_hero_id - 1],
+                              Hero)
 
     def hireHeroes(self, id=0):
         is_hired = self.test_game.Hire_Hero(id)
@@ -52,7 +53,9 @@ class Test(unittest.TestCase):
         self.addHeroes()
         self.hireHeroes(0)
         self.hireHeroes(1)
-        hero_not_hired_by_guild = self.test_game.Add_Party_With_Heros([0, 2], "test_party")
+        hero_not_hired_by_guild = self.test_game.Add_Party_With_Heros(
+            [0, 2],
+            "test_party")
         self.assertEqual(hero_not_hired_by_guild, False)
 
     def test_FireHero(self):
