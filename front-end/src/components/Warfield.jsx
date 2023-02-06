@@ -1,7 +1,10 @@
-<!DOCTYPE html><!-- This site was created in Webflow. https://www.webflow.com -->
-<!-- Last Published: Sat Feb 04 2023 21:44:05 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-domain="guildmanager.webflow.io" data-wf-page="63dd45a8633810456639e95d"
-    data-wf-site="63dd34e66ca34e4b9f4199d7">
+import React from "react";
+import './Warfield.css';
+import { Link } from "react-router-dom";
+
+const Warfield = () => {
+  return (
+    <div>
 
 <head>
     <meta charset="utf-8" />
@@ -12,16 +15,9 @@
     <meta content="Webflow" name="generator" />
     <link href="./warfield.css"
         rel="stylesheet" type="text/css" />
-    <!-- <link href="https://uploads-ssl.webflow.com/63dd34e66ca34e4b9f4199d7/css/guildmanager.webflow.5ddbad652.css"
-        rel="stylesheet" type="text/css" /> -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-    <script
-        type="text/javascript">WebFont.load({ google: { families: ["Great Vibes:400", "Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic", "Oswald:200,300,400,500,600,700", "Changa One:400,400italic"] } });</script>
-    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif]-->
-    <script
-        type="text/javascript">!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);</script>
     <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
 </head>
@@ -33,8 +29,10 @@
             <div class="container-5 w-container"><a href="#" class="brand w-nav-brand"><img
                         src="https://uploads-ssl.webflow.com/63dd34e66ca34e4b9f4199d7/63de9aa447ab585d1895c3fb_logo.png"
                         loading="lazy" width="66" alt="" /></a>
-                <nav role="navigation" class="w-nav-menu"><a href="./home.html" class="nav-link w-nav-link">Home</a><a
-                        href="./warfield.html" aria-current="page" class="nav-link-2 w-nav-link w--current">WarField</a></nav>
+                <nav role="navigation" class="w-nav-menu">
+                    <Link to="/" aria-current="page" class="nav-link w-nav-link w--current">Home</Link>
+                    <Link to="/warfield" class="nav-link-2 w-nav-link">WarField</Link>
+                </nav>
                 <div class="w-nav-button">
                     <div class="w-icon-nav-menu"></div>
                 </div>
@@ -84,7 +82,10 @@
         crossorigin="anonymous"></script>
     <script src="https://uploads-ssl.webflow.com/63dd34e66ca34e4b9f4199d7/js/webflow.942be9691.js"
         type="text/javascript"></script>
-    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
 
-</html>
+    </div>
+  );
+};
+  
+export default Warfield;

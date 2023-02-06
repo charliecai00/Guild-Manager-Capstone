@@ -1,89 +1,46 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+// importing components from react-router-dom package
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
+// import Home component
+import Home from "./components/Home";
+// import About component
+import Warfield from "./components/Warfield";
 
 
-const App = ({ word }) => {
-  const [guess, setGuess] = useState('')
-  const [guesses, setGuesses] = useState([])
-  const [correctGuess, setCorrectGuess] = useState(false)
-
-  const handleGuess = evt => {
-    setGuesses(prevGuesses => [...prevGuesses, guess])
-    setGuess('')
-    if(guess === word) {
-      setCorrectGuess(true)
-    }
-  }
-
-  const handleChange = evt => {
-    setGuess(evt.target.value)
-  }
-
-  const wordArr = [...word]
-  const guessElements = guesses.map(w => {
-    return <Guess key={w} guess={[...w]} secret={wordArr} /> 
-  })
-
-  let guessForm = (
-    <GuessForm 
-        handleGuess={handleGuess} 
-        handleChange={handleChange}
-        value={guess}
-    />)
-
-  return (
-    <div className="game">
-      <h2>Wordle Wide Web</h2>
-      {guessElements}
-      {correctGuess ? <h2>Correct!</h2> : guessForm}
-    </div>
-  )
-}
-
-const GuessForm = ({ handleGuess, handleChange, value }) => {
+const App = () => {
   return (
     <>
-    <input type="text" value={value} onChange={handleChange} />
-    <button onClick={handleGuess}>Guess</button>
+      <Router>
+        <Routes>
+          {/* This route is for home component 
+          with exact path "/", in component props 
+          we passes the imported component*/
+          }
+          {/* <Route exact path="/" component={Home} /> */}
+          <Route path='/' element={<Home/>} />
+          {/* This route is for about component 
+          with exact path "/about", in component 
+          props we passes the imported component*/}
+          {/* <Route path="/warfield" component={Warfield} /> */}
+          <Route path='/warfield' element={<Warfield/>} />
+            
+          {/* If any route mismatches the upper 
+          route endpoints then, Navigate triggers 
+          and Navigates app to home component with to="/" */}
+          <Route path='*' element={<Navigate replace to="/" />} />
+        </Routes>
+      </Router>
     </>
   )
 }
 
-const Guess = ({ guess, secret }) => {
-  const letters = guess.map((letter, i) => {
-    return (
-      <div key={letter+i} className={letter === secret[i] ? 'match': 'unmatch'}>
-        {letter}
-      </div>
-    )
-  })
-  return (
-    <div className='word'>
-      { letters } 
-    </div>
-  ) 
-}
 
 export default App;
