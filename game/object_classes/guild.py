@@ -4,6 +4,7 @@ import copy
 from game.object_classes.hero import Hero
 from game.object_classes.party import Party
 from game.object_classes.quest import Quest
+import db.guild
 
 
 class Guild:
@@ -16,6 +17,16 @@ class Guild:
         self.quest_list = []
         self.quest_history = []
         self.funds = 100
+        db.guild.add_guild(str(self.id), {
+            "id": self.id,
+            "PART_ID": self.id,
+            "hired_heros_list": self.hired_heros_dic,
+            "groups_list": self.groups_list,
+            "quest_list": self.quest_list,
+            "quest_history": self.quest_history,
+            "party_list": self.party_dic,
+            "funds": self.funds
+        })
 
     def __str__(self) -> str:
         return "Funds: {} Heros: {} Parties: {} Quests: {}".format(

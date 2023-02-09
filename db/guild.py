@@ -13,7 +13,7 @@ ID = 'id'
 GUILD_ID = 'PART_ID'
 HIRED_HEROS = 'hired_heros_list'
 GROUPS = 'groups_list'
-QEUSTS = 'quest_list'
+QUESTS = 'quest_list'
 QUEST_HISTORY = 'quest_history'
 PARTIES = 'party_list'
 FUNDS = 'funds'
@@ -24,11 +24,11 @@ GUILD_COLLECT = 'Guilds'
 REQUIRED_FLDS = [ID, GUILD_ID, HIRED_HEROS]
 
 guilds = {TEST_GUILD: {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS: [],
-                       QEUSTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0},
+                       QUESTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0},
           'guild2': {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS: [],
-                     QEUSTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0},
+                     QUESTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0},
           'guild3': {ID: 6, GUILD_ID: 1, HIRED_HEROS: 2, GROUPS: [],
-                     QEUSTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0}}
+                     QUESTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0}}
 
 
 def get_guild_details(guild):
