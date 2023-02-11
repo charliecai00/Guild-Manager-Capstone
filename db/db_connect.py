@@ -4,9 +4,6 @@
 import os
 import pymongo as pm
 
-LOCAL = "0"
-CLOUD = "1"
-
 DB = "Guild_Manager"
 
 client = None
@@ -15,23 +12,15 @@ client = None
 def connect_db():
     global client
     if client is None:  # not connected yet!
-        print("Setting client because it is None.")
-        if os.environ.get("CLOUD_MONGO", LOCAL) == CLOUD:
-            password = os.environ.get("MONGO_PW")
-            if not password:
-                raise ValueError('You must set your password to use \
-                    Mongo in the cloud.')
-            print("Connecting to Mongo in the cloud.")
-            # client = pm.MongoClient('mongodb+srv://db_connecr:{password}'
-            #                         + '@guild-manager.kr7jklo.mongodb.net/'
-            #                         + '?retryWrites=true&w=majority')
-            client = pm.MongoClient("mongodb+srv://db_connect:\
-                {}@guild-manager.kr7jklo.mongodb.net/?\
-                retryWrites=true&w=majority".format(password))
-        else:
-            print("Connecting to Mongo locally.")
-            client = pm.MongoClient()
-
+        password = os.environ.get("MONGO_PW")
+        if not password:
+            raise ValueError('You must set your password to use \
+                Mongo in the cloud.')
+        print("Connecting to Mongo in the cloud.")
+        client = pm.MongoClient("mongodb+srv://db_connect:LVeg9jwn4riFo6vF"
+                                + "@guild-manager.kr7jklo.mongodb.net/"
+                                + "?retryWrites=true&w=majority")
+        
 
 def insert_one(collection, doc, db=DB):
     """
@@ -42,7 +31,7 @@ def insert_one(collection, doc, db=DB):
 
 def fetch_one(collection, filt, db=DB):
     """
-    Find a filter and return on the first foc found.
+    Find a filter and return on the first doc found.
     """
     for doc in client[db][collection].find(filt):
         return doc
@@ -68,3 +57,6 @@ def fetch_all_as_dict(key, collection, db=DB):
         del doc['_id']
         ret[doc[key]] = doc
     return ret
+
+def fetch_field(field, collection, db=DB):
+    return client[db][collection].distinct(field)

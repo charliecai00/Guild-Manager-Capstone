@@ -31,9 +31,13 @@ dummy_game = {TEST_GAME_NAME1: {HERO_ID: [1,2,3],
 #     return dbc.fetch_all_as_dict(GAME_KEY, GAME_COLLECT)
 
 
-def get_games():
+def get_field(field):
+    """
+    parameter: takes a field, ex. HERO_ID
+    return: a list of values, [1,2,3]
+    """
     dbc.connect_db()
-    return dbc.fetch_all(GAME_COLLECT)
+    return dbc.fetch_field(field, GAME_COLLECT)
 
 
 def initialize_game(details):
@@ -41,7 +45,7 @@ def initialize_game(details):
     details shoudld be:
     {HERO_ID: [],
     QUEST_ID: [],
-    GUILD_ID: None}
+    GUILD_ID: []}
     """
     dbc.connect_db()
     return dbc.insert_one(GAME_COLLECT, details)
@@ -53,17 +57,16 @@ def initialize_game(details):
 
 
 # def main():
-#     print('Adding games')
-#     add_game(TEST_GAME_NAME1, dummy_game[TEST_GAME_NAME1])
-#     add_game(TEST_GAME_NAME2, dummy_game[TEST_GAME_NAME2])
-#     print('Getting games as a list:')
-#     games = get_games()
-#     print(f'{games=}')
-#     print('Getting games as a dict:')
-#     games = get_games_dict()
-#     print(f'{games=}')
-#     print(f'{get_game_details(TEST_GAME_NAME1)=}')
+    # print('Adding games')
+    # initialize_game(dummy_game[TEST_GAME_NAME1])
+    # print('Getting games as a list:')
+    # games = get_games()
+    # print(f'{games=}')
+    # print('Getting games as a dict:')
+    # games = get_games_dict()
+    # print(f'{games=}')
+    # print(f'{get_game_details(TEST_GAME_NAME1)=}')
 
 
 # if __name__ == '__main__':
-#     main()
+    # main()
