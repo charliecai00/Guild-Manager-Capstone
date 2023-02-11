@@ -17,6 +17,7 @@ class Game:
         self.HERO_ID = 0
         self.QUEST_ID = 0
         self.LOCALE_ID = 0
+        self.PARTY_ID = 0
         # will be modified to multiple guilds in the future
         self.guild = self.Create_Guild()
         self.map = self.Create_Map()
