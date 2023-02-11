@@ -3,57 +3,66 @@
 
 import db.db_connect as dbc
 
-CHALLENGE = 'challenge'
-CHECK_STAT = 'check_stat'
-CHILDREN = 'children'
-TERMINAL = 'terminal'
-PARENT = 'parent'
-DONE = 'done'
-DEPTH = 'depth'
+ID = 'ID'
+NAME = 'NAME'
+CHALLENGE = 'CHALLENGE'
+DIFFICULTY = 'DIFFICULTY'
+PURCHASE = 'PURCHASE'
 
-QUEST_KEY = 'name'
+QUEST_KEY = 'ID'
 QUEST_COLLECT = 'Quests'
 
-TEST_QUEST = 'test_quest'
-REQUIRED_FLDS = [CHALLENGE, CHILDREN, TERMINAL, PARENT, DONE, DEPTH]
-dummy_quest = {TEST_QUEST: {CHALLENGE: "object",
-                            CHILDREN: [],
-                            TERMINAL: False,
-                            PARENT: None,
-                            DONE: False,
-                            DEPTH: 0
-                            }}
+TEST_QUEST = 'TEST_QUEST'
+REQUIRED_FLDS = [ID, NAME, CHALLENGE, PURCHASE]
+dummy_quest = {TEST_QUEST: {ID: 1,
+                            NAME: "Temporary Quest",
+                            CHALLENGE: [1,2,3],
+                            PURCHASE: False}}
 
 
-def get_quest_details(name):
+def get_unpurchase_quest():
+    """
+    return: a list of values, [1,2,3]
+    """
     dbc.connect_db()
-    return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: name})
+    all_quest = dbc.fetch_all(QUEST_COLLECT)
+    
+    unpurchase = []
+    for i in all_quest:
+        if i[PURCHASE] == False:
+            unpurchase.append(i)
+    return unpurchase
 
 
-def quest_exists(name):
-    return get_quest_details(name) is not None
+# def get_quest_details(name):
+#     dbc.connect_db()
+#     return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
-def get_quests_dict():
-    dbc.connect_db()
-    return dbc.fetch_all_as_dict(QUEST_KEY, QUEST_COLLECT)
+# def quest_exists(name):
+#     return get_quest_details(name) is not None
 
 
-def get_quests():
-    dbc.connect_db()
-    return dbc.fetch_all(QUEST_COLLECT)
+# def get_quests_dict():
+#     dbc.connect_db()
+#     return dbc.fetch_all_as_dict(QUEST_KEY, QUEST_COLLECT)
 
 
-def add_quest(name, details):
-    doc = details
-    dbc.connect_db()
-    doc[QUEST_KEY] = name
-    return dbc.insert_one(QUEST_COLLECT, doc)
+# def get_quests():
+#     dbc.connect_db()
+#     return dbc.fetch_all(QUEST_COLLECT)
 
 
-def del_quest(name):
-    dbc.connect_db()
-    return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
+# def add_quest(name, details):
+#     doc = details
+#     dbc.connect_db()
+#     doc[QUEST_KEY] = name
+#     return dbc.insert_one(QUEST_COLLECT, doc)
+
+
+# def del_quest(name):
+#     dbc.connect_db()
+#     return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
 # def main():

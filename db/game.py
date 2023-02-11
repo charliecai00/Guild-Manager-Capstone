@@ -17,6 +17,26 @@ dummy_game = {TEST_GAME_NAME1: {HERO_ID: [1,2,3],
                                 GUILD_ID: [1,2,3]}}
 
 
+def initialize_game(details):
+    """
+    details shoudld be:
+    {HERO_ID: [],
+    QUEST_ID: [],
+    GUILD_ID: []}
+    """
+    dbc.connect_db()
+    return dbc.insert_one(GAME_COLLECT, details)
+
+
+def get_field(field):
+    """
+    parameter: takes a field, ex. HERO_ID
+    return: a list of values, [1,2,3]
+    """
+    dbc.connect_db()
+    return dbc.fetch_field(field, GAME_COLLECT)
+
+
 # def get_game_details(game):
 #     dbc.connect_db()
 #     return dbc.fetch_one(GAME_COLLECT, {GAME_KEY: game})
@@ -29,26 +49,6 @@ dummy_game = {TEST_GAME_NAME1: {HERO_ID: [1,2,3],
 # def get_games_dict():
 #     dbc.connect_db()
 #     return dbc.fetch_all_as_dict(GAME_KEY, GAME_COLLECT)
-
-
-def get_field(field):
-    """
-    parameter: takes a field, ex. HERO_ID
-    return: a list of values, [1,2,3]
-    """
-    dbc.connect_db()
-    return dbc.fetch_field(field, GAME_COLLECT)
-
-
-def initialize_game(details):
-    """
-    details shoudld be:
-    {HERO_ID: [],
-    QUEST_ID: [],
-    GUILD_ID: []}
-    """
-    dbc.connect_db()
-    return dbc.insert_one(GAME_COLLECT, details)
 
 
 # def del_game(name):

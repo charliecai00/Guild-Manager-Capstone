@@ -29,21 +29,6 @@ def insert_one(collection, doc, db=DB):
     client[db][collection].insert_one(doc)
 
 
-def fetch_one(collection, filt, db=DB):
-    """
-    Find a filter and return on the first doc found.
-    """
-    for doc in client[db][collection].find(filt):
-        return doc
-
-
-def del_one(collection, filt, db=DB):
-    """
-    Find with a filter and return on the first doc found.
-    """
-    client[db][collection].delete_one(filt)
-
-
 def fetch_all(collection, db=DB):
     ret = []
     for doc in client[db][collection].find():
@@ -58,5 +43,21 @@ def fetch_all_as_dict(key, collection, db=DB):
         ret[doc[key]] = doc
     return ret
 
+
 def fetch_field(field, collection, db=DB):
     return client[db][collection].distinct(field)
+
+
+def fetch_one(collection, filt, db=DB):
+    """
+    Find a filter and return on the first doc found.
+    """
+    for doc in client[db][collection].find(filt):
+        return doc
+
+
+def del_one(collection, filt, db=DB):
+    """
+    Find with a filter and return on the first doc found.
+    """
+    client[db][collection].delete_one(filt)
