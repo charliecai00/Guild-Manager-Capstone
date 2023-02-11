@@ -16,7 +16,7 @@ TEST_QUEST = 'TEST_QUEST'
 REQUIRED_FLDS = [ID, NAME, CHALLENGE, PURCHASE]
 dummy_quest = {TEST_QUEST: {ID: 1,
                             NAME: "Temporary Quest",
-                            CHALLENGE: [1,2,3],
+                            CHALLENGE: [1, 2, 3],
                             PURCHASE: False}}
 
 
@@ -26,10 +26,10 @@ def get_unpurchase_quest():
     """
     dbc.connect_db()
     all_quest = dbc.fetch_all(QUEST_COLLECT)
-    
+
     unpurchase = []
     for i in all_quest:
-        if i[PURCHASE] == False:
+        if i[PURCHASE] is False:
             unpurchase.append(i)
     return unpurchase
 

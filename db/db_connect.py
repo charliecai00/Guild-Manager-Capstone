@@ -20,7 +20,7 @@ def connect_db():
         client = pm.MongoClient("mongodb+srv://db_connect:LVeg9jwn4riFo6vF"
                                 + "@guild-manager.kr7jklo.mongodb.net/"
                                 + "?retryWrites=true&w=majority")
-        
+
 
 def insert_one(collection, doc, db=DB):
     """

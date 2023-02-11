@@ -12,9 +12,9 @@ GAME_COLLECT = 'Games'
 
 TEST_GAME_NAME1 = 'test_game1'
 REQUIRED_FLDS = [HERO_ID, QUEST_ID, GUILD_ID]
-dummy_game = {TEST_GAME_NAME1: {HERO_ID: [1,2,3],
-                                QUEST_ID: [1,2,3],
-                                GUILD_ID: [1,2,3]}}
+dummy_game = {TEST_GAME_NAME1: {HERO_ID: [1, 2, 3],
+                                QUEST_ID: [1, 2, 3],
+                                GUILD_ID: [1, 2, 3]}}
 
 
 def initialize_game(details):

@@ -37,10 +37,10 @@ def get_unemploy_hero():
     """
     dbc.connect_db()
     all_heros = dbc.fetch_all(HERO_COLLECT)
-    
+
     unemploy = []
     for i in all_heros:
-        if i[HIRE] == False:
+        if i[HIRE] is False:
             unemploy.append(i)
     return unemploy
 
