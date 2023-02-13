@@ -8,25 +8,29 @@ import db.guild
 
 
 class Guild:
-    def __init__(self, new_id) -> None:
+    def __init__(self, new_id, new_name) -> None:
         self.id = new_id
-        self.PARTY_ID = 0
+        self.name = new_name
+        self.hero_ids = []
+        self.quest_ids = []
+        self.party_ids = []
         self.party_dic = {}
         self.hired_heros_dic = {}
-        self.groups_list = []
         self.quest_list = []
         self.quest_history = []
         self.funds = 100
-        db.guild.add_guild(str(self.id), {
+        db.guild.add_guild(str(self.id), self.as_dict())
+
+    def as_dict(self):
+        return {
             "id": self.id,
             "PART_ID": self.id,
             "hired_heros_list": self.hired_heros_dic,
-            "groups_list": self.groups_list,
             "quest_list": self.quest_list,
             "quest_history": self.quest_history,
             "party_list": self.party_dic,
             "funds": self.funds
-        })
+        }
 
     def __str__(self) -> str:
         return "Funds: {} Heros: {} Parties: {} Quests: {}".format(
