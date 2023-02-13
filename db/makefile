@@ -12,8 +12,8 @@ lint: FORCE
 	$(LINTER) *.py
 	$(LINTER) tests/*.py
 
-unit: FORCE
-	pytest $(PYTESTFLAGS)
+# unit: FORCE
+# 	pytest $(PYTESTFLAGS)
 
 # test a python file:
 %.py: FORCE

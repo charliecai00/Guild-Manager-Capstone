@@ -7,56 +7,73 @@ import db.db_connect as dbc
 This module encapsulates details about guilds.
 """
 
+ID = 'ID'
+NAME = 'NAME'
+HIRED_HERO = 'HIRED_HERO'
+PURCHASED_QUEST = 'PURCHASED_QUEST'
+CREATED_PARTY = 'CREATED_PARTY'
+FUNDS = 'FUNDS'
 
-TEST_GUILD = 'test_guild'
-ID = 'id'
-GUILD_ID = 'PART_ID'
-HIRED_HEROS = 'hired_heros_list'
-GROUPS = 'groups_list'
-QUESTS = 'quest_list'
-QUEST_HISTORY = 'quest_history'
-PARTIES = 'party_list'
-FUNDS = 'funds'
-
-GUILD_KEY = 'name'
+GUILD_KEY = 'ID'
 GUILD_COLLECT = 'Guilds'
 
-REQUIRED_FLDS = [ID, GUILD_ID, HIRED_HEROS]
+TEST_GUILD = 'test_guild'
+REQUIRED_FLDS = [ID, NAME, HIRED_HERO, PURCHASED_QUEST, CREATED_PARTY, FUNDS]
+dummy_guilds = {TEST_GUILD: {ID: 1,
+                             NAME: "Temporary Guild",
+                             HIRED_HERO: [1, 2, 3],
+                             PURCHASED_QUEST: [1, 2, 3],
+                             CREATED_PARTY: ["TempParty1", "TempParty2"],
+                             FUNDS: 9999999}}
 
-guilds = {TEST_GUILD: {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS: [],
-                       QUESTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0},
-          'guild2': {ID: 9, GUILD_ID: 9, HIRED_HEROS: 2, GROUPS: [],
-                     QUESTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0},
-          'guild3': {ID: 6, GUILD_ID: 1, HIRED_HEROS: 2, GROUPS: [],
-                     QUESTS: [], QUEST_HISTORY: [], PARTIES: [], FUNDS: 0}}
 
-
-def get_guild_details(guild):
+def add_guild(details):
     dbc.connect_db()
-    return dbc.fetch_one(GUILD_COLLECT, {GUILD_KEY: guild})
+    return dbc.insert_one(GUILD_COLLECT, details)
 
 
-def guild_exists(name):
-    return get_guild_details(name) is not None
-
-
-def get_guilds_dict():
+def get_field(field):
+    """
+    parameter: takes a field, ex. HERO_ID
+    return: a list of values, [1,2,3]
+    """
     dbc.connect_db()
-    return dbc.fetch_all_as_dict(GUILD_KEY, GUILD_COLLECT)
+    return dbc.fetch_field(field, GUILD_COLLECT)
 
 
 def get_guilds():
+    """
+    return a list of dictionary guilds [{...},{...},{...}]
+    """
     dbc.connect_db()
     return dbc.fetch_all(GUILD_COLLECT)
 
 
-def add_guild(name, details):
-    doc = details
-    dbc.connect_db()
-    doc[GUILD_KEY] = name
-    return dbc.insert_one(GUILD_COLLECT, doc)
+# def del_guild(ID):
+#     dbc.connect_db()
+#     return dbc.del_one(GUILD_COLLECT, {GUILD_KEY: ID})
 
 
-def del_guild(name):
-    dbc.connect_db()
-    return dbc.del_one(GUILD_COLLECT, {GUILD_KEY: name})
+# def get_guild_details(guild):
+#     dbc.connect_db()
+#     return dbc.fetch_one(GUILD_COLLECT, {GUILD_KEY: guild})
+
+
+# def guild_exists(name):
+#     return get_guild_details(name) is not None
+
+
+# def get_guilds_dict():
+#     dbc.connect_db()
+#     return dbc.fetch_all_as_dict(GUILD_KEY, GUILD_COLLECT)
+
+# def main():
+#     print('Adding guilds')
+#     add_guild(dummy_guilds[TEST_GUILD])
+#     print('Getting games as a list:')
+#     guilds = get_guilds()
+#     print(f'{guilds=}')
+
+
+# if __name__ == '__main__':
+#     main()

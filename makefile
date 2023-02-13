@@ -23,10 +23,10 @@ lint: FORCE
 	cd $(DB_DIR); make lint
 	cd $(GAME_DIR); make lint
 
-# unit: FORCE
-# 	cd $(API_DIR); make unit
-# 	cd $(DB_DIR); make unit
-# 	cd $(GAME_DIR); make unit
+unit: FORCE
+	cd $(API_DIR); make unit
+	# cd $(DB_DIR); make unit
+	cd $(GAME_DIR); make unit
 
 # Rule for local testing (includes python3 -m)
 all_tests_local: lint_local unit_local

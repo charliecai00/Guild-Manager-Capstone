@@ -3,62 +3,70 @@
 
 import db.db_connect as dbc
 
+ID = 'ID'
+STATS = 'STATS'
+NAME = 'NAME'
+HEALTH = 'HEALTH'
+ALIVE = 'ALIVE'
+COST = 'COST'
+HIRE = 'HIRE'
 
-ID = 'id'
-STATS = 'stats'
-ITEMS = 'items'
-NAME = 'name'
-HERO_ID = 'HERO_ID'
-HEALTH = 'health'
-ALIVE = 'alive'
-COST = 'cost'
-
-HERO_KEY = 'name'
-HERO_COLLECT = 'Heros'
+HERO_KEY = 'ID'
+HERO_COLLECT = 'Hero'
 
 TEST_HERO = 'test_hero'
-REQUIRED_FLDS = [ID, STATS, ITEMS, NAME, HERO_ID, HEALTH, ALIVE, COST]
+REQUIRED_FLDS = [ID, STATS, NAME, HEALTH, ALIVE, COST]
 dummy_hero = {TEST_HERO: {ID: 1,
                           STATS: {"STR": 20, "CON": 20, "DEX": 20,
                                   "WIS": 20, "INT": 20, "CHA": 20},
-                          ITEMS: [],
-                          NAME: "1",
-                          HERO_ID: 1,
-                          HEALTH: 2,
+                          NAME: "Temporary Hero",
+                          HEALTH: 100,
                           ALIVE: True,
-                          COST: 5
-                          }}
+                          HIRE: True,
+                          COST: 100}}
 
 
-def get_hero_details(name):
+def add_hero(details):
     dbc.connect_db()
-    return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: name})
+    return dbc.insert_one(HERO_COLLECT, details)
 
 
-def hero_exists(name):
-    return get_hero_details(name) is not None
-
-
-def get_heros_dict():
+def get_unemploy_hero():
+    """
+    return: a list of values, [1,2,3]
+    """
     dbc.connect_db()
-    return dbc.fetch_all_as_dict(HERO_KEY, HERO_COLLECT)
+    all_heros = dbc.fetch_all(HERO_COLLECT)
+
+    unemploy = []
+    for i in all_heros:
+        if i[HIRE] is False:
+            unemploy.append(i)
+    return unemploy
 
 
-def get_heros():
-    dbc.connect_db()
-    return dbc.fetch_all(HERO_COLLECT)
+# def get_hero_details(name):
+#     dbc.connect_db()
+#     return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: name})
 
 
-def add_hero(name, details):
-    doc = details
-    dbc.connect_db()
-    doc[HERO_KEY] = name
-    return dbc.insert_one(HERO_COLLECT, doc)
+# def hero_exists(name):
+#     return get_hero_details(name) is not None
 
 
-def del_hero(name):
-    dbc.connect_db()
-    return dbc.del_one(HERO_COLLECT, {HERO_KEY: name})
+# def get_heros_dict():
+#     dbc.connect_db()
+#     return dbc.fetch_all_as_dict(HERO_KEY, HERO_COLLECT)
+
+
+# def get_heros():
+#     dbc.connect_db()
+#     return dbc.fetch_all(HERO_COLLECT)
+
+
+# def del_hero(ID):
+#     dbc.connect_db()
+#     return dbc.del_one(HERO_COLLECT, {HERO_KEY: ID})
 
 
 # def main():
