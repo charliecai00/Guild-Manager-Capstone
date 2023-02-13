@@ -1,13 +1,13 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-from game.game_math.random import RandomRange
+# from game.game_math.random import RandomRange
 # from game.object_classes.challenge import Challenge
 from game.object_classes.quest import Quest
 from game.object_classes.guild import Guild
 from game.object_classes.hero import Hero
-from game.object_classes.map_tile import MapTile
-from game.object_classes.map import Map
+# from game.object_classes.map_tile import MapTile
+# from game.object_classes.map import Map
 
 
 class Game:
@@ -17,9 +17,10 @@ class Game:
         self.HERO_ID = 0
         self.QUEST_ID = 0
         self.LOCALE_ID = 0
+        self.PARTY_ID = 0
         # will be modified to multiple guilds in the future
         self.guild = self.Create_Guild()
-        self.map = self.Create_Map()
+        # self.map = self.Create_Map()
         self.full_hero_dic = {}
         self.full_quest_list = []
 
@@ -30,7 +31,7 @@ class Game:
 
     def Add_Heros(self, count=10, type=None) -> int:
         for i in range(count):
-            self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID, type)
+            self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID)
             self.HERO_ID += 1
         return self.HERO_ID
 
@@ -110,17 +111,17 @@ class Game:
             return False
         return self.guild.Send_Quest(party_name, self.Find_Quest(quest_name))
 
-    def Create_Map(self) -> Map:
-        locales = Map()
-        coordinates = []
-        while len(coordinates) < 5:
-            coords = (RandomRange(0, 10), RandomRange(0, 10))
-            if coords in coordinates:
-                continue
-            coordinates.append(coords)
-            locales.locations[coords] = MapTile(self.LOCALE_ID)
-            self.LOCALE_ID += 1
-        return locales
+    # def Create_Map(self) -> Map:
+    #     locales = Map()
+    #     coordinates = []
+    #     while len(coordinates) < 5:
+    #         coords = (RandomRange(0, 10), RandomRange(0, 10))
+    #         if coords in coordinates:
+    #             continue
+    #         coordinates.append(coords)
+    #         locales.locations[coords] = MapTile(self.LOCALE_ID)
+    #         self.LOCALE_ID += 1
+    #     return locales
     # def Get_Location(self, name) -> MapTile:
     #     for locale in self.map:
     #         if locale[1].name == name:
