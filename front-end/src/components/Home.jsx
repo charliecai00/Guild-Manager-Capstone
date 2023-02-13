@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div class="body-2">
+        <div className="body-2">
             <section className="features-table wf-section">
                 <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease"
                     role="banner" className="navbar w-nav">
