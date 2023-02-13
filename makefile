@@ -10,7 +10,7 @@ export PYTHONPATH = $(CURRDIR)
 
 FORCE: 
 
-# all_tests: lint unit
+all_tests: lint # unit
 
 dev_env: FORCE
 	pip3 install -r ./requirements-dev.txt
