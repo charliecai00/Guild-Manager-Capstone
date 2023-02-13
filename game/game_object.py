@@ -31,7 +31,7 @@ class Game:
 
     def Add_Heros(self, count=10, type=None) -> int:
         for i in range(count):
-            self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID, type)
+            self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID)
             self.HERO_ID += 1
         return self.HERO_ID
 
