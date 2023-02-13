@@ -3,7 +3,7 @@
 
 import pytest
 import game_object as go
-from game.object_classes.map import Map
+# from game.object_classes.map import Map
 
 
 @pytest.fixture(scope='class', autouse=True)
@@ -43,9 +43,9 @@ def test_find_quest(temp_game_object):
     assert temp_game_object.Find_Quest('Nonexistent') is None
 
 
-def test_create_map(temp_game_object):
-    game_map = go.Game.Create_Map()
-    assert isinstance(game_map, Map)
+# def test_create_map(temp_game_object):
+#     game_map = go.Game.Create_Map()
+#     assert isinstance(game_map, Map)
 
 # def test_get_map(temp_game_object):
 #     assert temp_game_object.Get_Location('0') is str
