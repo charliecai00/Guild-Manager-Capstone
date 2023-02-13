@@ -8,7 +8,7 @@ import db.guild
 
 
 class Guild:
-    def __init__(self, new_id, new_name) -> None:
+    def __init__(self, new_id, new_name="TestGuild") -> None:
         self.id = new_id
         self.name = new_name
         self.hero_ids = []
