@@ -17,6 +17,7 @@ class Game:
         self.HERO_ID = 0
         self.QUEST_ID = 0
         self.LOCALE_ID = 0
+        self.PARTY_ID = 0
         # will be modified to multiple guilds in the future
         self.guild = self.Create_Guild()
         self.map = self.Create_Map()
@@ -30,7 +31,7 @@ class Game:
 
     def Add_Heros(self, count=10, type=None) -> int:
         for i in range(count):
-            self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID, type)
+            self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID)
             self.HERO_ID += 1
         return self.HERO_ID
 
