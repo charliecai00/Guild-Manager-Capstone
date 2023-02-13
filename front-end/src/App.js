@@ -17,7 +17,6 @@ import Warfield from "./components/Warfield";
 
 const App = () => {
   return (
-    <>
       <Router>
         <Routes>
           {/* This route is for home component 
@@ -38,7 +37,7 @@ const App = () => {
           <Route path='*' element={<Navigate replace to="/" />} />
         </Routes>
       </Router>
-    </>
+    
   )
 }
 
