@@ -1,13 +1,13 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-from game.game_math.random import RandomRange
+# from game.game_math.random import RandomRange
 # from game.object_classes.challenge import Challenge
 from game.object_classes.quest import Quest
 from game.object_classes.guild import Guild
 from game.object_classes.hero import Hero
-from game.object_classes.map_tile import MapTile
-from game.object_classes.map import Map
+# from game.object_classes.map_tile import MapTile
+# from game.object_classes.map import Map
 
 
 class Game:
