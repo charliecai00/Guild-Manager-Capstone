@@ -20,7 +20,7 @@ class Game:
         self.PARTY_ID = 0
         # will be modified to multiple guilds in the future
         self.guild = self.Create_Guild()
-        self.map = self.Create_Map()
+        # self.map = self.Create_Map()
         self.full_hero_dic = {}
         self.full_quest_list = []
 
@@ -111,17 +111,17 @@ class Game:
             return False
         return self.guild.Send_Quest(party_name, self.Find_Quest(quest_name))
 
-    def Create_Map(self) -> Map:
-        locales = Map()
-        coordinates = []
-        while len(coordinates) < 5:
-            coords = (RandomRange(0, 10), RandomRange(0, 10))
-            if coords in coordinates:
-                continue
-            coordinates.append(coords)
-            locales.locations[coords] = MapTile(self.LOCALE_ID)
-            self.LOCALE_ID += 1
-        return locales
+    # def Create_Map(self) -> Map:
+    #     locales = Map()
+    #     coordinates = []
+    #     while len(coordinates) < 5:
+    #         coords = (RandomRange(0, 10), RandomRange(0, 10))
+    #         if coords in coordinates:
+    #             continue
+    #         coordinates.append(coords)
+    #         locales.locations[coords] = MapTile(self.LOCALE_ID)
+    #         self.LOCALE_ID += 1
+    #     return locales
     # def Get_Location(self, name) -> MapTile:
     #     for locale in self.map:
     #         if locale[1].name == name:
