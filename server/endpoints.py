@@ -33,6 +33,7 @@ game = Game()
 
 
 @api.route(MAIN_MENU)
+@cross_origin()
 class MainMenu(Resource):
     # Returns a list of commands
     def get(self):
@@ -75,6 +76,7 @@ add_heroes_input = api.model('add_heroes', {
 
 
 @api.route(ADD_HEROES)
+@cross_origin()
 class AddHeroes(Resource):
     """
     The endpoint adds hero to DB.
@@ -102,6 +104,7 @@ hire_heros_input = api.model('hire_heros', {
 
 
 @api.route(HIRE_HEROS)
+@cross_origin()
 class HireHeros(Resource):
     """
     The endpoint hire heros as requested by the user.
@@ -127,6 +130,7 @@ fire_hero_input = api.model('fire_hero', {
 
 
 @api.route(FIRE_HERO)
+@cross_origin()
 class FireHero(Resource):
     """
     The endpoint fire hero as requested by the user.
@@ -152,6 +156,7 @@ add_party_with_heros_input = api.model('add_party_with_heros', {
 
 
 @api.route(ADD_PARTY_WITH_HEROS)
+@cross_origin()
 class AddPartyWithHeros(Resource):
     """
     The endpoint adds hero to a party
@@ -184,6 +189,7 @@ disband_party_input = api.model('disband_party', {
 
 
 @api.route(DISBAND_PARTY)
+@cross_origin()
 class DisbandParty(Resource):
     """
     The endpoint removes a party from the Guild.
@@ -211,6 +217,7 @@ do_quest_input = api.model('do_quest', {
 
 
 @api.route(DO_QUEST)
+@cross_origin()
 class DoQuest(Resource):
     """
     User can start on a quest.
@@ -233,6 +240,7 @@ class DoQuest(Resource):
 
 
 @api.route(GET_QUEST)
+@cross_origin()
 class GetQuest(Resource):
     """
     Get details on a quest.
@@ -245,6 +253,7 @@ class GetQuest(Resource):
 
 
 @api.route(LIST)
+@cross_origin()
 class List(Resource):
     """
     Get all informations on the Guild including:
