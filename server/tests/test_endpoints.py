@@ -2,7 +2,7 @@
 # The Guild Manager by JV · CC · ZQ · ZF
 
 import pytest
-import server.endpoints as ep
+import endpoints as ep
 
 TEST_CLIENT = ep.app.test_client()
 
