@@ -1,0 +1,4 @@
+ID,Name,TestStat,SingleHero,SuccessMsg,FailureMsg,DeathMsg,GoldReward,ExpReward,DmgFail,Type,Difficulty
+0,Stuck Door,STR,True,[Hero] broke down a stuck door!,[Hero] hurt themself breaking down a door!,[Hero]'s wound got infected and killed them.,0,5,1,Normal,1
+1,Ravine,DEX,False,The Party crossed a ravine quickly.,The Party scaled a ravine slowly.,,0,2,0,Normal,0
+2,Goblin,CON,True,[Hero] fought a Goblin and won!,[Hero] fought a Goblin and lost!,The Goblin's blade was poisoned and [Hero] died.,2,5,1,Normal,1
