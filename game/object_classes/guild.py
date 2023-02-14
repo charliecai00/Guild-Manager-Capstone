@@ -19,7 +19,7 @@ class Guild:
         self.quest_list = []
         self.quest_history = []
         self.funds = 100
-        db.guild.add_guild(str(self.id), self.as_dict())
+        db.guild.add_guild(self.as_dict())
 
     def as_dict(self):
         return {
