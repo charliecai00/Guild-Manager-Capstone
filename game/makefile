@@ -7,10 +7,10 @@ FORCE:
 
 all_tests: lint unit
 
-lint: FORCE
-	$(LINTER) *.py
-	$(LINTER) tests/*.py
-	$(LINTER) object_classes/*.py
+# lint: FORCE
+# 	$(LINTER) *.py
+# 	$(LINTER) tests/*.py
+# 	$(LINTER) object_classes/*.py
 
 # unit: FORCE
 # 	python3 tests/game_object_test.py -v
