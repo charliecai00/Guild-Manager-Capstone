@@ -8,12 +8,12 @@ FORCE:
 
 all_tests: lint unit
 
-# lint: FORCE
-# 	$(LINTER) *.py
-# 	$(LINTER) tests/*.py
+lint: FORCE
+	$(LINTER) *.py
+	$(LINTER) tests/*.py
 
-# unit: FORCE
-# 	pytest $(PYTESTFLAGS)
+unit: FORCE
+	pytest $(PYTESTFLAGS)
 
 # test a python file:
 %.py: FORCE
