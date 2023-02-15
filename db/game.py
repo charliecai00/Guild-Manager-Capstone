@@ -7,7 +7,6 @@ GUILD_ID = 'GUILD_ID'
 HERO_ID = "HERO_ID"
 QUEST_ID = "QUEST_ID"
 
-GAME_KEY = 'name'
 GAME_COLLECT = 'Games'
 
 TEST_GAME_NAME1 = 'test_game1'
@@ -37,6 +36,11 @@ def get_field(field):
     return dbc.fetch_field(field, GAME_COLLECT)
 
 
+def del_game(name):
+    dbc.connect_db()
+    return dbc.del_many(GAME_COLLECT,{})
+
+
 # def get_game_details(game):
 #     dbc.connect_db()
 #     return dbc.fetch_one(GAME_COLLECT, {GAME_KEY: game})
@@ -49,11 +53,6 @@ def get_field(field):
 # def get_games_dict():
 #     dbc.connect_db()
 #     return dbc.fetch_all_as_dict(GAME_KEY, GAME_COLLECT)
-
-
-# def del_game(name):
-#     dbc.connect_db()
-#     return dbc.del_one(GAME_COLLECT, {GAME_KEY: name})
 
 
 # def main():

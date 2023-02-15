@@ -56,3 +56,6 @@ def del_one(collection, filt, db=DB):
     Find with a filter and return on the first doc found.
     """
     client[db][collection].delete_one(filt)
+    
+def del_many(collection, filt, db=DB):
+    client[db][collection].deleteMany(filt)
