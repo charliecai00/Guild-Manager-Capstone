@@ -1,8 +1,8 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import copy
 import db.guild as db
+
 
 def generate_guild(id, name="TestGuild"):
     guild_dict = {

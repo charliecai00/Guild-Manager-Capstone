@@ -1,9 +1,9 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-from random import randrange
 from game.game_math.random import RandomNormalClamped
 import db.hero as db
+
 
 def generate_hero(id):
     hero_dict = {

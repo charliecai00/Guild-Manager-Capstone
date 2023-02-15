@@ -1,8 +1,8 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-from random import randint, randrange
 import db.party as db
+
 
 def generate_party(id, name="TestName"):
     party_dict = {
