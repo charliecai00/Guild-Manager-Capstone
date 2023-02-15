@@ -7,9 +7,13 @@ ID = 'ID'
 STATS = 'STATS'
 NAME = 'NAME'
 HEALTH = 'HEALTH'
+MAX_HEALTH = 'MAX_HEALTH'
+EXP = 'EXP'
 ALIVE = 'ALIVE'
 COST = 'COST'
 HIRE = 'HIRE'
+IN_PARTY = 'IN_PARTY'
+PARTY_ID = 'PARTY_ID'
 
 HERO_KEY = 'ID'
 HERO_COLLECT = 'Hero'
@@ -17,13 +21,17 @@ HERO_COLLECT = 'Hero'
 TEST_HERO = 'test_hero'
 REQUIRED_FLDS = [ID, STATS, NAME, HEALTH, ALIVE, COST]
 dummy_hero = {TEST_HERO: {ID: 1,
-                          STATS: {"STR": 20, "CON": 20, "DEX": 20,
-                                  "WIS": 20, "INT": 20, "CHA": 20},
+                          STATS: {"STR": 999999, "CON": 999999, "DEX": 999999,
+                                  "WIS": 999999, "INT": 999999, "CHA": 999999},
                           NAME: "Temporary Hero",
-                          HEALTH: 100,
+                          HEALTH: 999999,
+                          MAX_HEALTH: 999999,
+                          EXP: 999999,
                           ALIVE: True,
+                          COST: 100,
                           HIRE: True,
-                          COST: 100}}
+                          IN_PARTY: False,
+                          PARTY_ID: None}}
 
 
 def add_hero(details):

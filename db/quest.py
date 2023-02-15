@@ -7,17 +7,20 @@ ID = 'ID'
 NAME = 'NAME'
 CHALLENGE = 'CHALLENGE'
 DIFFICULTY = 'DIFFICULTY'
-PURCHASE = 'PURCHASE'
+COST = 'COST'
+RESELL = 'RESELL'
 
 QUEST_KEY = 'ID'
 QUEST_COLLECT = 'Quests'
 
 TEST_QUEST = 'TEST_QUEST'
-REQUIRED_FLDS = [ID, NAME, CHALLENGE, PURCHASE]
+REQUIRED_FLDS = [ID, NAME, CHALLENGE, DIFFICULTY, COST, RESELL]
 dummy_quest = {TEST_QUEST: {ID: 1,
                             NAME: "Temporary Quest",
                             CHALLENGE: [1, 2, 3],
-                            PURCHASE: False}}
+                            DIFFICULTY: 5,
+                            COST: 999999,
+                            RESELL: 999999,}}
 
 
 def get_unpurchase_quest():

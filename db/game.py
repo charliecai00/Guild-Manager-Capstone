@@ -36,7 +36,10 @@ def get_field(field):
     return dbc.fetch_field(field, GAME_COLLECT)
 
 
-def del_game(name):
+def del_game():
+    """
+    delete all guild
+    """
     dbc.connect_db()
     return dbc.del_many(GAME_COLLECT,{})
 
