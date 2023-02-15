@@ -1,0 +1,18 @@
+{
+    "ID": 0,
+    "Name": "String",
+    "Health": 0,
+    "Exp": 0,
+    "Stats": {
+        "STR": 20,
+        "CON": 20,
+        "DEX": 20,
+        "WIS": 20,
+        "INT": 20,
+        "CHA": 20
+    },
+    "Hired?": false,
+    "InParty?": false,
+    "PartyID": 0,
+    "Cost": 0
+}
