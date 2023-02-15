@@ -2,6 +2,7 @@
     "ID": 0,
     "Name": "String",
     "Health": 0,
+    "MaxHealth": 5,
     "Exp": 0,
     "Stats": {
         "STR": 20,
