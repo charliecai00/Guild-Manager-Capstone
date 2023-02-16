@@ -8,7 +8,7 @@ game = Game()
 curr_input = input()
 while curr_input != 'quit':
     if curr_input == "test":
-        game.Add_Heros(10, 'mage')
+        game.Add_Heroes(10, 'mage')
         game.Hire_Hero(0)
         # game.Add_Party_With_Heros(["0"])
         game.Fire_Hero(0)
