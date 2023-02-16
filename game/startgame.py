@@ -8,11 +8,11 @@ game = Game()
 curr_input = input()
 while curr_input != 'quit':
     if curr_input == "test":
-        game.Add_Heroes(10, 'mage')
+        game.Add_Heros(10, 'mage')
         game.Hire_Hero(0)
         # game.Add_Party_With_Heros(["0"])
         game.Fire_Hero(0)
         # game.Disband_Party(0)
-        print('hired heros:', game.guild.hired_heros_dic)
+        print('hired heroes:', game.guild.hired_heros_dic)
         print('parties: ', game.guild.party_dic)
     curr_input = input()

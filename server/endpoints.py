@@ -92,7 +92,7 @@ class AddHeroes(Resource):
         hero_class = request.json["Type"]
 
         # TODO: function to call
-        res = str(game.Add_Heroes(count, hero_class))
+        res = str(game.Add_Heros(count, hero_class))
         return {DATA: {"Heros": {"": res}},
                 TYPE: hero_class,
                 TITLE: 'Add Heroes'}

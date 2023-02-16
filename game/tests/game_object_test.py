@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         self.test_game = None
 
     def addHeroes(self, num=10):
-        last_hero_id = self.test_game.Add_Heroes(num, "mage")
+        last_hero_id = self.test_game.Add_Heros(num, "mage")
         return last_hero_id
 
     def test_AddHeroes(self):

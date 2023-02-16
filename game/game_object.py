@@ -29,7 +29,7 @@ class Game:
         self.GUILD_ID += 1
         return ret_guild
 
-    def Add_Heroes(self, count=10, type=None) -> int:
+    def Add_Heros(self, count=10, type=None) -> int:
         for i in range(count):
             self.full_hero_dic[self.HERO_ID] = Hero(self.HERO_ID)
             self.HERO_ID += 1
