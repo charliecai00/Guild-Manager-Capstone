@@ -13,6 +13,6 @@ while curr_input != 'quit':
         # game.Add_Party_With_Heros(["0"])
         game.Fire_Hero(0)
         # game.Disband_Party(0)
-        print('hired heros:', game.guild.hired_heros_dic)
+        print('hired heroes:', game.guild.hired_heros_dic)
         print('parties: ', game.guild.party_dic)
     curr_input = input()
