@@ -3,17 +3,18 @@
 
 from flask import Flask, request
 from flask.helpers import send_from_directory
-from flask_restx import Resource, Api, fields
-from flask_restplus import Api
+from flask_restx import Resource, Api, fields, Namespace
+# from flask_restful import Resource, Api, fields
 from flask_cors import CORS, cross_origin
 # import werkzeug.exceptions as wz
+# api_ns = Namespace("iot", description="API.")
 
 from game.game_object import Game
+api_ns = Namespace("EndPoints", description="API Namespace")
 
 app = Flask(__name__, static_folder='front-end/build', static_url_path='')
 CORS(app)
 api = Api(app)
-
 
 
 MAIN_MENU = '/main_menu'
@@ -35,41 +36,74 @@ TITLE = 'Title'
 game = Game()
 
 
-@api.route(MAIN_MENU)
+# @api.route(MAIN_MENU)
+@api_ns.route(MAIN_MENU)
 @cross_origin()
-class MainMenu(Resource):
-    # Returns a list of commands
-    def get(self):
-        return {'Title': 'Main Menu',
-                'Default': 0,
-                'Choices': {
-                    '1': {'text': 'ADD_PARTY_WITH_HEROS',
-                          'url': '/add_party_with_heros',
-                          'method': 'post'},
-                    '2': {'text': 'Do_Quest',
-                          'url': '/do_quest',
-                          'method': 'post'},
-                    '3': {'text': 'Add_Heroes',
-                          'url': '/add_heroes',
-                          'method': 'post'},
-                    '4': {'text': 'Get_Quests',
-                          'url': '/get_quest',
-                          'method': 'get'},
-                    '5': {'text': 'Hire_Heros',
-                          'url': '/hire_heros',
-                          'method': 'post'},
-                    '6': {'text': 'List_Guild_Members',
-                          'url': '/list',
-                          'method': 'get'},
-                    '7': {'text': 'Disband_Party',
-                          'url': '/disband_party',
-                          'method': 'post'},
-                    '8': {'text': 'Fire_Hero',
-                          'url': '/fire_hero',
-                          'method': 'post'},
-                    'X': {'text': 'Exit'},
-                }
-                }
+# class MainMenu(Resource):
+#     # Returns a list of commands
+#     def get(self):
+#         return {'Title': 'Main Menu',
+#                 'Default': 0,
+#                 'Choices': {
+#                     '1': {'text': 'ADD_PARTY_WITH_HEROS',
+#                           'url': '/add_party_with_heros',
+#                           'method': 'post'},
+#                     '2': {'text': 'Do_Quest',
+#                           'url': '/do_quest',
+#                           'method': 'post'},
+#                     '3': {'text': 'Add_Heroes',
+#                           'url': '/add_heroes',
+#                           'method': 'post'},
+#                     '4': {'text': 'Get_Quests',
+#                           'url': '/get_quest',
+#                           'method': 'get'},
+#                     '5': {'text': 'Hire_Heros',
+#                           'url': '/hire_heros',
+#                           'method': 'post'},
+#                     '6': {'text': 'List_Guild_Members',
+#                           'url': '/list',
+#                           'method': 'get'},
+#                     '7': {'text': 'Disband_Party',
+#                           'url': '/disband_party',
+#                           'method': 'post'},
+#                     '8': {'text': 'Fire_Hero',
+#                           'url': '/fire_hero',
+#                           'method': 'post'},
+#                     'X': {'text': 'Exit'},
+#                 }
+#                 }
+
+def get(self):
+    return {'Title': 'Main Menu',
+            'Default': 0,
+            'Choices': {
+                '1': {'text': 'ADD_PARTY_WITH_HEROS',
+                        'url': '/add_party_with_heros',
+                        'method': 'post'},
+                '2': {'text': 'Do_Quest',
+                        'url': '/do_quest',
+                        'method': 'post'},
+                '3': {'text': 'Add_Heroes',
+                        'url': '/add_heroes',
+                        'method': 'post'},
+                '4': {'text': 'Get_Quests',
+                        'url': '/get_quest',
+                        'method': 'get'},
+                '5': {'text': 'Hire_Heros',
+                        'url': '/hire_heros',
+                        'method': 'post'},
+                '6': {'text': 'List_Guild_Members',
+                        'url': '/list',
+                        'method': 'get'},
+                '7': {'text': 'Disband_Party',
+                        'url': '/disband_party',
+                        'method': 'post'},
+                '8': {'text': 'Fire_Hero',
+                        'url': '/fire_hero',
+                        'method': 'post'},
+                'X': {'text': 'Exit'},
+            }
+            }
 
 
 add_heroes_input = api.model('add_heroes', {
@@ -78,7 +112,7 @@ add_heroes_input = api.model('add_heroes', {
 })
 
 
-@api.route(ADD_HEROES)
+@api_ns.route(ADD_HEROES)
 @cross_origin()
 class AddHeroes(Resource):
     """
@@ -106,7 +140,7 @@ hire_heros_input = api.model('hire_heros', {
 })
 
 
-@api.route(HIRE_HEROS)
+@api_ns.route(HIRE_HEROS)
 @cross_origin()
 class HireHeros(Resource):
     """
@@ -132,7 +166,7 @@ fire_hero_input = api.model('fire_hero', {
 })
 
 
-@api.route(FIRE_HERO)
+@api_ns.route(FIRE_HERO)
 @cross_origin()
 class FireHero(Resource):
     """
@@ -158,7 +192,7 @@ add_party_with_heros_input = api.model('add_party_with_heros', {
 })
 
 
-@api.route(ADD_PARTY_WITH_HEROS)
+@api_ns.route(ADD_PARTY_WITH_HEROS)
 @cross_origin()
 class AddPartyWithHeros(Resource):
     """
@@ -191,7 +225,7 @@ disband_party_input = api.model('disband_party', {
 })
 
 
-@api.route(DISBAND_PARTY)
+@api_ns.route(DISBAND_PARTY)
 @cross_origin()
 class DisbandParty(Resource):
     """
@@ -219,7 +253,7 @@ do_quest_input = api.model('do_quest', {
 })
 
 
-@api.route(DO_QUEST)
+@api_ns.route(DO_QUEST)
 @cross_origin()
 class DoQuest(Resource):
     """
@@ -242,7 +276,7 @@ class DoQuest(Resource):
             return {RESULT: "Request failed. Check input."}
 
 
-@api.route(GET_QUEST)
+@api_ns.route(GET_QUEST)
 @cross_origin()
 class GetQuest(Resource):
     """
@@ -255,7 +289,7 @@ class GetQuest(Resource):
                 TITLE: 'Get Quest'}
 
 
-@api.route(LIST)
+@api_ns.route(LIST)
 @cross_origin()
 class List(Resource):
     """
@@ -278,11 +312,11 @@ class List(Resource):
                 TYPE: 'Data',
                 TITLE: 'List Guild Members'}
 
-@app.route('/')
+@api_ns.route('/')
 @cross_origin()
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
-    api.add_namespace(api_ns, path='/main_menu')
+    api.add_namespace(api_ns)
     app.run()
