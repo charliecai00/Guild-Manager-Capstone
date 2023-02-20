@@ -4,6 +4,7 @@
 from flask import Flask, request
 from flask.helpers import send_from_directory
 from flask_restx import Resource, Api, fields
+from flask_restplus import Api
 from flask_cors import CORS, cross_origin
 # import werkzeug.exceptions as wz
 
@@ -12,6 +13,8 @@ from game.game_object import Game
 app = Flask(__name__, static_folder='front-end/build', static_url_path='')
 CORS(app)
 api = Api(app)
+
+
 
 MAIN_MENU = '/main_menu'
 ADD_PARTY_WITH_HEROS = '/add_party_with_heros'
@@ -281,4 +284,5 @@ def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
+    api.add_namespace(api_ns, path='/main_menu')
     app.run()
