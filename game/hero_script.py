@@ -32,16 +32,16 @@ def generate_hero(id):
 
 def get_first_name() -> str:
     f_names = []
-    with open("game\resources\hero_firstname_rsc.txt", "r") as f:
-        for line in f:
+    with open("game\resources\hero_firstname_rsc.txt", "r") as file:
+        for line in file:
             f_names.append(line)
     # print(f_names)
     return f_names[RandomRange(0, len(f_names))]
 
 def get_last_name() -> str:
     l_names = []
-    with open("game\resources\hero_firstname_rsc.txt", "r") as f:
-        for line in f:
+    with open("game\resources\hero_firstname_rsc.txt", "r") as file:
+        for line in file:
             l_names.append(line)
     # print(l_names)
     return l_names[RandomRange(0, len(l_names))]
