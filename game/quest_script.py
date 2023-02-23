@@ -15,7 +15,8 @@ def generate_quest(id):
             "ChallengeIDs": [0, 1, 2, 3, 4],
             "ChallengeLevel": 0,
             "Cost": 0,
-            "Resell": 0
+            "Resell": 0,
+            "Purchase": True
         }
     return quest_dict   # just for linter rn
     # add quest to db

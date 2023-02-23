@@ -4,9 +4,9 @@
 import db.guild as db
 
 
-def generate_guild(id, name="TestGuild"):
+def generate_guild(name="TestGuild"):
     guild_dict = {
-                "ID": id,
+                "ID": 1,
                 "Name": name,
                 "HeroIDs": [],
                 "PartyIDs": [],
