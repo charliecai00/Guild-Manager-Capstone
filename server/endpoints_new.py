@@ -57,3 +57,26 @@ ADD_HERO_PATH = f'{PARTY_NS}/{ADD_HERO}'
 REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
 ADD_PARTY_PATH = f'{PARTY_NS}/{ADD_PARTY}'
 DELETE_PARTY_PATH = f'{PARTY_NS}/{DELETE_PARTY}'
+#Create main menu route
+MAIN_MENU = '/main_menu'
+
+@api.route(MAIN_MENU)
+class MainMenu(Resource):
+    """
+    This will deliver our main menu.
+    """
+    def get(self):
+        """
+        Gets the main game menu.
+        """
+        return {'Title': 'Main Menu',
+                'Default': 0,
+                'Choices': {
+                    '1': {'text': 'ADD_PARTY_WITH_HEROS',
+                          'url': '/add_party_with_heros',
+                          'method': 'post'}
+                }}
+
+guild_ns.route(CREATE_PATH)
+class Create(Resource):
+    
