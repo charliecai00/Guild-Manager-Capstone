@@ -1,14 +1,17 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
+from game.game_math.random import RandomRange
 from game.game_math.random import RandomNormalClamped
 import db.hero as db
 
 
 def generate_hero(id):
+    first_name = get_first_name()
+    last_name = get_last_name()
     hero_dict = {
             "ID": id,
-            "Name": "String",
+            "Name": first_name + " " + last_name,
             "Health": 5,
             "MaxHealth": 5,
             "Exp": 0,
@@ -26,6 +29,22 @@ def generate_hero(id):
             "Cost": 5
         }
     db.add_hero(hero_dict)
+
+def get_first_name() -> str:
+    f_names = []
+    with open("game\resources\hero_firstname_rsc.txt", "r") as txtfile:
+        for line in txtfile:
+            f_names.append(line)
+    # print(f_names)
+    return f_names[RandomRange(0, len(f_names))]
+
+def get_last_name() -> str:
+    l_names = []
+    with open("game\resources\hero_firstname_rsc.txt", "r") as txtfile:
+        for line in txtfile:
+            l_names.append(line)
+    # print(l_names)
+    return l_names[RandomRange(0, len(l_names))]
 
 
 def heal_hero(id):
