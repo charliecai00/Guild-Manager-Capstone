@@ -33,3 +33,7 @@ def get_party():
 def del_party(ID):
     dbc.connect_db()
     return dbc.del_one(PARTY_COLLECT, {PARTY_KEY: ID})
+
+def get_party_details(id):
+    dbc.connect_db()
+    return dbc.fetch_one(PARTY_COLLECT, {PARTY_KEY: id})

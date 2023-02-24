@@ -54,9 +54,9 @@ def get_unemploy_hero():
     return unemploy
 
 
-# def get_hero_details(name):
-#     dbc.connect_db()
-#     return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: name})
+def get_hero_details(id):
+    dbc.connect_db()
+    return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: id})
 
 
 # def hero_exists(name):

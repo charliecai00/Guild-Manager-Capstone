@@ -45,6 +45,7 @@ def fetch_one(collection, filt, db=DB):
     """
     for doc in client[db][collection].find(filt):
         return doc
+    return False
 
 
 def del_one(collection, filt, db=DB):
