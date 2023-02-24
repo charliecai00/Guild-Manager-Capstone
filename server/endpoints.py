@@ -198,23 +198,7 @@ class RemoveHero(Resource):
 class GetParty(Resource):
     def get(self):
         return {RES: db_party.get_party}
-    
-# @api.route(MAIN_MENU)
-# class MainMenu(Resource):
-#     """
-#     This will deliver our main menu.
-#     """
-#     def get(self):
-#         """
-#         Gets the main game menu.
-#         """
-#         return {'Title': 'Main Menu',
-#                 'Default': 0,
-#                 'Choices': {
-#                     '1': {'text': 'ADD_PARTY_WITH_HEROS',
-#                           'url': '/add_party_with_heros',
-#                           'method': 'post'}
-#                 }}
 
 if __name__ == '__main__':
     app.run()
+    
