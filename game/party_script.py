@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-from random import randrange
+from game.game_math.random import RandomRange
 import db.party as party_db
 # import db.hero as hero_db
 
@@ -51,7 +51,7 @@ def test_party_single(id, stat):
     for id in curr_party["HeroIDs"]:
         curr_hero = {}  # hero_db get single hero
         max_stat = max(max_stat, curr_hero["Stats"][stat])
-    roll = randrange(99)
+    roll = RandomRange(0, 99)
     return True, str(roll <= max_stat)
 
 
@@ -62,7 +62,7 @@ def test_party_team(id, stat):
         curr_hero = {}  # hero_db get single hero
         avg_stat += curr_hero["Stats"][stat]
     avg_stat /= len(curr_party["HeroIDs"])
-    roll = randrange(99)
+    roll = RandomRange(0, 99)
     return True, str(roll <= avg_stat)
 
 
