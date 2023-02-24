@@ -64,7 +64,7 @@ REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
 ADD_PARTY_PATH = f'{PARTY_NS}/{ADD_PARTY}'
 DISBAND_PARTY_PATH = f'{PARTY_NS}/{DISBAND_PARTY}'
 #Create main menu route
-MAIN_MENU = '/main_menu'
+# MAIN_MENU = '/main_menu'
 
 #Define Marco
 RES = 'Response'
@@ -84,8 +84,6 @@ class Reload(Resource):
         guilds =  db_guild.get_guilds()
         guild_names = []
         for i in guilds:
-            name = i["Name"]
-            print(name)
             guild_names.append(i["Name"])
         return {RES: guild_names}        
     
@@ -119,10 +117,10 @@ class StartQuest(Resource):
     @api.expect(start_input)
     def post(self):
         return {RES: 'Success'}
-    #Todo: call sell_quest()
+    #Todo: call start_quest()
     
 @quest_ns.route(SELECT_PARTY_PATH)
-class SelectParty2PlayQuest:
+class SelectParty2PlayQuest(Resource):
     select_party_input = api.model('Select party by id to start quest', {'id': fields.Integer})
     
     @api.expect(select_party_input)
@@ -202,19 +200,19 @@ class RemoveHero(Resource):
         party_script.remove_party_hero(request.json['party_id'], request.json['id'])
         return {RES: 'Success'}
 
-@api.route(MAIN_MENU)
-class MainMenu(Resource):
-    """
-    This will deliver our main menu.
-    """
-    def get(self):
-        """
-        Gets the main game menu.
-        """
-        return {'Title': 'Main Menu',
-                'Default': 0,
-                'Choices': {
-                    '1': {'text': 'ADD_PARTY_WITH_HEROS',
-                          'url': '/add_party_with_heros',
-                          'method': 'post'}
-                }}
+# @api.route(MAIN_MENU)
+# class MainMenu(Resource):
+#     """
+#     This will deliver our main menu.
+#     """
+#     def get(self):
+#         """
+#         Gets the main game menu.
+#         """
+#         return {'Title': 'Main Menu',
+#                 'Default': 0,
+#                 'Choices': {
+#                     '1': {'text': 'ADD_PARTY_WITH_HEROS',
+#                           'url': '/add_party_with_heros',
+#                           'method': 'post'}
+#                 }}
