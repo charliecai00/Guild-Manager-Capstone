@@ -49,6 +49,7 @@ def get_unemploy_hero():
     unemploy = []
     for i in all_heros:
         if i[HIRE] is False:
+            del i['_id']
             unemploy.append(i)
     return unemploy
 
