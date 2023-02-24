@@ -37,5 +37,14 @@ def get_challenges() -> list:
             ids.append(random.choice(list(challenges))[0])
     return challenges[RandomRange(0, len(challenges))]
 
+
 def start_quest(id, party_id):
+    pass
+
+
+def buy_quest(id):
+    pass
+
+
+def sell_quest(id):
     pass
