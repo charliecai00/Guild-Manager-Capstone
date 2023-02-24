@@ -3,7 +3,7 @@
 
 from game.game_math.random import RandomRange
 from game.game_math.random import RandomNormalClamped
-import db.hero as db
+import db.hero as hero_db
 
 
 def generate_hero(id):
@@ -48,16 +48,12 @@ def get_last_name() -> str:
 
 
 def heal_hero(id):
-    pass
-
-
-def update_hero_party(id, party_id):
-    pass
-
-
-def remove_hero_party(id):
-    pass
+    curr_hero = {}  # hero_db get single
+    curr_hero["Health"] = curr_hero["MaxHealth"]
+    return True, ""
 
 
 def test_hero(id, stat):
-    pass
+    curr_hero = {}  # hero_db get single
+    roll = RandomRange(0, 99)
+    return True, str(roll <= curr_hero["Stats"][stat])
