@@ -9,8 +9,9 @@ import game.hero_script as hero_script
 import game.party_script as party_script
 import game.quest_script as quest_script
 import db.guild as db_guild
-import db.quest as db_quest
 import db.hero as db_hero
+import db.party as db_party
+import db.quest as db_quest
 
 app = Flask(__name__)
 api = Api(app)
@@ -36,7 +37,6 @@ UNSOLD_QUEST = 'Unsold Quest'
 BUY = 'Buy'
 SELL = 'Sell'
 START = 'Start'
-SELECT_PARTY = 'Select Party'
 HIRE = 'Hire'
 FIRE = 'Fire'
 UNEMPLOYED = 'Unemployed'
@@ -45,6 +45,7 @@ ADD_HERO = 'Add Hero'
 REMOVE_HERO = 'Remove Hero'
 ADD_PARTY = 'Add Party'
 DISBAND_PARTY = 'Disband Party'
+GET_PARTY = 'Get Party'
 #Create guild routes
 CREATE_PATH = f'{GUILD_NS}/{CREATE}'
 RELOAD_PATH = f'{GUILD_NS}/{RELOAD}'
@@ -53,7 +54,6 @@ UNSOLD_QUEST_PATH = f'{QUEST_NS}/{UNSOLD_QUEST}'
 BUY_PATH = f'{QUEST_NS}/{BUY}'
 SELL_PATH = f'{QUEST_NS}/{SELL}'
 START_PATH = f'{QUEST_NS}/{START}'
-SELECT_PARTY_PATH = f'{QUEST_NS}/{SELECT_PARTY}'
 #Create hero routes
 HIRE_PATH = f'{HERO_NS}/{HIRE}'
 FIRE_PATH = f'{HERO_NS}/{FIRE}'
@@ -64,6 +64,7 @@ ADD_HERO_PATH = f'{PARTY_NS}/{ADD_HERO}'
 REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
 ADD_PARTY_PATH = f'{PARTY_NS}/{ADD_PARTY}'
 DISBAND_PARTY_PATH = f'{PARTY_NS}/{DISBAND_PARTY}'
+GET_PARTY_PATH = f'{PARTY_NS}/{GET_PARTY}'
 #Create main menu route
 # MAIN_MENU = '/main_menu'
 
@@ -120,17 +121,7 @@ class StartQuest(Resource):
     def post(self):
         quest_script.start_quest(request.json['id'],request.json['party_id'])
         return {RES: 'Success'}
-    #Todo: call start_quest()
-    
-@quest_ns.route(SELECT_PARTY_PATH)
-class SelectParty2PlayQuest(Resource):
-    select_party_input = api.model('Select party by id to start quest', {'id': fields.Integer})
-    
-    @api.expect(select_party_input)
-    def post(self):
-        return {RES: 'Success'}
-    #Todo: call select_party()
-
+        
 @hero_ns.route(HIRE_PATH)
 class Hire(Resource):
     hire_input = api.model('Hire hero by id and provide guild id', {'id': fields.Integer,
@@ -203,6 +194,11 @@ class RemoveHero(Resource):
         party_script.remove_party_hero(request.json['party_id'], request.json['id'])
         return {RES: 'Success'}
 
+@party_ns.route(GET_PARTY_PATH)
+class GetParty(Resource):
+    def get(self):
+        return {RES: db_party.get_party}
+    
 # @api.route(MAIN_MENU)
 # class MainMenu(Resource):
 #     """
@@ -219,3 +215,6 @@ class RemoveHero(Resource):
 #                           'url': '/add_party_with_heros',
 #                           'method': 'post'}
 #                 }}
+
+if __name__ == '__main__':
+    app.run()
