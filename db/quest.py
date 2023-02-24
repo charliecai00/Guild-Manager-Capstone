@@ -40,9 +40,9 @@ def get_unpurchase_quest():
     return unpurchase
 
 
-# def get_quest_details(name):
-#     dbc.connect_db()
-#     return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: name})
+def get_quest_details(id):
+    dbc.connect_db()
+    return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: id})
 
 
 # def quest_exists(name):
