@@ -39,10 +39,6 @@ def fetch_all_as_dict(key, collection, db=DB):
     return ret
 
 
-def fetch_field(field, collection, db=DB):
-    return client[db][collection].distinct(field)
-
-
 def fetch_one(collection, filt, db=DB):
     """
     Find a filter and return on the first doc found.
@@ -56,6 +52,7 @@ def del_one(collection, filt, db=DB):
     Find with a filter and return on the first doc found.
     """
     client[db][collection].delete_one(filt)
+    
     
 def del_many(collection, filt, db=DB):
     client[db][collection].deleteMany(filt)
