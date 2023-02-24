@@ -7,6 +7,7 @@ from flask_restx import Resource, Api, fields, Namespace
 import game.guild_script as guild_script
 import game.hero_script as hero_script
 import game.party_script as party_script
+import game.quest_script as quest_script
 import db.guild as db_guild
 import db.quest as db_quest
 import db.hero as db_hero
@@ -112,10 +113,12 @@ class Sell(Resource):
     
 @quest_ns.route(START_PATH)
 class StartQuest(Resource):
-    start_input = api.model('Start quest by id', {'id': fields.Integer})
+    start_input = api.model('Start quest by id and the party id playing the quest', {'id': fields.Integer,
+                                                                                     'party_id': fields.Integer})
     
     @api.expect(start_input)
     def post(self):
+        quest_script.start_quest(request.json['id'],request.json['party_id'])
         return {RES: 'Success'}
     #Todo: call start_quest()
     
