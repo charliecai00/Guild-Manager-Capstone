@@ -59,8 +59,13 @@ def get_hero_details(id):
     return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: id})
 
 
-# def hero_exists(name):
-#     return get_hero_details(name) is not None
+def fetch_curr_id():
+    dbc.connect_db()
+    return dbc.fetch_curr_id(HERO_COLLECT)    
+
+
+def hero_exists(name):
+    return get_hero_details(name) is not None
 
 
 # def get_heros_dict():

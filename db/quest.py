@@ -45,8 +45,13 @@ def get_quest_details(id):
     return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: id})
 
 
-# def quest_exists(name):
-#     return get_quest_details(name) is not None
+def fetch_curr_id():
+    dbc.connect_db()
+    return dbc.fetch_curr_id(QUEST_COLLECT)    
+
+
+def quest_exists(id):
+    return get_quest_details(id) is not None
 
 
 # def get_quests_dict():
