@@ -2,321 +2,203 @@
 # The Guild Manager by JV · CC · ZQ · ZF
 
 from flask import Flask, request
-from flask.helpers import send_from_directory
 from flask_restx import Resource, Api, fields, Namespace
-# from flask_restful import Resource, Api, fields
-from flask_cors import CORS, cross_origin
-# import werkzeug.exceptions as wz
-# api_ns = Namespace("iot", description="API.")
 
-from game.game_object import Game
-api_ns = Namespace("EndPoints", description="API Namespace")
+import game.guild_script as guild_script
+import game.hero_script as hero_script
+import game.party_script as party_script
+import game.quest_script as quest_script
+import db.guild as db_guild
+import db.hero as db_hero
+import db.party as db_party
+import db.quest as db_quest
 
-app = Flask(__name__, static_folder='front-end/build', static_url_path='')
-CORS(app)
+app = Flask(__name__)
 api = Api(app)
 
+#Define namespaces
+GUILD_NS = 'Guild'
+QUEST_NS = 'Quest'
+HERO_NS = 'Hero'
+PARTY_NS = 'Party'
+#Create namespaces
+guild_ns = Namespace(GUILD_NS, 'Guild APIs')
+quest_ns = Namespace(QUEST_NS, 'Quest API')
+hero_ns = Namespace(HERO_NS, 'Hero API')
+party_ns = Namespace(PARTY_NS, 'Party API')
+api.add_namespace(guild_ns)
+api.add_namespace(quest_ns)
+api.add_namespace(hero_ns)
+api.add_namespace(party_ns)
+#Define API routes
+CREATE = 'Create'
+RELOAD = 'Reload'
+UNSOLD_QUEST = 'Unsold Quest'
+BUY = 'Buy'
+SELL = 'Sell'
+START = 'Start'
+HIRE = 'Hire'
+FIRE = 'Fire'
+UNEMPLOYED = 'Unemployed'
+HEAL = 'Heal'
+ADD_HERO = 'Add Hero'
+REMOVE_HERO = 'Remove Hero'
+ADD_PARTY = 'Add Party'
+DISBAND_PARTY = 'Disband Party'
+GET_PARTY = 'Get Party'
+#Create guild routes
+CREATE_PATH = f'{GUILD_NS}/{CREATE}'
+RELOAD_PATH = f'{GUILD_NS}/{RELOAD}'
+#Create quest routes
+UNSOLD_QUEST_PATH = f'{QUEST_NS}/{UNSOLD_QUEST}'
+BUY_PATH = f'{QUEST_NS}/{BUY}'
+SELL_PATH = f'{QUEST_NS}/{SELL}'
+START_PATH = f'{QUEST_NS}/{START}'
+#Create hero routes
+HIRE_PATH = f'{HERO_NS}/{HIRE}'
+FIRE_PATH = f'{HERO_NS}/{FIRE}'
+UNEMPLOYED_PATH = f'{HERO_NS}/{UNEMPLOYED}'
+HEAL_PATH = f'{HERO_NS}/{HEAL}'
+#Create party routes
+ADD_HERO_PATH = f'{PARTY_NS}/{ADD_HERO}'
+REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
+ADD_PARTY_PATH = f'{PARTY_NS}/{ADD_PARTY}'
+DISBAND_PARTY_PATH = f'{PARTY_NS}/{DISBAND_PARTY}'
+GET_PARTY_PATH = f'{PARTY_NS}/{GET_PARTY}'
+#Create main menu route
+# MAIN_MENU = '/main_menu'
 
-MAIN_MENU = '/main_menu'
-ADD_PARTY_WITH_HEROS = '/add_party_with_heros'
-DISBAND_PARTY = '/disband_party'
-DO_QUEST = '/do_quest'
-ADD_HEROES = '/add_heroes'
-GET_QUEST = '/get_quest'
-HIRE_HEROS = '/hire_heros'
-FIRE_HERO = '/fire_hero'
-LIST = '/list'
+#Define Marco
+RES = 'Response'
 
-ERROR = 'Error'
-RESULT = 'Result'
-DATA = 'Data'
-TYPE = 'Type'
-TITLE = 'Title'
-
-game = Game()
-
-
-# @api.route(MAIN_MENU)
-@api_ns.route(MAIN_MENU)
-@cross_origin()
-# class MainMenu(Resource):
-#     # Returns a list of commands
-#     def get(self):
-#         return {'Title': 'Main Menu',
-#                 'Default': 0,
-#                 'Choices': {
-#                     '1': {'text': 'ADD_PARTY_WITH_HEROS',
-#                           'url': '/add_party_with_heros',
-#                           'method': 'post'},
-#                     '2': {'text': 'Do_Quest',
-#                           'url': '/do_quest',
-#                           'method': 'post'},
-#                     '3': {'text': 'Add_Heroes',
-#                           'url': '/add_heroes',
-#                           'method': 'post'},
-#                     '4': {'text': 'Get_Quests',
-#                           'url': '/get_quest',
-#                           'method': 'get'},
-#                     '5': {'text': 'Hire_Heros',
-#                           'url': '/hire_heros',
-#                           'method': 'post'},
-#                     '6': {'text': 'List_Guild_Members',
-#                           'url': '/list',
-#                           'method': 'get'},
-#                     '7': {'text': 'Disband_Party',
-#                           'url': '/disband_party',
-#                           'method': 'post'},
-#                     '8': {'text': 'Fire_Hero',
-#                           'url': '/fire_hero',
-#                           'method': 'post'},
-#                     'X': {'text': 'Exit'},
-#                 }
-#                 }
-
-def get(self):
-    return {'Title': 'Main Menu',
-            'Default': 0,
-            'Choices': {
-                '1': {'text': 'ADD_PARTY_WITH_HEROS',
-                        'url': '/add_party_with_heros',
-                        'method': 'post'},
-                '2': {'text': 'Do_Quest',
-                        'url': '/do_quest',
-                        'method': 'post'},
-                '3': {'text': 'Add_Heroes',
-                        'url': '/add_heroes',
-                        'method': 'post'},
-                '4': {'text': 'Get_Quests',
-                        'url': '/get_quest',
-                        'method': 'get'},
-                '5': {'text': 'Hire_Heros',
-                        'url': '/hire_heros',
-                        'method': 'post'},
-                '6': {'text': 'List_Guild_Members',
-                        'url': '/list',
-                        'method': 'get'},
-                '7': {'text': 'Disband_Party',
-                        'url': '/disband_party',
-                        'method': 'post'},
-                '8': {'text': 'Fire_Hero',
-                        'url': '/fire_hero',
-                        'method': 'post'},
-                'X': {'text': 'Exit'},
-            }
-            }
-
-
-add_heroes_input = api.model('add_heroes', {
-    "Count": fields.Integer(default="10", required=False),
-    "Type": fields.String(default="Mage", required=False)
-})
-
-
-@api_ns.route(ADD_HEROES)
-@cross_origin()
-class AddHeroes(Resource):
-    """
-    The endpoint adds hero to DB.
-    It takes 2 arguments:
-        Count - how many heros to add?
-        Type - what is the type of hero?
-    """
-    @api.expect(add_heroes_input)
+@guild_ns.route(CREATE_PATH)
+class Create(Resource):
+    create_input = api.model('Provide new guild name', {'Name': fields.String})
+    
+    @api.expect(create_input)
     def post(self):
-        print(f'{request.json=}')
-
-        count = request.json["Count"]
-        hero_class = request.json["Type"]
-
-        # TODO: function to call
-        res = str(game.Add_Heros(count, hero_class))
-        return {DATA: {"Heros": {"": res}},
-                TYPE: hero_class,
-                TITLE: 'Add Heroes'}
-
-
-hire_heros_input = api.model('hire_heros', {
-    "Hiree": fields.Integer(default=0, required=True)
-})
-
-
-@api_ns.route(HIRE_HEROS)
-@cross_origin()
-class HireHeros(Resource):
-    """
-    The endpoint hire heros as requested by the user.
-    It takes 1 argument:
-        Hero ID - what is the hero ID?
-    """
-    @api.expect(hire_heros_input)
+        guild_script.generate_guild(request.json["Name"])
+        return {RES: 'Success'}
+    
+@guild_ns.route(RELOAD_PATH)
+class Reload(Resource):
+    def get(self):
+        guilds =  db_guild.get_guilds()
+        guild_names = []
+        for i in guilds:
+            guild_names.append(i["Name"])
+        return {RES: guild_names}        
+    
+@quest_ns.route(UNSOLD_QUEST_PATH)
+class Unsold(Resource):
+    def get(self):
+        return {RES: db_quest.get_unpurchase_quest()}
+        
+@quest_ns.route(BUY_PATH)
+class Buy(Resource):
+    buy_input = api.model('Buy quest by id', {'id': fields.Integer})
+    
+    @api.expect(buy_input)
     def post(self):
-        print(f'{request.json=}')
-
-        hero_id = request.json["Hiree"]
-
-        result = game.Hire_Hero(hero_id)
-        if result:
-            return {RESULT: "Hero hired."}
-        else:
-            return {RESULT: "Could not hire hero, out of money."}
-
-
-fire_hero_input = api.model('fire_hero', {
-    "Firee": fields.Integer(default=0, required=True),
-})
-
-
-@api_ns.route(FIRE_HERO)
-@cross_origin()
-class FireHero(Resource):
-    """
-    The endpoint fire hero as requested by the user.
-    It takes 1 argument:
-        Hero ID - what is the hero ID to fire?
-    """
-    @api.expect(fire_hero_input)
+        return {RES: 'Success'}
+    #Todo: call buy_quest()
+    
+@quest_ns.route(SELL_PATH)
+class Sell(Resource):
+    sell_input = api.model('Sell quest by id', {'id': fields.Integer})
+    
+    @api.expect(sell_input)
     def post(self):
-        print(f'{request.json=}')
-        hero_id = request.json["Firee"]
-        print("hero id in fire hero ", hero_id)
-        result = game.Fire_Hero(hero_id)
-        if result:
-            return {RESULT: "Hero Fired."}
-        else:
-            return {RESULT: "Request failed. Check input."}
-
-
-add_party_with_heros_input = api.model('add_party_with_heros', {
-    "HeroIDs": fields.String(default="0,1,2", required=True),
-    "PartyName": fields.String(default="testPartyName")
-})
-
-
-@api_ns.route(ADD_PARTY_WITH_HEROS)
-@cross_origin()
-class AddPartyWithHeros(Resource):
-    """
-    The endpoint adds hero to a party
-    It takes 2 arguments:
-        Hero ID - what is the hero ID that you're hiring?
-        Party ID - what is the party ID that you're adding the hero to?
-    """
-    @api.expect(add_party_with_heros_input)
+        return {RES: 'Success'}
+    #Todo: call sell_quest()
+    
+@quest_ns.route(START_PATH)
+class StartQuest(Resource):
+    start_input = api.model('Start quest by id and the party id playing the quest', {'id': fields.Integer,
+                                                                                     'party_id': fields.Integer})
+    
+    @api.expect(start_input)
     def post(self):
-        print(f'{request.json=}')
-        HeroIDs = request.json["HeroIDs"]
-        PartyName = request.json["PartyName"]
-        parse_hero_ID = HeroIDs.split(",")
-
-        # for i in range(len(parse_hero_ID)):
-        #     parse_hero_ID[i] = int(parse_hero_ID[i])
-        # print("endpoint ", type(parse_hero_ID[0]))
-        result = game.Add_Party_With_Heros(parse_hero_ID, PartyName)
-        if result:
-            return {RESULT:
-                    "Heros added to a new party."}
-        else:
-            return {RESULT:
-                    "Some heros were not hired in the guild."}
-
-
-disband_party_input = api.model('disband_party', {
-    "PartyID": fields.Integer(default=0, required=True)
-})
-
-
-@api_ns.route(DISBAND_PARTY)
-@cross_origin()
+        quest_script.start_quest(request.json['id'],request.json['party_id'])
+        return {RES: 'Success'}
+        
+@hero_ns.route(HIRE_PATH)
+class Hire(Resource):
+    hire_input = api.model('Hire hero by id and provide guild id', {'id': fields.Integer,
+                                                                    'guild_id': fields.Integer})
+    
+    @api.expect(hire_input)
+    def post(self):
+        if (hero_script.hire_hero(request.json['id'], request.json['guild_id'])):
+            return {RES: "Success"}
+        return {RES: "Could not hire hero, out of money."}
+        
+@hero_ns.route(FIRE_PATH)
+class Fire(Resource):
+    fire_input = api.model('Fire hero by id', {'id': fields.Integer})
+    
+    @api.expect(fire_input)
+    def post(self):
+        hero_script.fire_hero(request.json['id'])
+        return {RES: 'Success'}
+        
+@hero_ns.route(UNEMPLOYED_PATH)
+class Unemployed(Resource):
+    def get(self):
+        return {RES: db_hero.get_unemploy_hero()}
+    
+@hero_ns.route(HEAL_PATH)
+class Heal(Resource):
+    heal_input = api.model('Heal hero by id', {'id': fields.Integer})
+    
+    @api.expect(heal_input)
+    def post(self):
+        hero_script.heal_hero(request.json['id'])
+        return {RES: 'Success'}
+        
+@party_ns.route(ADD_PARTY_PATH)
+class AddParty(Resource):
+    add_party_input = api.model('Give the new party a name', {'Name': fields.String})
+    
+    @api.expect(add_party_input)
+    def post(self):
+        party_script.generate_party(request.json['Name'])
+        return {RES: 'Success'}
+    
+@party_ns.route(DISBAND_PARTY_PATH)
 class DisbandParty(Resource):
-    """
-    The endpoint removes a party from the Guild.
-    It takes 1 argument:
-        Party ID - what is the party ID?
-    """
+    disband_party_input = api.model('Delete a party by id', {'id': fields.Integer})
+    
     @api.expect(disband_party_input)
     def post(self):
-        print(f'{request.json=}')
-
-        party_ID = request.json["PartyID"]
-        print("check party in the test: ", game.guild.party_dic)
-
-        result = game.Disband_Party(int(party_ID))
-        if result:
-            return {RESULT: "{} disbanded.".format(party_ID)}
-        else:
-            return {RESULT: "Request failed. Check input."}
-
-
-do_quest_input = api.model('do_quest', {
-    "PartyID": fields.Integer(default="0", required=True),
-    "QuestID": fields.Integer(default="0", required=True)
-})
-
-
-@api_ns.route(DO_QUEST)
-@cross_origin()
-class DoQuest(Resource):
-    """
-    User can start on a quest.
-    The endpoint takes 2 arguments:
-        Party ID - what is the party doing the quest?
-        Quest ID - what is the quest that you want to do?
-    """
-    @api.expect(do_quest_input)
+        party_script.disband_party(request.json['id'])
+        return {RES: 'Success'}
+    
+@party_ns.route(ADD_HERO_PATH)
+class AddHero(Resource):
+    add_hero_input = api.model('Add hero to party by IDs', {'id': fields.Integer,
+                                                            'party_id': fields.Integer})
+    
+    @api.expect(add_hero_input)
     def post(self):
-        print(f'{request.json=}')
+        party_script.add_party_hero(request.json['party_id'], request.json['id'])
+        return {RES: 'Success'}
+    
+@party_ns.route(REMOVE_HERO_PATH)
+class RemoveHero(Resource):
+    remove_hero_input = api.model('Remove hero to party by IDs', {'id': fields.Integer,
+                                                            'party_id': fields.Integer})
+    
+    @api.expect(remove_hero_input)
+    def post(self):
+        party_script.remove_party_hero(request.json['party_id'], request.json['id'])
+        return {RES: 'Success'}
 
-        party_ID = request.json["PartyID"]
-        quest_ID = request.json["QuestID"]
-
-        result = game.Do_Quest(quest_ID, party_ID)
-        if result:
-            return {RESULT: "{} completed the quest!".format(party_ID)}
-        else:
-            return {RESULT: "Request failed. Check input."}
-
-
-@api_ns.route(GET_QUEST)
-@cross_origin()
-class GetQuest(Resource):
-    """
-    Get details on a quest.
-    """
+@party_ns.route(GET_PARTY_PATH)
+class GetParty(Resource):
     def get(self):
-        res = game.Get_Quest().get_info()
-        return {DATA: {"Name": {"": res[0]}, "Skill": {"": res[1:]}},
-                TYPE: 'Data',
-                TITLE: 'Get Quest'}
-
-
-@api_ns.route(LIST)
-@cross_origin()
-class List(Resource):
-    """
-    Get all informations on the Guild including:
-        Funds
-        Heros
-        Parties
-        Quests
-    """
-    def get(self):
-        res = str(game.Guild_Status()).split(" ")
-        funds = res[1]
-        heros = res[3]
-        parties = res[5]
-        quests = res[7]
-        return {DATA: {"Funds": {"": funds},
-                       "Heros": {"": heros},
-                       "Parties": {"": parties},
-                       "Quests": {"": quests}},
-                TYPE: 'Data',
-                TITLE: 'List Guild Members'}
-
-@api_ns.route('/')
-@cross_origin()
-def serve():
-    return send_from_directory(app.static_folder, 'index.html')
+        return {RES: db_party.get_party}
 
 if __name__ == '__main__':
-    api.add_namespace(api_ns)
     app.run()
+    
