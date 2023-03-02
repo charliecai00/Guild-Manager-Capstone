@@ -6,7 +6,7 @@ import db.party as party_db
 # import db.hero as hero_db
 
 
-def generate_party(id, name="TestName"):
+def generate_party(name="TestName"):
     party_dict = {
             "ID": 0,
             "Name": name,

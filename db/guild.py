@@ -51,18 +51,23 @@ def get_guilds():
     return dbc.fetch_all(GUILD_COLLECT)
 
 
+def fetch_curr_id():
+    dbc.connect_db()
+    return dbc.fetch_curr_id(GUILD_COLLECT)    
+    
+    
 # def del_guild(ID):
 #     dbc.connect_db()
 #     return dbc.del_one(GUILD_COLLECT, {GUILD_KEY: ID})
 
 
-# def get_guild_details(guild):
-#     dbc.connect_db()
-#     return dbc.fetch_one(GUILD_COLLECT, {GUILD_KEY: guild})
+def get_guild_details(id):
+    dbc.connect_db()
+    return dbc.fetch_one(GUILD_COLLECT, {GUILD_KEY: id})
 
 
-# def guild_exists(name):
-#     return get_guild_details(name) is not None
+def guild_exists(id):
+    return get_guild_details(id) is not None
 
 
 # def get_guilds_dict():

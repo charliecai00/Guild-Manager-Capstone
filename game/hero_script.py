@@ -46,6 +46,24 @@ def get_last_name() -> str:
     # print(l_names)
     return l_names[RandomRange(0, len(l_names))]
 
+def heal_hero(id):
+    curr_hero = {} # db get single hero
+    curr_guild = {} # guild_db get single guild
+    if curr_hero["Health"] == curr_hero["MaxHealth"]:
+        return False, "Hero already healthy"
+    elif curr_hero["Cost"] > curr_guild["Funds"]:
+        return False, "Guild does not have enough funds to heal" 
+    return True, "Hero has been healed"
+
+
+def update_hero_party(id, party_id):
+    curr_hero = {} # db get single hero
+    curr_party = ()
+    if curr_hero["InParty?"] == True:
+        return False, "Hero already in another party"
+    elif curr_hero["PartyID"] == party_id:
+        return False, "Hero already in this party"
+    return True, "Hero has been added to party"
 
 def heal_hero(id):
     curr_hero = {}  # hero_db get single

@@ -11,8 +11,8 @@ MAX_HEALTH = 'MAX_HEALTH'
 EXP = 'EXP'
 ALIVE = 'ALIVE'
 COST = 'COST'
-HIRE = 'HIRE'
-IN_PARTY = 'IN_PARTY'
+HIRE = 'Hired?'
+IN_PARTY = 'InParty?'
 PARTY_ID = 'PARTY_ID'
 
 HERO_KEY = 'ID'
@@ -48,18 +48,24 @@ def get_unemploy_hero():
 
     unemploy = []
     for i in all_heros:
-        if i[HIRE] is False:
+        if i[IN_PARTY] is False:
+            del i['_id']
             unemploy.append(i)
     return unemploy
 
 
-# def get_hero_details(name):
-#     dbc.connect_db()
-#     return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: name})
+def get_hero_details(id):
+    dbc.connect_db()
+    return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: id})
 
 
-# def hero_exists(name):
-#     return get_hero_details(name) is not None
+def fetch_curr_id():
+    dbc.connect_db()
+    return dbc.fetch_curr_id(HERO_COLLECT)    
+
+
+def hero_exists(name):
+    return get_hero_details(name) is not None
 
 
 # def get_heros_dict():
@@ -77,9 +83,9 @@ def get_unemploy_hero():
 #     return dbc.del_one(HERO_COLLECT, {HERO_KEY: ID})
 
 
-# def main():
-#     print('Adding a hero')
-#     add_hero(TEST_HERO, dummy_hero[TEST_HERO])
+def main():
+    print('Adding a hero')
+    add_hero(dummy_hero[TEST_HERO])
 #     print('Getting heros as a list:')
 #     heros = get_heros()
 #     print(f'{heros=}')
@@ -89,5 +95,5 @@ def get_unemploy_hero():
 #     print(f'{get_hero_details(TEST_HERO)=}')
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()

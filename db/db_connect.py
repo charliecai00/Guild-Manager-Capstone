@@ -27,6 +27,7 @@ def insert_one(collection, doc, db=DB):
 def fetch_all(collection, db=DB):
     ret = []
     for doc in client[db][collection].find():
+        del doc['_id']
         ret.append(doc)
     return ret
 
@@ -37,10 +38,6 @@ def fetch_all_as_dict(key, collection, db=DB):
         del doc['_id']
         ret[doc[key]] = doc
     return ret
-
-
-def fetch_field(field, collection, db=DB):
-    return client[db][collection].distinct(field)
 
 
 def fetch_one(collection, filt, db=DB):
@@ -57,5 +54,14 @@ def del_one(collection, filt, db=DB):
     """
     client[db][collection].delete_one(filt)
     
+    
 def del_many(collection, filt, db=DB):
     client[db][collection].deleteMany(filt)
+
+
+def fetch_curr_id(collection, db=DB):
+    sort_key = []
+    for doc in client[db][collection].find():
+        sort_key.append(doc['ID'])
+    sort_key.sort()
+    return sort_key[-1] + 1

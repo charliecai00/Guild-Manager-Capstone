@@ -4,11 +4,12 @@
 import db.db_connect as dbc
 
 ID = 'ID'
-NAME = 'NAME'
-CHALLENGE = 'CHALLENGE'
-DIFFICULTY = 'DIFFICULTY'
-COST = 'COST'
-RESELL = 'RESELL'
+NAME = 'Name'
+CHALLENGE = 'Challenge'
+DIFFICULTY = 'Difficulty'
+COST = 'Cost'
+RESELL = 'Resell'
+PURCHASE = 'Purchase'
 
 QUEST_KEY = 'ID'
 QUEST_COLLECT = 'Quests'
@@ -20,7 +21,8 @@ dummy_quest = {TEST_QUEST: {ID: 1,
                             CHALLENGE: [1, 2, 3],
                             DIFFICULTY: 5,
                             COST: 999999,
-                            RESELL: 999999,}}
+                            RESELL: 999999,
+                            PURCHASE: False}}
 
 
 def get_unpurchase_quest():
@@ -33,17 +35,23 @@ def get_unpurchase_quest():
     unpurchase = []
     for i in all_quest:
         if i[PURCHASE] is False:
+            del i['_id']
             unpurchase.append(i)
     return unpurchase
 
 
-# def get_quest_details(name):
-#     dbc.connect_db()
-#     return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: name})
+def get_quest_details(id):
+    dbc.connect_db()
+    return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: id})
 
 
-# def quest_exists(name):
-#     return get_quest_details(name) is not None
+def fetch_curr_id():
+    dbc.connect_db()
+    return dbc.fetch_curr_id(QUEST_COLLECT)    
+
+
+def quest_exists(id):
+    return get_quest_details(id) is not None
 
 
 # def get_quests_dict():
@@ -56,11 +64,9 @@ def get_unpurchase_quest():
 #     return dbc.fetch_all(QUEST_COLLECT)
 
 
-# def add_quest(name, details):
-#     doc = details
-#     dbc.connect_db()
-#     doc[QUEST_KEY] = name
-#     return dbc.insert_one(QUEST_COLLECT, doc)
+def add_quest(details):
+    dbc.connect_db()
+    return dbc.insert_one(QUEST_COLLECT, details)
 
 
 # def del_quest(name):
@@ -68,9 +74,9 @@ def get_unpurchase_quest():
 #     return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
 
 
-# def main():
-#     print('Adding a quest')
-#     add_quest(TEST_QUEST, dummy_quest[TEST_QUEST])
+def main():
+    print('Adding a quest')
+    add_quest(dummy_quest[TEST_QUEST])
 #     print('Getting quests as a list:')
 #     quests = get_quests()
 #     print(f'{quests=}')
@@ -80,5 +86,5 @@ def get_unpurchase_quest():
 #     print(f'{get_quest_details(TEST_QUEST)=}')
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
