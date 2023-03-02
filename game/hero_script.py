@@ -42,7 +42,7 @@ def heal_hero(id):
 
 def update_hero_party(id, party_id):
     curr_hero = {} # db get single hero
-    curr_party = ()
+    curr_party = () # db get single party
     if curr_hero["InParty?"] == True:
         return False, "Hero already in another party"
     elif curr_hero["PartyID"] == party_id:
@@ -51,7 +51,12 @@ def update_hero_party(id, party_id):
 
 
 def remove_hero_party(id):
-    pass
+    curr_hero = {} # db get single hero
+    if curr_hero["InParty?"]:
+        return False, "Hero isn't in a party"
+    curr_hero["InParty?"] = True
+    curr_hero["PartyID"] = 0
+    return True, "Hero has been removed from the party"
 
 
 def test_hero(id, stat):
