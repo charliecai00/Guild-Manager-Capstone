@@ -28,19 +28,20 @@ dummy_guilds = {TEST_GUILD: {ID: 1,
                              FUNDS: 9999999,
                              QUEST_COMPLETED: 9999999}}
 
-
+# Create
 def add_guild(details):
     dbc.connect_db()
     return dbc.insert_one(GUILD_COLLECT, details)
 
-
-def get_field(field):
+# Read
+def get_field(id, field):
     """
-    parameter: takes a field, ex. HERO_ID
+    parameter:  the id of the guild
+                takes a field, ex. HERO_ID
     return: a list of values, [1,2,3]
     """
     dbc.connect_db()
-    return dbc.fetch_field(field, GUILD_COLLECT)
+    return dbc.fetch_field(GUILD_COLLECT, {GUILD_KEY: id}, field)
 
 
 def get_guilds():
@@ -54,11 +55,6 @@ def get_guilds():
 def fetch_curr_id():
     dbc.connect_db()
     return dbc.fetch_curr_id(GUILD_COLLECT)    
-    
-    
-# def del_guild(ID):
-#     dbc.connect_db()
-#     return dbc.del_one(GUILD_COLLECT, {GUILD_KEY: ID})
 
 
 def get_guild_details(id):
@@ -68,19 +64,21 @@ def get_guild_details(id):
 
 def guild_exists(id):
     return get_guild_details(id) is not None
+    
+# Update
+def update_guild(id, key, value):
+    """
+    parameter:  id = guild id
+                key = column name ex. FUNDS
+                value = the value ex. 999999
+    """
+    dbc.connect_db()
+    return dbc.update_one(GUILD_COLLECT, {GUILD_KEY:id}, key, value)
 
-
-# def get_guilds_dict():
-#     dbc.connect_db()
-#     return dbc.fetch_all_as_dict(GUILD_KEY, GUILD_COLLECT)
-
-# def main():
-#     print('Adding guilds')
-#     add_guild(dummy_guilds[TEST_GUILD])
-#     print('Getting games as a list:')
-#     guilds = get_guilds()
-#     print(f'{guilds=}')
-
-
-# if __name__ == '__main__':
-#     main()
+# Deplete
+def del_guild(ID):
+    """
+    Please use this method responsiblly
+    """
+    dbc.connect_db()
+    return dbc.del_one(GUILD_COLLECT, {GUILD_KEY: ID})

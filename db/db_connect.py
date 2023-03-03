@@ -56,12 +56,12 @@ def fetch_curr_id(collection, db=DB):
     return sort_key[-1] + 1
 
 
-def fetch_field(collection, filt, db=DB):
-    return client[db][collection].find({}, {filt:1, '_id':0})
+def fetch_field(collection, id, filt, db=DB):
+    return client[db][collection].find({id}, {filt:1, '_id':0})
 
-# Update
-def update_one(collection, filt, detail, db=DB):
-    return client[db][collection].update_one(filt, detail)
+# Updatea
+def update_one(collection, filt, key, detail, db=DB):
+    return client[db][collection].update_one(filt, {"$set": {key:detail}})
 
 # Delete
 def del_one(collection, filt, db=DB):
