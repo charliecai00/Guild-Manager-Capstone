@@ -33,7 +33,7 @@ api.add_namespace(party_ns)
 #Define API routes
 CREATE = 'Create'
 RELOAD = 'Reload'
-UNSOLD_QUEST = 'Unsold Quest'
+UNSOLD_QUEST = 'Unsold_Quest'
 BUY = 'Buy'
 SELL = 'Sell'
 START = 'Start'
@@ -41,11 +41,11 @@ HIRE = 'Hire'
 FIRE = 'Fire'
 UNEMPLOYED = 'Unemployed'
 HEAL = 'Heal'
-ADD_HERO = 'Add Hero'
-REMOVE_HERO = 'Remove Hero'
-ADD_PARTY = 'Add Party'
-DISBAND_PARTY = 'Disband Party'
-GET_PARTY = 'Get Party'
+ADD_HERO = 'Add_Hero'
+REMOVE_HERO = 'Remove_Hero'
+ADD_PARTY = 'Add_Party'
+DISBAND_PARTY = 'Disband_Party'
+GET_PARTY = 'Get_Party'
 #Create guild routes
 CREATE_PATH = f'{GUILD_NS}/{CREATE}'
 RELOAD_PATH = f'{GUILD_NS}/{RELOAD}'
@@ -71,7 +71,7 @@ GET_PARTY_PATH = f'{PARTY_NS}/{GET_PARTY}'
 #Define Marco
 RES = 'Response'
 
-@guild_ns.route(CREATE_PATH)
+@guild_ns.route(f'/{CREATE}')
 class Create(Resource):
     create_input = api.model('Provide new guild name', {'Name': fields.String})
     
@@ -80,7 +80,7 @@ class Create(Resource):
         guild_script.generate_guild(request.json["Name"])
         return {RES: 'Success'}
     
-@guild_ns.route(RELOAD_PATH)
+@guild_ns.route(f'/{RELOAD}')
 class Reload(Resource):
     def get(self):
         guilds =  db_guild.get_guilds()
@@ -89,12 +89,12 @@ class Reload(Resource):
             guild_names.append(i["Name"])
         return {RES: guild_names}        
     
-@quest_ns.route(UNSOLD_QUEST_PATH)
+@quest_ns.route(f'/{UNSOLD_QUEST}')
 class Unsold(Resource):
     def get(self):
         return {RES: db_quest.get_unpurchase_quest()}
         
-@quest_ns.route(BUY_PATH)
+@quest_ns.route(f'/{BUY}')
 class Buy(Resource):
     buy_input = api.model('Buy quest by id', {'id': fields.Integer})
     
@@ -103,7 +103,7 @@ class Buy(Resource):
         return {RES: 'Success'}
     #Todo: call buy_quest()
     
-@quest_ns.route(SELL_PATH)
+@quest_ns.route(f'/{SELL}')
 class Sell(Resource):
     sell_input = api.model('Sell quest by id', {'id': fields.Integer})
     
@@ -112,7 +112,7 @@ class Sell(Resource):
         return {RES: 'Success'}
     #Todo: call sell_quest()
     
-@quest_ns.route(START_PATH)
+@quest_ns.route(f'/{START}')
 class StartQuest(Resource):
     start_input = api.model('Start quest by id and the party id playing the quest', {'id': fields.Integer,
                                                                                      'party_id': fields.Integer})
@@ -122,7 +122,7 @@ class StartQuest(Resource):
         quest_script.start_quest(request.json['id'],request.json['party_id'])
         return {RES: 'Success'}
         
-@hero_ns.route(HIRE_PATH)
+@hero_ns.route(f'/{HIRE}')
 class Hire(Resource):
     hire_input = api.model('Hire hero by id and provide guild id', {'id': fields.Integer,
                                                                     'guild_id': fields.Integer})
@@ -133,7 +133,7 @@ class Hire(Resource):
             return {RES: "Success"}
         return {RES: "Could not hire hero, out of money."}
         
-@hero_ns.route(FIRE_PATH)
+@hero_ns.route(f'/{FIRE}')
 class Fire(Resource):
     fire_input = api.model('Fire hero by id', {'id': fields.Integer})
     
@@ -142,12 +142,12 @@ class Fire(Resource):
         hero_script.fire_hero(request.json['id'])
         return {RES: 'Success'}
         
-@hero_ns.route(UNEMPLOYED_PATH)
+@hero_ns.route(f'/{UNEMPLOYED}')
 class Unemployed(Resource):
     def get(self):
         return {RES: db_hero.get_unemploy_hero()}
     
-@hero_ns.route(HEAL_PATH)
+@hero_ns.route(f'/{HEAL}')
 class Heal(Resource):
     heal_input = api.model('Heal hero by id', {'id': fields.Integer})
     
@@ -156,7 +156,7 @@ class Heal(Resource):
         hero_script.heal_hero(request.json['id'])
         return {RES: 'Success'}
         
-@party_ns.route(ADD_PARTY_PATH)
+@party_ns.route(f'/{ADD_PARTY}')
 class AddParty(Resource):
     add_party_input = api.model('Give the new party a name', {'Name': fields.String})
     
@@ -165,7 +165,7 @@ class AddParty(Resource):
         party_script.generate_party(request.json['Name'])
         return {RES: 'Success'}
     
-@party_ns.route(DISBAND_PARTY_PATH)
+@party_ns.route(f'/{DISBAND_PARTY}')
 class DisbandParty(Resource):
     disband_party_input = api.model('Delete a party by id', {'id': fields.Integer})
     
@@ -174,7 +174,7 @@ class DisbandParty(Resource):
         party_script.disband_party(request.json['id'])
         return {RES: 'Success'}
     
-@party_ns.route(ADD_HERO_PATH)
+@party_ns.route(f'/{ADD_HERO}')
 class AddHero(Resource):
     add_hero_input = api.model('Add hero to party by IDs', {'id': fields.Integer,
                                                             'party_id': fields.Integer})
@@ -184,7 +184,7 @@ class AddHero(Resource):
         party_script.add_party_hero(request.json['party_id'], request.json['id'])
         return {RES: 'Success'}
     
-@party_ns.route(REMOVE_HERO_PATH)
+@party_ns.route(f'/{REMOVE_HERO}')
 class RemoveHero(Resource):
     remove_hero_input = api.model('Remove hero to party by IDs', {'id': fields.Integer,
                                                             'party_id': fields.Integer})
@@ -194,7 +194,7 @@ class RemoveHero(Resource):
         party_script.remove_party_hero(request.json['party_id'], request.json['id'])
         return {RES: 'Success'}
 
-@party_ns.route(GET_PARTY_PATH)
+@party_ns.route(f'/{GET_PARTY}')
 class GetParty(Resource):
     def get(self):
         return {RES: db_party.get_party}
