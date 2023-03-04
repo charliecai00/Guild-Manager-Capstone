@@ -3,7 +3,7 @@
 
 from game.game_math.random import RandomRange
 import db.party as party_db
-# import db.hero as hero_db
+import db.hero as hero_db
 
 
 def generate_party(name="TestName"):
@@ -16,8 +16,8 @@ def generate_party(name="TestName"):
 
 
 def add_party_hero(id, hero_id):
-    curr_party = {}     # party_db get single party
-    curr_hero = {}      # hero_db get single hero
+    curr_party = party_db.get_party_details(id)
+    curr_hero = hero_db.get_hero_details(id)
     if not curr_hero["InParty?"] and hero_id not in curr_party["HeroIDs"]:
         curr_party["HeroIDs"].append(hero_id)
         curr_hero["InParty?"] = True
@@ -32,9 +32,9 @@ def add_party_hero(id, hero_id):
 
 
 def remove_party_hero(id, hero_id):
-    curr_party = {}     # party_db get single party
+    curr_party = party_db.get_party_details(id)
     if hero_id in curr_party["HeroIDs"]:
-        curr_hero = {}  # hero_db get single hero
+        curr_hero = hero_db.get_hero_details(hero_id)
         curr_party["HeroIDs"].pop(hero_id)
         curr_hero["InParty?"] = False
         curr_hero["PartyID"] = 0
@@ -46,20 +46,20 @@ def remove_party_hero(id, hero_id):
 
 
 def test_party_single(id, stat):
-    curr_party = {}     # party_db get single party
+    curr_party = party_db.get_party_details(id)
     max_stat = 0
-    for id in curr_party["HeroIDs"]:
-        curr_hero = {}  # hero_db get single hero
+    for hero_id in curr_party["HeroIDs"]:
+        curr_hero = hero_db.get_hero_details(hero_id)
         max_stat = max(max_stat, curr_hero["Stats"][stat])
     roll = RandomRange(0, 99)
     return True, str(roll <= max_stat)
 
 
 def test_party_team(id, stat):
-    curr_party = {}     # party_db get single party
+    curr_party = party_db.get_party_details(id)
     avg_stat = 0
-    for id in curr_party["HeroIDs"]:
-        curr_hero = {}  # hero_db get single hero
+    for hero_id in curr_party["HeroIDs"]:
+        curr_hero = hero_db.get_hero_details(hero_id)
         avg_stat += curr_hero["Stats"][stat]
     avg_stat /= len(curr_party["HeroIDs"])
     roll = RandomRange(0, 99)
@@ -67,9 +67,9 @@ def test_party_team(id, stat):
 
 
 def disband_party(id):
-    curr_party = {}     # party_db get single party
-    for id in curr_party["HeroIDs"]:
-        curr_hero = {}  # hero_db get single hero
+    curr_party = party_db.get_party_details(id)
+    for hero_id in curr_party["HeroIDs"]:
+        curr_hero = hero_db.get_hero_details(hero_id)
         curr_hero["InParty?"] = False
         curr_hero["PartyID"] = 0
         # hero_db update hero
