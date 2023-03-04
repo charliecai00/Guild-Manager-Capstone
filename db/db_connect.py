@@ -16,14 +16,14 @@ def connect_db():
                                 + "@guild-manager.kr7jklo.mongodb.net/"
                                 + "?retryWrites=true&w=majority")
 
-
+# Create
 def insert_one(collection, doc, db=DB):
     """
     Insert a single doc into collection.
     """
-    client[db][collection].insert_one(doc)
+    return client[db][collection].insert_one(doc)
 
-
+# Read
 def fetch_all(collection, db=DB):
     ret = []
     for doc in client[db][collection].find():
@@ -31,7 +31,7 @@ def fetch_all(collection, db=DB):
         ret.append(doc)
     return ret
 
-
+# Read
 def fetch_all_as_dict(key, collection, db=DB):
     ret = {}
     for doc in client[db][collection].find():
@@ -48,20 +48,28 @@ def fetch_one(collection, filt, db=DB):
         return doc
 
 
-def del_one(collection, filt, db=DB):
-    """
-    Find with a filter and return on the first doc found.
-    """
-    client[db][collection].delete_one(filt)
-    
-    
-def del_many(collection, filt, db=DB):
-    client[db][collection].deleteMany(filt)
-
-
 def fetch_curr_id(collection, db=DB):
     sort_key = []
     for doc in client[db][collection].find():
         sort_key.append(doc['ID'])
     sort_key.sort()
     return sort_key[-1] + 1
+
+
+def fetch_field(collection, filt, db=DB):
+    return client[db][collection].find({}, {filt:1, '_id':0})
+
+# Update
+def update_one(collection, filt, detail, db=DB):
+    return client[db][collection].update_one(filt, detail)
+
+# Delete
+def del_one(collection, filt, db=DB):
+    """
+    Find with a filter and return on the first doc found.
+    """
+    return client[db][collection].delete_one(filt)
+    
+    
+def del_many(collection, filt, db=DB):
+    return client[db][collection].delete_many(filt)
