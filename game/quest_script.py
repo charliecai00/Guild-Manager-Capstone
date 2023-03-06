@@ -4,6 +4,8 @@
 # import db.quest as db
 import csv
 import random
+import db.quest as quest_db
+import db.guild as guild_db
 from game.game_math.random import RandomRange
 
 def generate_quest(id):
@@ -42,9 +44,23 @@ def start_quest(id, party_id):
     pass
 
 
-def buy_quest(id):
-    pass
+def buy_quest(id, guild_id):
+    curr_quest = quest_db.get_quest_details(id)
+    curr_guild = guild_db.get_guild_details(guild_id)
+    if curr_quest["Purchase"]:
+        return False, "Quest already purchased"
+    elif curr_guild["Funds"] < curr_quest["Cost"]:
+        return False, "Not enough funds"
+    curr_guild["Funds"] -= curr_quest["Cost"]
+    curr_quest["Purchase"] = True
+    return True, "Quest purchased"
 
 
-def sell_quest(id):
-    pass
+def sell_quest(id, guild_id):
+    curr_quest = quest_db.get_quest_details(id)
+    curr_guild = guild_db.get_guild_details(guild_id)
+    if not curr_quest["Purchase"]:
+        return False, "Quest hasn't been bought yet"
+    curr_guild["Funds"] += (curr_quest["Cost"] // 2)
+    curr_quest["Purchase"] = False
+    return True, "Quest sold"
