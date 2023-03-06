@@ -39,17 +39,18 @@ def heal_hero(id):
         return False, "Guild does not have enough funds to heal" 
     return True, "Hero has been healed"
 
-
+# possible redundancy with party_script
 def update_hero_party(id, party_id):
     curr_hero = {} # db get single hero
     curr_party = () # db get single party
-    if curr_hero["InParty?"] == True:
+    if curr_hero["InParty?"]:
         return False, "Hero already in another party"
     elif curr_hero["PartyID"] == party_id:
         return False, "Hero already in this party"
+    
     return True, "Hero has been added to party"
 
-
+# possible redundancy with party_script
 def remove_hero_party(id):
     curr_hero = {} # db get single hero
     if curr_hero["InParty?"]:
