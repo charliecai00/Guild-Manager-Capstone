@@ -63,13 +63,14 @@ def update_hero_party(id, party_id):
         return False, "Hero already in another party"
     elif curr_hero["PartyID"] == party_id:
         return False, "Hero already in this party"
-    # update hero party id and inParty?
+    curr_hero["PartyID"] = party_id
+    curr_hero["InParty?"] = True
     return True, "Hero has been added to party"
 
 def heal_hero(id):
     curr_hero = hero_db.get_hero_details(id)
     curr_hero["Health"] = curr_hero["MaxHealth"]
-    return True, ""
+    return True, "Hero has been healed"
 
 
 def test_hero(id, stat):
