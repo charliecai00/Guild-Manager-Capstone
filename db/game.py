@@ -18,6 +18,7 @@ dummy_game = {TEST_GAME_NAME1: {NAME: THE_GAME,
                                 QUEST_ID: [1, 2, 3],
                                 GUILD_ID: [1, 2, 3]}}
 
+
 # Create
 def initialize_game(details):
     """
@@ -29,6 +30,7 @@ def initialize_game(details):
     dbc.connect_db()
     return dbc.insert_one(GAME_COLLECT, details)
 
+
 # Read
 def get_field(field):
     """
@@ -36,17 +38,18 @@ def get_field(field):
     return: a list of values, [1,2,3]
     """
     dbc.connect_db()
-    return dbc.fetch_field(GAME_COLLECT, field)
+    return dbc.fetch_field(GAME_COLLECT, {}, field)
+
 
 # Update
-def update_one(key, value):
+def update_game(key, value):
     """
     parameter example: key = HERO_ID, value = integer
     """
     lst = get_field(key)
     lst.append(value)
     dbc.connect_db()
-    return dbc.update_one(GAME_COLLECT, {NAME: THE_GAME}, {"$set": {key:lst}})
+    return dbc.update_one(GAME_COLLECT, {NAME: THE_GAME}, key, lst)
 
 
 # Delete
@@ -55,34 +58,4 @@ def del_game():
     delete all guild
     """
     dbc.connect_db()
-    return dbc.del_many(GAME_COLLECT,{})
-
-
-# def get_game_details(game):
-#     dbc.connect_db()
-#     return dbc.fetch_one(GAME_COLLECT, {GAME_KEY: game})
-
-
-# def game_exists(name):
-#     return get_game_details(name) is not None
-
-
-# def get_games_dict():
-#     dbc.connect_db()
-#     return dbc.fetch_all_as_dict(GAME_KEY, GAME_COLLECT)
-
-
-# def main():
-    # print('Adding games')
-    # initialize_game(dummy_game[TEST_GAME_NAME1])
-    # print('Getting games as a list:')
-    # games = get_games()
-    # print(f'{games=}')
-    # print('Getting games as a dict:')
-    # games = get_games_dict()
-    # print(f'{games=}')
-    # print(f'{get_game_details(TEST_GAME_NAME1)=}')
-
-
-# if __name__ == '__main__':
-    # main()
+    return dbc.del_many(GAME_COLLECT, {})

@@ -50,7 +50,7 @@ def fire_guild_hero(id, hero_id):
 
 def add_guild_party(id, party_id):
     curr_guild = guild_db.get_guild_details(id)
-    if not party_id in curr_guild["PartyIDs"]:
+    if party_id not in curr_guild["PartyIDs"]:
         curr_guild["PartyIDs"].append(party_id)
         return True, ""
     else:
@@ -69,12 +69,13 @@ def remove_guild_party(id, party_id):
 def buy_guild_quest(id, quest_id):
     curr_guild = guild_db.get_guild_details(id)
     curr_quest = quest_db.get_quest_details(quest_id)
-    if curr_quest["Cost"] <= curr_guild["Funds"] and not quest_id in curr_guild["QuestIDs"]:
-        curr_guild["Funds"] -= curr_quest["Cost"]
-        curr_guild["QuestIDs"].append(quest_id)
-        # guild_db update guild
-        # quest_db update hero
-        return True, ""
+    if curr_quest["Cost"] <= curr_guild["Funds"]:
+        if quest_id not in curr_guild["QuestIDs"]:
+            curr_guild["Funds"] -= curr_quest["Cost"]
+            curr_guild["QuestIDs"].append(quest_id)
+            # guild_db update guild
+            # quest_db update hero
+            return True, ""
     elif curr_quest["Cost"] > curr_guild["Funds"]:
         return False, "Guild does not have enough funds"
     else:

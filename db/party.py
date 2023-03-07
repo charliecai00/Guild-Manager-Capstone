@@ -17,22 +17,19 @@ dummy_party = {TEST_PARTY: {ID: 1,
                             HERO_ID: [1, 2, 3]}}
 
 
+# Create
 def add_party(details):
     dbc.connect_db()
     return dbc.insert_one(PARTY_COLLECT, details)
 
 
+# Read
 def get_party():
     """
     return a list of dictionary guilds [{...},{...},{...}]
     """
     dbc.connect_db()
     return dbc.fetch_all(PARTY_COLLECT)
-
-
-def del_party(ID):
-    dbc.connect_db()
-    return dbc.del_one(PARTY_COLLECT, {PARTY_KEY: ID})
 
 
 def get_party_details(id):
@@ -42,8 +39,20 @@ def get_party_details(id):
 
 def fetch_curr_id():
     dbc.connect_db()
-    return dbc.fetch_curr_id(PARTY_COLLECT)    
+    return dbc.fetch_curr_id(PARTY_COLLECT)
 
 
 def party_exists(id):
     return get_party_details(id) is not None
+
+
+# Update
+def update_party(id, key, value):
+    dbc.connect_db()
+    return dbc.update_one(PARTY_COLLECT, {PARTY_KEY: id}, key, value)
+
+
+# Delete
+def del_party(ID):
+    dbc.connect_db()
+    return dbc.del_one(PARTY_COLLECT, {PARTY_KEY: ID})
