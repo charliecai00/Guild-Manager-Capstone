@@ -33,12 +33,12 @@ dummy_hero = {TEST_HERO: {ID: 1,
                           IN_PARTY: False,
                           PARTY_ID: None}}
 
-
+# Create
 def add_hero(details):
     dbc.connect_db()
     return dbc.insert_one(HERO_COLLECT, details)
 
-
+# Read
 def get_unemploy_hero():
     """
     return: a list of values, [1,2,3]
@@ -68,32 +68,21 @@ def hero_exists(name):
     return get_hero_details(name) is not None
 
 
-# def get_heros_dict():
-#     dbc.connect_db()
-#     return dbc.fetch_all_as_dict(HERO_KEY, HERO_COLLECT)
+# Update
+def update_hero(previous_id, new_hero):
+    """
+    1. delete the preivous hero by id
+    2. create a new hero, accepting parameter as json
+    """
+    dbc.connect_db()
+    dbc.del_one(HERO_COLLECT, {ID: previous_id})
+    return dbc.insert_one(HERO_COLLECT, new_hero)
 
+# Delete
+def del_hero(ID):
+    """
+    Delete all hero
+    """
+    dbc.connect_db()
+    return dbc.del_many(HERO_COLLECT, {})
 
-# def get_heros():
-#     dbc.connect_db()
-#     return dbc.fetch_all(HERO_COLLECT)
-
-
-# def del_hero(ID):
-#     dbc.connect_db()
-#     return dbc.del_one(HERO_COLLECT, {HERO_KEY: ID})
-
-
-def main():
-    print('Adding a hero')
-    add_hero(dummy_hero[TEST_HERO])
-#     print('Getting heros as a list:')
-#     heros = get_heros()
-#     print(f'{heros=}')
-#     print('Getting heros as a dict:')
-#     games = get_heros_dict()
-#     print(f'{games=}')
-#     print(f'{get_hero_details(TEST_HERO)=}')
-
-
-if __name__ == '__main__':
-    main()

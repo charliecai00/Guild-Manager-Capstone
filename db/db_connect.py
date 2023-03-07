@@ -59,7 +59,7 @@ def fetch_curr_id(collection, db=DB):
 def fetch_field(collection, id, filt, db=DB):
     return client[db][collection].find({id}, {filt:1, '_id':0})
 
-# Updatea
+# Update
 def update_one(collection, filt, key, detail, db=DB):
     return client[db][collection].update_one(filt, {"$set": {key:detail}})
 
