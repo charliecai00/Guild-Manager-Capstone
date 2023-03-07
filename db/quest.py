@@ -25,6 +25,13 @@ dummy_quest = {TEST_QUEST: {ID: 1,
                             PURCHASE: False}}
 
 
+# Create
+def add_quest(details):
+    dbc.connect_db()
+    return dbc.insert_one(QUEST_COLLECT, details)
+
+
+# Read
 def get_unpurchase_quest():
     """
     return: a list of values, [1,2,3]
@@ -54,37 +61,21 @@ def quest_exists(id):
     return get_quest_details(id) is not None
 
 
-# def get_quests_dict():
-#     dbc.connect_db()
-#     return dbc.fetch_all_as_dict(QUEST_KEY, QUEST_COLLECT)
-
-
-# def get_quests():
-#     dbc.connect_db()
-#     return dbc.fetch_all(QUEST_COLLECT)
-
-
-def add_quest(details):
+# Update
+def update_quest(previous_id, new_quest):
+    """
+    1. delete previous quest by id
+    2. create a new quest, accepting parameter as json
+    """
     dbc.connect_db()
-    return dbc.insert_one(QUEST_COLLECT, details)
+    dbc.del_one(QUEST_COLLECT, {ID: previous_id})
+    return dbc.insert_one(QUEST_COLLECT, new_quest)
 
 
-# def del_quest(name):
-#     dbc.connect_db()
-#     return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: name})
-
-
-def main():
-    print('Adding a quest')
-    add_quest(dummy_quest[TEST_QUEST])
-#     print('Getting quests as a list:')
-#     quests = get_quests()
-#     print(f'{quests=}')
-#     print('Getting quests as a dict:')
-#     quests = get_quests_dict()
-#     print(f'{quests=}')
-#     print(f'{get_quest_details(TEST_QUEST)=}')
-
-
-if __name__ == '__main__':
-    main()
+# Delete
+def del_quest(name):
+    """
+    Delete all quest
+    """
+    dbc.connect_db()
+    return dbc.del_many(QUEST_COLLECT, {})
