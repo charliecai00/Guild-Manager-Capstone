@@ -18,6 +18,7 @@ dummy_game = {TEST_GAME_NAME1: {NAME: THE_GAME,
                                 QUEST_ID: [1, 2, 3],
                                 GUILD_ID: [1, 2, 3]}}
 
+
 # Create
 def initialize_game(details):
     """
@@ -29,6 +30,7 @@ def initialize_game(details):
     dbc.connect_db()
     return dbc.insert_one(GAME_COLLECT, details)
 
+
 # Read
 def get_field(field):
     """
@@ -37,6 +39,7 @@ def get_field(field):
     """
     dbc.connect_db()
     return dbc.fetch_field(GAME_COLLECT, {}, field)
+
 
 # Update
 def update_game(key, value):
@@ -55,4 +58,4 @@ def del_game():
     delete all guild
     """
     dbc.connect_db()
-    return dbc.del_many(GAME_COLLECT,{})
+    return dbc.del_many(GAME_COLLECT, {})

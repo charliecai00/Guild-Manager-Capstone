@@ -42,7 +42,7 @@ def get_party_details(id):
 
 def fetch_curr_id():
     dbc.connect_db()
-    return dbc.fetch_curr_id(PARTY_COLLECT)    
+    return dbc.fetch_curr_id(PARTY_COLLECT)
 
 
 def party_exists(id):

@@ -19,7 +19,13 @@ GUILD_KEY = 'ID'
 GUILD_COLLECT = 'Guilds'
 
 TEST_GUILD = 'test_guild'
-REQUIRED_FLDS = [ID, NAME, HIRED_HERO, PURCHASED_QUEST, CREATED_PARTY, FUNDS, QUEST_COMPLETED]
+REQUIRED_FLDS = [ID,
+                 NAME,
+                 HIRED_HERO,
+                 PURCHASED_QUEST,
+                 CREATED_PARTY,
+                 FUNDS,
+                 QUEST_COMPLETED]
 dummy_guilds = {TEST_GUILD: {ID: 1,
                              NAME: "Temporary Guild",
                              HIRED_HERO: [1, 2, 3],
@@ -28,10 +34,12 @@ dummy_guilds = {TEST_GUILD: {ID: 1,
                              FUNDS: 9999999,
                              QUEST_COMPLETED: 9999999}}
 
+
 # Create
 def add_guild(details):
     dbc.connect_db()
     return dbc.insert_one(GUILD_COLLECT, details)
+
 
 # Read
 def get_field(id, field):
@@ -54,7 +62,7 @@ def get_guilds():
 
 def fetch_curr_id():
     dbc.connect_db()
-    return dbc.fetch_curr_id(GUILD_COLLECT)    
+    return dbc.fetch_curr_id(GUILD_COLLECT)
 
 
 def get_guild_details(id):
@@ -64,7 +72,8 @@ def get_guild_details(id):
 
 def guild_exists(id):
     return get_guild_details(id) is not None
-    
+
+
 # Update
 def update_guild(id, key, value):
     """
@@ -73,9 +82,10 @@ def update_guild(id, key, value):
                 value = the value ex. 999999
     """
     dbc.connect_db()
-    return dbc.update_one(GUILD_COLLECT, {GUILD_KEY:id}, key, value)
+    return dbc.update_one(GUILD_COLLECT, {GUILD_KEY: id}, key, value)
 
-# Deplete
+
+# Delete
 def del_guild(ID):
     """
     Please use this method responsiblly

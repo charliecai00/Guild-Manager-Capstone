@@ -47,7 +47,7 @@ def get_quest_details(id):
 
 def fetch_curr_id():
     dbc.connect_db()
-    return dbc.fetch_curr_id(QUEST_COLLECT)    
+    return dbc.fetch_curr_id(QUEST_COLLECT)
 
 
 def quest_exists(id):

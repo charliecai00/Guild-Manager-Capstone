@@ -33,10 +33,12 @@ dummy_hero = {TEST_HERO: {ID: 1,
                           IN_PARTY: False,
                           PARTY_ID: None}}
 
+
 # Create
 def add_hero(details):
     dbc.connect_db()
     return dbc.insert_one(HERO_COLLECT, details)
+
 
 # Read
 def get_unemploy_hero():
@@ -61,7 +63,7 @@ def get_hero_details(id):
 
 def fetch_curr_id():
     dbc.connect_db()
-    return dbc.fetch_curr_id(HERO_COLLECT)    
+    return dbc.fetch_curr_id(HERO_COLLECT)
 
 
 def hero_exists(name):
@@ -78,6 +80,7 @@ def update_hero(previous_id, new_hero):
     dbc.del_one(HERO_COLLECT, {ID: previous_id})
     return dbc.insert_one(HERO_COLLECT, new_hero)
 
+
 # Delete
 def del_hero(ID):
     """
@@ -85,4 +88,3 @@ def del_hero(ID):
     """
     dbc.connect_db()
     return dbc.del_many(HERO_COLLECT, {})
-

@@ -20,7 +20,8 @@ def generate_guild(name="TestGuild"):
 
 
 def hire_guild_hero(id, hero_id):
-    curr_guild = {} # guild_db get single guild
+    curr_guild = {}
+    # guild_db get single guild
     curr_hero = {}  # hero_db get single hero
     if curr_hero["Cost"] <= curr_guild["Funds"] and not curr_hero["Hired?"]:
         curr_guild["Funds"] -= curr_hero["Cost"]
@@ -36,7 +37,7 @@ def hire_guild_hero(id, hero_id):
 
 
 def fire_guild_hero(id, hero_id):
-    curr_guild = {} # guild_db get single guild
+    curr_guild = {}  # guild_db get single guild
     if hero_id in curr_guild["HeroIDs"]:
         curr_hero = {}  # hero_db get single hero
         curr_hero["Hired?"] = False
@@ -49,8 +50,8 @@ def fire_guild_hero(id, hero_id):
 
 
 def add_guild_party(id, party_id):
-    curr_guild = {} # guild_db get single guild
-    if not party_id in curr_guild["PartyIDs"]:
+    curr_guild = {}  # guild_db get single guild
+    if party_id not in curr_guild["PartyIDs"]:
         curr_guild["PartyIDs"].append(party_id)
         return True, ""
     else:
@@ -58,7 +59,7 @@ def add_guild_party(id, party_id):
 
 
 def remove_guild_party(id, party_id):
-    curr_guild = {} # guild_db get single guild
+    curr_guild = {}  # guild_db get single guild
     if party_id in curr_guild["PartyIDs"]:
         curr_guild["PartyIDs"].pop(party_id)
         return True, ""
@@ -67,14 +68,15 @@ def remove_guild_party(id, party_id):
 
 
 def buy_guild_quest(id, quest_id):
-    curr_guild = {} # guild_db get single guild
-    curr_quest = {} # quest_db get single quest
-    if curr_quest["Cost"] <= curr_guild["Funds"] and not quest_id in curr_guild["QuestIDs"]:
-        curr_guild["Funds"] -= curr_quest["Cost"]
-        curr_guild["QuestIDs"].append(quest_id)
-        # guild_db update guild
-        # quest_db update hero
-        return True, ""
+    curr_guild = {}  # guild_db get single guild
+    curr_quest = {}  # quest_db get single quest
+    if curr_quest["Cost"] <= curr_guild["Funds"]:
+        if quest_id not in curr_guild["QuestIDs"]:
+            curr_guild["Funds"] -= curr_quest["Cost"]
+            curr_guild["QuestIDs"].append(quest_id)
+            # guild_db update guild
+            # quest_db update hero
+            return True, ""
     elif curr_quest["Cost"] > curr_guild["Funds"]:
         return False, "Guild does not have enough funds"
     else:
@@ -82,9 +84,9 @@ def buy_guild_quest(id, quest_id):
 
 
 def sell_guild_quest(id, quest_id):
-    curr_guild = {} # guild_db get single guild
+    curr_guild = {}  # guild_db get single guild
     if quest_id in curr_guild["QuestIDs"]:
-        curr_quest = {} # quest_db get single quest
+        curr_quest = {}  # quest_db get single quest
         curr_guild["Funds"] += curr_quest["Resell"]
         curr_guild["QuestIDs"].pop(quest_id)
         # guild_db update guild
