@@ -71,14 +71,9 @@ def hero_exists(name):
 
 
 # Update
-def update_hero(previous_id, new_hero):
-    """
-    1. delete the preivous hero by id
-    2. create a new hero, accepting parameter as json
-    """
+def update_hero(id, key, value):
     dbc.connect_db()
-    dbc.del_one(HERO_COLLECT, {ID: previous_id})
-    return dbc.insert_one(HERO_COLLECT, new_hero)
+    return dbc.update_one(HERO_COLLECT, {HERO_KEY: id}, key, value)
 
 
 # Delete

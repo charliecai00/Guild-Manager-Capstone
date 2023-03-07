@@ -62,14 +62,9 @@ def quest_exists(id):
 
 
 # Update
-def update_quest(previous_id, new_quest):
-    """
-    1. delete previous quest by id
-    2. create a new quest, accepting parameter as json
-    """
+def update_quest(id, key, value):
     dbc.connect_db()
-    dbc.del_one(QUEST_COLLECT, {ID: previous_id})
-    return dbc.insert_one(QUEST_COLLECT, new_quest)
+    return dbc.update_one(QUEST_COLLECT, {QUEST_KEY: id}, key, value)
 
 
 # Delete

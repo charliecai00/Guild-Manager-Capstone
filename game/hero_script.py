@@ -5,6 +5,7 @@ from game.game_math.random import RandomRange
 from game.game_math.random import RandomNormalClamped
 import db.hero as hero_db
 import db.guild as guild_db
+from pathlib import Path
 
 
 def generate_hero(id):
@@ -34,7 +35,8 @@ def generate_hero(id):
 
 def get_first_name() -> str:
     f_names = []
-    with open("game\resources\hero_firstname_rsc.txt", "r") as txtfile:
+    data_folder = Path("game/resources/hero_firstname_rsc.txt")
+    with open(data_folder, "r") as txtfile:
         for line in txtfile:
             f_names.append(line)
     # print(f_names)
@@ -43,7 +45,8 @@ def get_first_name() -> str:
 
 def get_last_name() -> str:
     l_names = []
-    with open("game\resources\hero_firstname_rsc.txt", "r") as txtfile:
+    data_folder = Path("game/resources/hero_firstname_rsc.txt")
+    with open(data_folder, "r") as txtfile:
         for line in txtfile:
             l_names.append(line)
     # print(l_names)
@@ -63,7 +66,7 @@ def heal_hero(id, guild_id):
 # possible redundancy with party_script
 def update_hero_party(id, party_id):
     curr_hero = hero_db.get_hero_details(id)
-    if curr_hero["InParty?"] == True:
+    if curr_hero["InParty?"]:
         return False, "Hero already in another party"
     elif curr_hero["PartyID"] == party_id:
         return False, "Hero already in this party"
@@ -72,10 +75,10 @@ def update_hero_party(id, party_id):
     return True, "Hero has been added to party"
 
 
-def heal_hero(id):
-    curr_hero = hero_db.get_hero_details(id)
-    curr_hero["Health"] = curr_hero["MaxHealth"]
-    return True, "Hero has been healed"
+# def heal_hero(id):
+#     curr_hero = hero_db.get_hero_details(id)
+#     curr_hero["Health"] = curr_hero["MaxHealth"]
+#     return True, "Hero has been healed"
 
 
 def test_hero(id, stat):

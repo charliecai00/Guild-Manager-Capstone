@@ -14,6 +14,7 @@ def generate_party(name="TestName"):
         }
     party_db.add_party(party_dict)
 
+
 # possible redundancy with hero_script
 def add_party_hero(id, hero_id):
     curr_party = party_db.get_party_details(id)
@@ -29,6 +30,7 @@ def add_party_hero(id, hero_id):
         return False, "Hero already in another party"
     else:
         return False, "Hero already in the party"
+
 
 # possible redundancy with hero_script
 def remove_party_hero(id, hero_id):
