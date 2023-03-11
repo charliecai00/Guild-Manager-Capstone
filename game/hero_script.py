@@ -18,18 +18,28 @@ def generate_hero(id):
             "MaxHealth": 5,
             "Exp": 0,
             "Stats": {
-                "STR": RandomNormalClamped(20, 10, 5, 95),
-                "CON": RandomNormalClamped(20, 10, 5, 95),
-                "DEX": RandomNormalClamped(20, 10, 5, 95),
-                "WIS": RandomNormalClamped(20, 10, 5, 95),
-                "INT": RandomNormalClamped(20, 10, 5, 95),
-                "CHA": RandomNormalClamped(20, 10, 5, 95),
+                "STR": RandomNormalClamped(50, 25, 5, 95),
+                "CON": RandomNormalClamped(50, 25, 5, 95),
+                "DEX": RandomNormalClamped(50, 25, 5, 95),
+                "WIS": RandomNormalClamped(50, 25, 5, 95),
+                "INT": RandomNormalClamped(50, 25, 5, 95),
+                "CHA": RandomNormalClamped(50, 25, 5, 95),
             },
             "Hired?": False,
             "InParty?": False,
             "PartyID": 0,
             "Cost": 5
         }
+    # hero cost updating
+    for stat in hero_dict["Stats"].values():
+        if stat >= 70:
+            hero_dict["Cost"] += 1
+            if stat >= 80:
+                hero_dict["Cost"] += 2
+        elif stat <= 30:
+            hero_dict["Cost"] -= 1
+            if stat <= 20:
+                hero_dict["Cost"] -= 2
     hero_db.add_hero(hero_dict)
 
 
@@ -39,7 +49,6 @@ def get_first_name() -> str:
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
             f_names.append(line)
-    # print(f_names)
     return f_names[RandomRange(0, len(f_names))]
 
 
@@ -49,7 +58,6 @@ def get_last_name() -> str:
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
             l_names.append(line)
-    # print(l_names)
     return l_names[RandomRange(0, len(l_names))]
 
 
@@ -60,25 +68,8 @@ def heal_hero(id, guild_id):
         return False, "Hero already healthy"
     elif curr_hero["Cost"] > curr_guild["Funds"]:
         return False, "Guild does not have enough funds to heal"
+    hero_db.update_hero(id, "Health", curr_hero["MaxHealth"])
     return True, "Hero has been healed"
-
-
-# possible redundancy with party_script
-def update_hero_party(id, party_id):
-    curr_hero = hero_db.get_hero_details(id)
-    if curr_hero["InParty?"]:
-        return False, "Hero already in another party"
-    elif curr_hero["PartyID"] == party_id:
-        return False, "Hero already in this party"
-    curr_hero["PartyID"] = party_id
-    curr_hero["InParty?"] = True
-    return True, "Hero has been added to party"
-
-
-# def heal_hero(id):
-#     curr_hero = hero_db.get_hero_details(id)
-#     curr_hero["Health"] = curr_hero["MaxHealth"]
-#     return True, "Hero has been healed"
 
 
 def test_hero(id, stat):

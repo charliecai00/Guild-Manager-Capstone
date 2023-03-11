@@ -27,7 +27,10 @@ def hire_guild_hero(id, hero_id):
         curr_guild["HeroIDs"].append(hero_id)
         curr_hero["Hired?"] = True
         # guild_db update guild
+        guild_db.update_guild(id, "Funds", curr_guild["Funds"])
+        guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
         # hero_db update hero
+        hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
         return True, ""
     elif curr_hero["Hired?"]:
         return False, "Hero already hired"
@@ -42,7 +45,10 @@ def fire_guild_hero(id, hero_id):
         curr_hero["Hired?"] = False
         curr_guild["HeroIDs"].pop(hero_id)
         # guild_db update guild
+        guild_db.update_guild(id, "Funds", curr_guild["Funds"])
+        guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
         # hero_db update hero
+        hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
         return True, ""
     else:
         return False, "Hero not in guild"
@@ -74,7 +80,10 @@ def buy_guild_quest(id, quest_id):
             curr_guild["Funds"] -= curr_quest["Cost"]
             curr_guild["QuestIDs"].append(quest_id)
             # guild_db update guild
-            # quest_db update hero
+            guild_db.update_guild(id, "Funds", curr_guild["Funds"])
+            guild_db.update_guild(id, "QuestIDs", curr_guild["QuestIDs"])
+            # quest_db update quest
+            quest_db.update_quest(quest_id, "Purchase", True)
             return True, ""
     elif curr_quest["Cost"] > curr_guild["Funds"]:
         return False, "Guild does not have enough funds"
@@ -89,7 +98,10 @@ def sell_guild_quest(id, quest_id):
         curr_guild["Funds"] += curr_quest["Resell"]
         curr_guild["QuestIDs"].pop(quest_id)
         # guild_db update guild
-        # quest_db update hero
+        guild_db.update_guild(id, "Funds", curr_guild["Funds"])
+        guild_db.update_guild(id, "QuestIDs", curr_guild["QuestIDs"])
+        # quest_db update quest
+        quest_db.update_quest(quest_id, "Purchase", False)
         return True, ""
     else:
         return False, "Quest not owned by guild"

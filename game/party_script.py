@@ -15,7 +15,6 @@ def generate_party(name="TestName"):
     party_db.add_party(party_dict)
 
 
-# possible redundancy with hero_script
 def add_party_hero(id, hero_id):
     curr_party = party_db.get_party_details(id)
     curr_hero = hero_db.get_hero_details(id)
@@ -24,7 +23,10 @@ def add_party_hero(id, hero_id):
         curr_hero["InParty?"] = True
         curr_hero["PartyID"] = id
         # party_db update party
+        party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
         # hero_db update hero
+        hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
+        hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
         return True, ""
     elif curr_hero["InParty?"]:
         return False, "Hero already in another party"
@@ -32,7 +34,6 @@ def add_party_hero(id, hero_id):
         return False, "Hero already in the party"
 
 
-# possible redundancy with hero_script
 def remove_party_hero(id, hero_id):
     curr_party = party_db.get_party_details(id)
     if hero_id in curr_party["HeroIDs"]:
@@ -41,7 +42,10 @@ def remove_party_hero(id, hero_id):
         curr_hero["InParty?"] = False
         curr_hero["PartyID"] = 0
         # party_db update party
+        party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
         # hero_db update hero
+        hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
+        hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
         return True, ""
     else:
         return False, "Hero not in party"
@@ -75,6 +79,9 @@ def disband_party(id):
         curr_hero["InParty?"] = False
         curr_hero["PartyID"] = 0
         # hero_db update hero
+        hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
+        hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
     curr_party["HeroIDs"].clear()
     # party_db update party
+    party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
     return True, ""

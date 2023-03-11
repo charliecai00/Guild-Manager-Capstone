@@ -4,5 +4,6 @@
     "ChallengeIDs": [0,1,2,3,4],
     "ChallengeLevel": 0,
     "Cost": 0,
-    "Resell": 0
+    "Resell": 0,
+    "Purchase": false
 }
