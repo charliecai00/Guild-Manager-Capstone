@@ -30,6 +30,16 @@ def generate_hero(id):
             "PartyID": 0,
             "Cost": 5
         }
+    # hero cost updating
+    for stat in hero_dict["Stats"].values():
+        if stat >= 70:
+            hero_dict["Cost"] += 1
+            if stat >= 80:
+                hero_dict["Cost"] += 2
+        elif stat <= 30:
+            hero_dict["Cost"] -= 1
+            if stat <= 20:
+                hero_dict["Cost"] -= 2
     hero_db.add_hero(hero_dict)
 
 
