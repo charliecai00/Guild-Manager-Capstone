@@ -3,7 +3,6 @@
 
 from flask import Flask, request
 from flask_restx import Resource, Api, fields, Namespace
-from flask_cors import CORS, cross_origin
 
 import game.guild_script as guild_script
 import game.hero_script as hero_script
@@ -75,7 +74,6 @@ GET_PARTY_PATH = f'{PARTY_NS}/{GET_PARTY}'
 RES = 'Response'
 
 @guild_ns.route(f'/{CREATE}')
-# @cross_origin()
 class Create(Resource):
     create_input = api.model('Provide new guild name', {'Name': fields.String})
 
