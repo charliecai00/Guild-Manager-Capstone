@@ -222,7 +222,7 @@ class RemoveHero(Resource):
 @party_ns.route(f'/{GET_PARTY}')
 class GetParty(Resource):
     def get(self):
-        return {RES: db_party.get_party}
+        return {RES: db_party.get_party()}
 
 
 if __name__ == '__main__':
