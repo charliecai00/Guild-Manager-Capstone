@@ -3,6 +3,7 @@
 
 from flask import Flask, request
 from flask_restx import Resource, Api, fields, Namespace
+from flask_cors import CORS
 
 import game.guild_script as guild_script
 import game.hero_script as hero_script
