@@ -76,6 +76,7 @@ GET_PARTY_DETAIL_PATH = f'{PARTY_NS}/{GET_PARTY_DETAIL}'
 # Define Marco
 RES = 'Response'
 
+
 @guild_ns.route(f'/{CREATE}')
 class Create(Resource):
     create_input = api.model('Provide new guild name', {'Name': fields.String})
