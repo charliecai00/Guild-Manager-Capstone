@@ -42,7 +42,6 @@ def get_unpurchase_quest():
     unpurchase = []
     for i in all_quest:
         if i[PURCHASE] is False:
-            del i['_id']
             unpurchase.append(i)
     return unpurchase
 
