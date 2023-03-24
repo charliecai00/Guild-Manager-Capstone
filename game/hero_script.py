@@ -15,7 +15,7 @@ def generate_hero(id):
             "ID": id,
             "Name": first_name + " " + last_name,
             "Health": 5,
-            "MaxHealth": 5,
+            "MaxHealth": RandomNormalClamped(5, 2, 1, 8),
             "Exp": 0,
             "Stats": {
                 "STR": RandomNormalClamped(50, 25, 5, 95),
@@ -40,6 +40,7 @@ def generate_hero(id):
             hero_dict["Cost"] -= 1
             if stat <= 20:
                 hero_dict["Cost"] -= 2
+    hero_dict["Cost"] = max(1, hero_dict["Cost"])
     hero_db.add_hero(hero_dict)
 
 

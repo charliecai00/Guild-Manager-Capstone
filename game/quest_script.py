@@ -18,14 +18,16 @@ def generate_quest(id):
     quest_dict = {
             "ID": id,
             "Name": quest_name,
-            "ChallengeIDs": [0, 1, 2, 3, 4],
+            "ChallengeIDs": [],
             "ChallengeLevel": 0,
             "Cost": 0,
             "Resell": 0,
             "Purchase": True
         }
-    return quest_dict   # just for linter rn
-    # add quest to db
+    for i in range(RandomRange(1, 5)):
+        for ch in get_challenges():
+            quest_dict["ChallengeIDs"].append(ch[0])
+    quest_db.add_quest(quest_dict)
 
 
 def get_quest_name() -> str:
@@ -45,7 +47,8 @@ def get_challenges() -> list:
         challenges = csv.DictReader(csvfile)
         for x in range(5):
             ids.append(random.choice(list(challenges))[0])
-    return challenges[RandomRange(0, len(challenges))]
+    # return challenges[RandomRange(0, len(challenges))]
+    return ids
 
 
 def get_challenge_id(id) -> list:
