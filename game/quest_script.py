@@ -24,7 +24,7 @@ def generate_quest(id):
             "Resell": 0,
             "Purchase": True
         }
-    for i in range(RandomRange(1,5)):
+    for i in range(RandomRange(1, 5)):
         for ch in get_challenges():
             quest_dict["ChallengeIDs"].append(ch[0])
     quest_db.add_quest(quest_dict)
