@@ -36,14 +36,17 @@ api.add_namespace(party_ns)
 # Define API routes
 CREATE = 'Create'
 RELOAD = 'Reload'
+GUILD_DETAIL = 'Guild_Detail'
 UNSOLD_QUEST = 'Unsold_Quest'
 BUY = 'Buy'
 SELL = 'Sell'
 START = 'Start'
+QUEST_DETAIL = 'Quest_Detail'
 HIRE = 'Hire'
 FIRE = 'Fire'
 UNEMPLOYED = 'Unemployed'
 HEAL = 'Heal'
+HERO_DETAIL = 'Hero_Detail'
 ADD_HERO = 'Add_Hero'
 REMOVE_HERO = 'Remove_Hero'
 ADD_PARTY = 'Add_Party'
@@ -53,16 +56,19 @@ GET_PARTY_DETAIL = 'Get_Party_Detail'
 # Create guild routes
 CREATE_PATH = f'{GUILD_NS}/{CREATE}'
 RELOAD_PATH = f'{GUILD_NS}/{RELOAD}'
+GUILD_DETAIL_PATH = f'{GUILD_NS}/{GUILD_DETAIL}'
 # Create quest routes
 UNSOLD_QUEST_PATH = f'{QUEST_NS}/{UNSOLD_QUEST}'
 BUY_PATH = f'{QUEST_NS}/{BUY}'
 SELL_PATH = f'{QUEST_NS}/{SELL}'
 START_PATH = f'{QUEST_NS}/{START}'
+QUEST_DETAIL_PATH = f'{QUEST_NS}/{QUEST_DETAIL}'
 # Create hero routes
 HIRE_PATH = f'{HERO_NS}/{HIRE}'
 FIRE_PATH = f'{HERO_NS}/{FIRE}'
 UNEMPLOYED_PATH = f'{HERO_NS}/{UNEMPLOYED}'
 HEAL_PATH = f'{HERO_NS}/{HEAL}'
+HERO_DETAIL_PATH = f'{HERO_NS}/{HERO_DETAIL}'
 # Create party routes
 ADD_HERO_PATH = f'{PARTY_NS}/{ADD_HERO}'
 REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
@@ -75,7 +81,7 @@ GET_PARTY_DETAIL_PATH = f'{PARTY_NS}/{GET_PARTY_DETAIL}'
 
 # Define Marco
 RES = 'Response'
-
+detail_input = api.model('Give ID get row details', {'id': fields.Integer})
 
 @guild_ns.route(f'/{CREATE}')
 class Create(Resource):
@@ -90,16 +96,21 @@ class Create(Resource):
 @guild_ns.route(f'/{RELOAD}')
 class Reload(Resource):
     """
-    Return example: {id:name} -> {1:'guild1', 2:'guild2}
+    Return example: [{id:name}] -> [{1:'guild1'}, {2:'guild2}]
     """
     def get(self):
         guilds = db_guild.get_guilds()
         guild_ids_names = []
         for i in guilds:
-            guild_ids_names.append({"id":i['ID'],
-                                    "name":i['Name']})
-            # guild_ids_names[i['ID']] = i['Name']
+            guild_ids_names.append({"id":i['ID'],"name":i['Name']})
         return {RES: guild_ids_names}
+
+
+@guild_ns.route(f'/{GUILD_DETAIL}')
+class GuildDetail(Resource):
+    @api.expect(detail_input)
+    def post(self):
+        return {RES: db_guild.get_guild_details(request.json['id'])}
 
 
 @quest_ns.route(f'/{UNSOLD_QUEST}')
@@ -110,22 +121,26 @@ class Unsold(Resource):
 
 @quest_ns.route(f'/{BUY}')
 class Buy(Resource):
-    buy_input = api.model('Buy quest by id', {'id': fields.Integer})
+    buy_input = api.model('Guild id buy quest id', {'id': fields.Integer, 'guild_id': fields.Integer})
 
     @api.expect(buy_input)
     def post(self):
-        return {RES: 'Success'}
-    # Todo: call buy_quest()
+        flag, msg = quest_script.buy_quest(request.json['id'], request.json['guild_id'])
+        if flag:
+            return {RES: msg}
+        return {RES: msg}
 
 
 @quest_ns.route(f'/{SELL}')
 class Sell(Resource):
-    sell_input = api.model('Sell quest by id', {'id': fields.Integer})
+    sell_input = api.model('Guild id sell quest id', {'id': fields.Integer, 'guild_id': fields.Integer})
 
     @api.expect(sell_input)
     def post(self):
-        return {RES: 'Success'}
-    # Todo: call sell_quest()
+        flag, msg = quest_script.sell_quest(request.json['id'], request.json['guild_id'])
+        if flag:
+            return {RES: msg}
+        return {RES: msg}
 
 
 @quest_ns.route(f'/{START}')
@@ -135,8 +150,15 @@ class StartQuest(Resource):
 
     @api.expect(start_input)
     def post(self):
-        quest_script.start_quest(request.json['id'], request.json['party_id'])
-        return {RES: 'Success'}
+        report = quest_script.start_quest(request.json['id'], request.json['party_id'])
+        return {RES: report}
+
+
+@quest_ns.route(f'/{QUEST_DETAIL}')
+class QuestDetail(Resource):
+    @api.expect(detail_input)
+    def post(self):
+        return {RES: db_quest.get_quest_details(request.json['id'])}
 
 
 @hero_ns.route(f'/{HIRE}')
@@ -146,20 +168,25 @@ class Hire(Resource):
 
     @api.expect(hire_input)
     def post(self):
-        if (hero_script.hire_hero(request.json['id'],
-                                  request.json['guild_id'])):
+        flag, msg = guild_script.hire_guild_hero(request.json['guild_id'],
+                                  request.json['id'])
+        if flag:
             return {RES: "Success"}
-        return {RES: "Could not hire hero, out of money."}
+        return {RES: msg}
 
 
 @hero_ns.route(f'/{FIRE}')
 class Fire(Resource):
-    fire_input = api.model('Fire hero by id', {'id': fields.Integer})
+    fire_input = api.model('Fire hero by id and provide guild id', 
+                           {'id': fields.Integer, 'guild_id': fields.Integer})
 
     @api.expect(fire_input)
     def post(self):
-        hero_script.fire_hero(request.json['id'])
-        return {RES: 'Success'}
+        flag, msg = guild_script.fire_guild_hero(request.json['guild_id'],
+                                  request.json['id'])
+        if flag:
+            return {RES: "Success"}
+        return {RES: msg}
 
 
 @hero_ns.route(f'/{UNEMPLOYED}')
@@ -170,12 +197,23 @@ class Unemployed(Resource):
 
 @hero_ns.route(f'/{HEAL}')
 class Heal(Resource):
-    heal_input = api.model('Heal hero by id', {'id': fields.Integer})
+    heal_input = api.model('Heal hero by id and provide guild id',
+                           {'id': fields.Integer, 'guild_id': fields.Integer})
 
     @api.expect(heal_input)
     def post(self):
-        hero_script.heal_hero(request.json['id'])
-        return {RES: 'Success'}
+        flag, msg = hero_script.heal_hero(request.json['id'],
+                                  request.json['guild_id'])
+        if flag:
+            return {RES: msg}
+        return {RES: msg}
+
+
+@hero_ns.route(f'/{HERO_DETAIL}')
+class HeroDetail(Resource):
+    @api.expect(detail_input)
+    def post(self):
+        return {RES: db_hero.get_hero_details(request.json['id'])}
 
 
 @party_ns.route(f'/{ADD_PARTY}')
@@ -196,8 +234,10 @@ class DisbandParty(Resource):
 
     @api.expect(disband_party_input)
     def post(self):
-        party_script.disband_party(request.json['id'])
-        return {RES: 'Success'}
+        flag, msg = party_script.disband_party(request.json['id'])
+        if flag:
+            return {RES: "Success"}
+        return {RES: "Failure"}
 
 
 @party_ns.route(f'/{ADD_HERO}')
@@ -208,9 +248,11 @@ class AddHero(Resource):
 
     @api.expect(add_hero_input)
     def post(self):
-        party_script.add_party_hero(request.json['party_id'],
+        flag, msg = party_script.add_party_hero(request.json['party_id'],
                                     request.json['id'])
-        return {RES: 'Success'}
+        if flag:
+            return {RES: "Success"}
+        return {RES: msg}
 
 
 @party_ns.route(f'/{REMOVE_HERO}')
@@ -221,9 +263,11 @@ class RemoveHero(Resource):
 
     @api.expect(remove_hero_input)
     def post(self):
-        party_script.remove_party_hero(request.json['party_id'],
+        flag, msg = party_script.remove_party_hero(request.json['party_id'],
                                        request.json['id'])
-        return {RES: 'Success'}
+        if flag:
+            return {RES: "Success"}
+        return {RES: msg}
 
 
 @party_ns.route(f'/{GET_PARTY}')
