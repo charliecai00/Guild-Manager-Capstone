@@ -7,6 +7,8 @@ import csv
 import random
 import db.quest as quest_db
 import db.guild as guild_db
+import db.hero as hero_db
+import party_script as ps
 from game.game_math.random import RandomRange
 
 
@@ -46,8 +48,50 @@ def get_challenges() -> list:
     return challenges[RandomRange(0, len(challenges))]
 
 
-def start_quest(id, party_id):
+def get_challenge_id(id) -> list:
     pass
+
+
+def start_quest(id, party_id):
+    quest = quest_db.get_quest_details(id)
+    event_list = []
+    reward = 0
+    for ch_id in quest["ChallengeIDs"]:
+        if (not ps.test_party_alive(party_id)):
+            break
+        curr_ch = get_challenge_id(ch_id)
+        if (curr_ch[3] == "True"):
+            result = ps.test_party_single(party_id, curr_ch[2])
+            curr_hero = hero_db.get_hero_details(result[2])
+            if (result[0]):
+                # success
+                event_list.append(
+                    curr_ch[4].replace("[Hero]",
+                                       curr_hero["Name"]))
+                hero_db.update_hero(
+                    curr_hero["ID"],
+                    "Exp",
+                    curr_hero["Exp"] + int(curr_ch[8]))
+                reward += int(curr_ch[7])
+            else:
+                # failure
+                event_list.append(
+                    curr_ch[5].replace("[Hero]",
+                                       curr_hero["Name"]))
+                hero_db.update_hero(
+                    curr_hero["ID"],
+                    "Health",
+                    curr_hero["Health"] - int(curr_ch[9]))
+                # check for death
+                if (curr_hero["Health"] - int(curr_ch[9]) <= 0):
+                    event_list.append(
+                        curr_ch[6].replace("[Hero]", curr_hero["Name"]))
+    final_report = {
+        "EventList": event_list,
+        "Reward": reward,
+        "PartyStatus": ps.get_party_status(party_id)
+    }
+    return final_report
 
 
 def buy_quest(id, guild_id):
