@@ -94,9 +94,11 @@ class Reload(Resource):
     """
     def get(self):
         guilds = db_guild.get_guilds()
-        guild_ids_names = {}
+        guild_ids_names = []
         for i in guilds:
-            guild_ids_names[i['ID']] = i['Name']
+            guild_ids_names.append({"id":i['ID'],
+                                    "name":i['Name']})
+            # guild_ids_names[i['ID']] = i['Name']
         return {RES: guild_ids_names}
 
 
