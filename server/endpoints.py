@@ -89,12 +89,15 @@ class Create(Resource):
 
 @guild_ns.route(f'/{RELOAD}')
 class Reload(Resource):
+    """
+    Return example: {id:name} -> {1:'guild1', 2:'guild2}
+    """
     def get(self):
         guilds = db_guild.get_guilds()
-        guild_names = []
+        guild_ids_names = {}
         for i in guilds:
-            guild_names.append(i["Name"])
-        return {RES: guild_names}
+            guild_ids_names[i['ID']] = i['Name']
+        return {RES: guild_ids_names}
 
 
 @quest_ns.route(f'/{UNSOLD_QUEST}')
