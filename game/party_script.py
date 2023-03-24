@@ -54,22 +54,51 @@ def remove_party_hero(id, hero_id):
 def test_party_single(id, stat):
     curr_party = party_db.get_party_details(id)
     max_stat = 0
+    ret_hero_id = ""
     for hero_id in curr_party["HeroIDs"]:
         curr_hero = hero_db.get_hero_details(hero_id)
-        max_stat = max(max_stat, curr_hero["Stats"][stat])
+        if curr_hero["Health"] > 0 and curr_hero["Stats"][stat] > max_stat:
+            ret_hero_id = curr_hero["ID"]
+            max_stat = curr_hero["Stats"][stat]
     roll = RandomRange(0, 99)
-    return True, str(roll <= max_stat)
+    return True, str(roll <= max_stat), ret_hero_id
 
 
 def test_party_team(id, stat):
     curr_party = party_db.get_party_details(id)
     avg_stat = 0
+    party_alive_c = 0
     for hero_id in curr_party["HeroIDs"]:
         curr_hero = hero_db.get_hero_details(hero_id)
-        avg_stat += curr_hero["Stats"][stat]
-    avg_stat /= len(curr_party["HeroIDs"])
+        if curr_hero["Health"] > 0:
+            avg_stat += curr_hero["Stats"][stat]
+            party_alive_c += 1
+    avg_stat /= party_alive_c
     roll = RandomRange(0, 99)
     return True, str(roll <= avg_stat)
+
+
+def test_party_alive(id):
+    curr_party = party_db.get_party_details(id)
+    for hero_id in curr_party["HeroIDs"]:
+        curr_hero = hero_db.get_hero_details(hero_id)
+        if curr_hero["Health"] > 0:
+            return True
+    return False
+
+
+def get_party_status(id):
+    curr_party = party_db.get_party_details(id)
+    ret_lst = []
+    for hero_id in curr_party["HeroIDs"]:
+        curr_hero = hero_db.get_hero_details(hero_id)
+        hero_data = {
+            "HeroName": curr_hero["Name"],
+            "Health": curr_hero["Health"],
+            "Exp": curr_hero["Exp"]
+        }
+        ret_lst.append(hero_data)
+    return ret_lst
 
 
 def disband_party(id):
