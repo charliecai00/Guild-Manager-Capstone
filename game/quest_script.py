@@ -65,16 +65,27 @@ def start_quest(id, party_id):
             curr_hero = hero_db.get_hero_details(result[2])
             if (result[0]):
                 # success
-                event_list.append(curr_ch[4].replace("[Hero]", curr_hero["Name"]))
-                hero_db.update_hero(curr_hero["ID", "Exp", curr_hero["Exp"] + int(curr_ch[8])])
+                event_list.append(
+                    curr_ch[4].replace("[Hero]",
+                                       curr_hero["Name"]))
+                hero_db.update_hero(
+                    curr_hero["ID"],
+                    "Exp",
+                    curr_hero["Exp"] + int(curr_ch[8]))
                 reward += int(curr_ch[7])
             else:
                 # failure
-                event_list.append(curr_ch[5].replace("[Hero]", curr_hero["Name"]))
-                hero_db.update_hero(curr_hero["ID", "Health", curr_hero["Health"] - int(curr_ch[9])])
+                event_list.append(
+                    curr_ch[5].replace("[Hero]",
+                                       curr_hero["Name"]))
+                hero_db.update_hero(
+                    curr_hero["ID"],
+                    "Health",
+                    curr_hero["Health"] - int(curr_ch[9]))
                 # check for death
                 if (curr_hero["Health"] - int(curr_ch[9]) <= 0):
-                    event_list.append(curr_ch[6].replace("[Hero]", curr_hero["Name"]))
+                    event_list.append(
+                        curr_ch[6].replace("[Hero]", curr_hero["Name"]))
     final_report = {
         "EventList": event_list,
         "Reward": reward,
