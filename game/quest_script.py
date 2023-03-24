@@ -8,7 +8,7 @@ import random
 import db.quest as quest_db
 import db.guild as guild_db
 import db.hero as hero_db
-import party_script as ps
+import game.party_script as ps
 from game.game_math.random import RandomRange
 
 
