@@ -52,7 +52,7 @@ REMOVE_HERO = 'Remove_Hero'
 ADD_PARTY = 'Add_Party'
 DISBAND_PARTY = 'Disband_Party'
 GET_PARTY = 'Get_Party'
-GET_PARTY_DETAIL = 'Get_Party_Detail'
+PARTY_DETAIL = 'Get_Party_Detail'
 # Create guild routes
 CREATE_PATH = f'{GUILD_NS}/{CREATE}'
 RELOAD_PATH = f'{GUILD_NS}/{RELOAD}'
@@ -75,7 +75,7 @@ REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
 ADD_PARTY_PATH = f'{PARTY_NS}/{ADD_PARTY}'
 DISBAND_PARTY_PATH = f'{PARTY_NS}/{DISBAND_PARTY}'
 GET_PARTY_PATH = f'{PARTY_NS}/{GET_PARTY}'
-GET_PARTY_DETAIL_PATH = f'{PARTY_NS}/{GET_PARTY_DETAIL}'
+PARTY_DETAIL_PATH = f'{PARTY_NS}/{PARTY_DETAIL}'
 # Create main menu route
 # MAIN_MENU = '/main_menu'
 
@@ -282,10 +282,11 @@ class GetParty(Resource):
         return {RES: db_party.get_party()}
 
 
-@party_ns.route(f'/{GET_PARTY_DETAIL}')
-class GetPartyDetail(Resource):
-    def get(self):
-        return {RES: db_party.get_party_details()}
+@party_ns.route(f'/{PARTY_DETAIL}')
+class PartyDetail(Resource):
+    @api.expect(detail_input)
+    def post(self):
+        return {RES: db_party.get_party_details(request.json['id'])}
 
 
 if __name__ == '__main__':
