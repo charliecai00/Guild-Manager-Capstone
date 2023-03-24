@@ -83,6 +83,7 @@ GET_PARTY_DETAIL_PATH = f'{PARTY_NS}/{GET_PARTY_DETAIL}'
 RES = 'Response'
 detail_input = api.model('Give ID get row details', {'id': fields.Integer})
 
+
 @guild_ns.route(f'/{CREATE}')
 class Create(Resource):
     create_input = api.model('Provide new guild name', {'Name': fields.String})
@@ -102,7 +103,7 @@ class Reload(Resource):
         guilds = db_guild.get_guilds()
         guild_ids_names = []
         for i in guilds:
-            guild_ids_names.append({"id":i['ID'],"name":i['Name']})
+            guild_ids_names.append({"id": i['ID'], "name": i['Name']})
         return {RES: guild_ids_names}
 
 
@@ -121,11 +122,13 @@ class Unsold(Resource):
 
 @quest_ns.route(f'/{BUY}')
 class Buy(Resource):
-    buy_input = api.model('Guild id buy quest id', {'id': fields.Integer, 'guild_id': fields.Integer})
+    buy_input = api.model('Guild id buy quest id',
+                          {'id': fields.Integer, 'guild_id': fields.Integer})
 
     @api.expect(buy_input)
     def post(self):
-        flag, msg = quest_script.buy_quest(request.json['id'], request.json['guild_id'])
+        flag, msg = quest_script.buy_quest(request.json['id'],
+                                           request.json['guild_id'])
         if flag:
             return {RES: msg}
         return {RES: msg}
@@ -133,11 +136,13 @@ class Buy(Resource):
 
 @quest_ns.route(f'/{SELL}')
 class Sell(Resource):
-    sell_input = api.model('Guild id sell quest id', {'id': fields.Integer, 'guild_id': fields.Integer})
+    sell_input = api.model('Guild id sell quest id',
+                           {'id': fields.Integer, 'guild_id': fields.Integer})
 
     @api.expect(sell_input)
     def post(self):
-        flag, msg = quest_script.sell_quest(request.json['id'], request.json['guild_id'])
+        flag, msg = quest_script.sell_quest(request.json['id'],
+                                            request.json['guild_id'])
         if flag:
             return {RES: msg}
         return {RES: msg}
@@ -150,7 +155,8 @@ class StartQuest(Resource):
 
     @api.expect(start_input)
     def post(self):
-        report = quest_script.start_quest(request.json['id'], request.json['party_id'])
+        report = quest_script.start_quest(request.json['id'],
+                                          request.json['party_id'])
         return {RES: report}
 
 
@@ -169,7 +175,7 @@ class Hire(Resource):
     @api.expect(hire_input)
     def post(self):
         flag, msg = guild_script.hire_guild_hero(request.json['guild_id'],
-                                  request.json['id'])
+                                                 request.json['id'])
         if flag:
             return {RES: "Success"}
         return {RES: msg}
@@ -177,13 +183,13 @@ class Hire(Resource):
 
 @hero_ns.route(f'/{FIRE}')
 class Fire(Resource):
-    fire_input = api.model('Fire hero by id and provide guild id', 
+    fire_input = api.model('Fire hero by id and provide guild id',
                            {'id': fields.Integer, 'guild_id': fields.Integer})
 
     @api.expect(fire_input)
     def post(self):
         flag, msg = guild_script.fire_guild_hero(request.json['guild_id'],
-                                  request.json['id'])
+                                                 request.json['id'])
         if flag:
             return {RES: "Success"}
         return {RES: msg}
@@ -203,7 +209,7 @@ class Heal(Resource):
     @api.expect(heal_input)
     def post(self):
         flag, msg = hero_script.heal_hero(request.json['id'],
-                                  request.json['guild_id'])
+                                          request.json['guild_id'])
         if flag:
             return {RES: msg}
         return {RES: msg}
@@ -249,7 +255,7 @@ class AddHero(Resource):
     @api.expect(add_hero_input)
     def post(self):
         flag, msg = party_script.add_party_hero(request.json['party_id'],
-                                    request.json['id'])
+                                                request.json['id'])
         if flag:
             return {RES: "Success"}
         return {RES: msg}
@@ -264,7 +270,7 @@ class RemoveHero(Resource):
     @api.expect(remove_hero_input)
     def post(self):
         flag, msg = party_script.remove_party_hero(request.json['party_id'],
-                                       request.json['id'])
+                                                   request.json['id'])
         if flag:
             return {RES: "Success"}
         return {RES: msg}
