@@ -111,7 +111,34 @@ class Reload(Resource):
 class GuildDetail(Resource):
     @api.expect(detail_input)
     def post(self):
-        return {RES: db_guild.get_guild_details(request.json['id'])}
+        res = db_guild.get_guild_details(request.json['id'])
+        # Number summary
+        res["Amt. of Hero"] = len(res["HeroIDs"])
+        res["Amt. of Party"] = len(res["PartyIDs"])
+        res["Amt. of Quest"] = len(res["QuestIDs"])
+
+        # Look up hero
+        hero_json = {}
+        for i in res["HeroIDs"]:
+            hero_detail = db_hero.get_hero_details(i)
+            hero_json[i] = hero_detail["Name"]
+        res["HeroIDs"] = hero_json
+
+        # Look up party
+        party_json = {}
+        for i in res["PartyIDs"]:
+            party_detail = db_party.get_party_details(i)
+            party_json[i] = party_detail["Name"]
+        res["PartyIDs"] = party_json
+
+        # Look up quest
+        quest_json = {}
+        for i in res["QuestIDs"]:
+            quest_detail = db_quest.get_quest_details(i)
+            quest_json[i] = quest_detail["Name"]
+        res["QuestIDs"] = quest_json
+
+        return {RES: res}
 
 
 @quest_ns.route(f'/{UNSOLD_QUEST}')
