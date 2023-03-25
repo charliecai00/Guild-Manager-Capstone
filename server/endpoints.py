@@ -118,25 +118,28 @@ class GuildDetail(Resource):
         res["Amt. of Quest"] = len(res["QuestIDs"])
 
         # Look up hero
-        hero_json = {}
+        heroes = []
         for i in res["HeroIDs"]:
             hero_detail = db_hero.get_hero_details(i)
-            hero_json[i] = hero_detail["Name"]
-        res["HeroIDs"] = hero_json
+            heroes.append({'id': i, "name": hero_detail["Name"]})
+        res["Hero"] = heroes
+        del res['HeroIDs']
 
         # Look up party
-        party_json = {}
+        party = []
         for i in res["PartyIDs"]:
             party_detail = db_party.get_party_details(i)
-            party_json[i] = party_detail["Name"]
-        res["PartyIDs"] = party_json
+            party.append({'id': i, "name": party_detail["Name"]})
+        res["Party"] = party
+        del res['PartyIDs']
 
         # Look up quest
-        quest_json = {}
+        quest = []
         for i in res["QuestIDs"]:
             quest_detail = db_quest.get_quest_details(i)
-            quest_json[i] = quest_detail["Name"]
-        res["QuestIDs"] = quest_json
+            quest.append({'id': i, "name": quest_detail["Name"]})
+        res["Quest"] = quest
+        del res['QuestIDs']
 
         return {RES: res}
 
