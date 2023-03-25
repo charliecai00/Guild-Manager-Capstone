@@ -48,6 +48,7 @@ def fetch_one(collection, filt, db=DB):
     Find a filter and return on the first doc found.
     """
     for doc in client[db][collection].find(filt):
+        del doc['_id']
         return doc
 
 
