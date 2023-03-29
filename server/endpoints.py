@@ -47,6 +47,7 @@ FIRE = 'Fire'
 UNEMPLOYED = 'Unemployed'
 HEAL = 'Heal'
 HERO_DETAIL = 'Hero_Detail'
+DB_ADD_HERO = 'DB_Add_Heroes'
 ADD_HERO = 'Add_Hero'
 REMOVE_HERO = 'Remove_Hero'
 ADD_PARTY = 'Add_Party'
@@ -69,7 +70,7 @@ FIRE_PATH = f'{HERO_NS}/{FIRE}'
 UNEMPLOYED_PATH = f'{HERO_NS}/{UNEMPLOYED}'
 HEAL_PATH = f'{HERO_NS}/{HEAL}'
 HERO_DETAIL_PATH = f'{HERO_NS}/{HERO_DETAIL}'
-ADD_HERO_PATH = f'{HERO_NS}/{ADD_HERO}'
+DB_ADD_HERO_PATH = f'{HERO_NS}/{DB_ADD_HERO}'
 # Create party routes
 ADD_HERO_PATH = f'{PARTY_NS}/{ADD_HERO}'
 REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
@@ -153,7 +154,7 @@ class Unsold(Resource):
 
 @quest_ns.route(f'/{BUY}')
 class Buy(Resource):
-    buy_input = api.model('Buy', {'id': fields.Integer, 
+    buy_input = api.model('Buy', {'id': fields.Integer,
                                   'guild_id': fields.Integer})
 
     @api.expect(buy_input)
@@ -200,7 +201,7 @@ class QuestDetail(Resource):
 
 @hero_ns.route(f'/{HIRE}')
 class Hire(Resource):
-    hire_input = api.model('Hire', {'id': fields.Integer, 
+    hire_input = api.model('Hire', {'id': fields.Integer,
                                     'guild_id': fields.Integer})
 
     @api.expect(hire_input)
@@ -251,11 +252,11 @@ class HeroDetail(Resource):
     @api.expect(detail_input)
     def post(self):
         return {RES: db_hero.get_hero_details(request.json['id'])}
-    
-    
-@hero_ns.route(f'/{ADD_HERO}')
-class AddHero(Resource):
-    add_input = api.model("AddHero", {'id': fields.Integer})
+
+
+@hero_ns.route(f'/{DB_ADD_HERO}')
+class DBAddHero(Resource):
+    add_input = api.model("DBAddHero", {'id': fields.Integer})
 
     @api.expect(add_input)
     def post(self):
