@@ -69,6 +69,7 @@ FIRE_PATH = f'{HERO_NS}/{FIRE}'
 UNEMPLOYED_PATH = f'{HERO_NS}/{UNEMPLOYED}'
 HEAL_PATH = f'{HERO_NS}/{HEAL}'
 HERO_DETAIL_PATH = f'{HERO_NS}/{HERO_DETAIL}'
+ADD_HERO_PATH = f'{HERO_NS}/{ADD_HERO}'
 # Create party routes
 ADD_HERO_PATH = f'{PARTY_NS}/{ADD_HERO}'
 REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
@@ -81,12 +82,12 @@ PARTY_DETAIL_PATH = f'{PARTY_NS}/{PARTY_DETAIL}'
 
 # Define Marco
 RES = 'Response'
-detail_input = api.model('Give ID get row details', {'id': fields.Integer})
+detail_input = api.model('Return Detail w/ ID', {'id': fields.Integer})
 
 
 @guild_ns.route(f'/{CREATE}')
 class Create(Resource):
-    create_input = api.model('Provide new guild name', {'Name': fields.String})
+    create_input = api.model('Create', {'Name': fields.String})
 
     @api.expect(create_input)
     def post(self):
@@ -152,8 +153,8 @@ class Unsold(Resource):
 
 @quest_ns.route(f'/{BUY}')
 class Buy(Resource):
-    buy_input = api.model('Guild id buy quest id',
-                          {'id': fields.Integer, 'guild_id': fields.Integer})
+    buy_input = api.model('Buy', {'id': fields.Integer, 
+                                  'guild_id': fields.Integer})
 
     @api.expect(buy_input)
     def post(self):
@@ -166,8 +167,8 @@ class Buy(Resource):
 
 @quest_ns.route(f'/{SELL}')
 class Sell(Resource):
-    sell_input = api.model('Guild id sell quest id',
-                           {'id': fields.Integer, 'guild_id': fields.Integer})
+    sell_input = api.model('Sell', {'id': fields.Integer,
+                                    'guild_id': fields.Integer})
 
     @api.expect(sell_input)
     def post(self):
@@ -180,8 +181,8 @@ class Sell(Resource):
 
 @quest_ns.route(f'/{START}')
 class StartQuest(Resource):
-    start_input = api.model('Start quest and party by id playing the quest',
-                            {'id': fields.Integer, 'party_id': fields.Integer})
+    start_input = api.model('StartQuest', {'id': fields.Integer,
+                                           'party_id': fields.Integer})
 
     @api.expect(start_input)
     def post(self):
@@ -199,8 +200,8 @@ class QuestDetail(Resource):
 
 @hero_ns.route(f'/{HIRE}')
 class Hire(Resource):
-    hire_input = api.model('Hire hero by id and provide guild id',
-                           {'id': fields.Integer, 'guild_id': fields.Integer})
+    hire_input = api.model('Hire', {'id': fields.Integer, 
+                                    'guild_id': fields.Integer})
 
     @api.expect(hire_input)
     def post(self):
@@ -213,8 +214,8 @@ class Hire(Resource):
 
 @hero_ns.route(f'/{FIRE}')
 class Fire(Resource):
-    fire_input = api.model('Fire hero by id and provide guild id',
-                           {'id': fields.Integer, 'guild_id': fields.Integer})
+    fire_input = api.model('Fire', {'id': fields.Integer,
+                                    'guild_id': fields.Integer})
 
     @api.expect(fire_input)
     def post(self):
@@ -233,8 +234,8 @@ class Unemployed(Resource):
 
 @hero_ns.route(f'/{HEAL}')
 class Heal(Resource):
-    heal_input = api.model('Heal hero by id and provide guild id',
-                           {'id': fields.Integer, 'guild_id': fields.Integer})
+    heal_input = api.model('Heal', {'id': fields.Integer,
+                                    'guild_id': fields.Integer})
 
     @api.expect(heal_input)
     def post(self):
@@ -250,12 +251,21 @@ class HeroDetail(Resource):
     @api.expect(detail_input)
     def post(self):
         return {RES: db_hero.get_hero_details(request.json['id'])}
+    
+    
+@hero_ns.route(f'/{ADD_HERO}')
+class AddHero(Resource):
+    add_input = api.model("AddHero", {'id': fields.Integer})
+
+    @api.expect(add_input)
+    def post(self):
+        hero_script.generate_hero(request.json['id'])
+        return {RES: "Success"}
 
 
 @party_ns.route(f'/{ADD_PARTY}')
 class AddParty(Resource):
-    add_party_input = api.model('Give the new party a name',
-                                {'Name': fields.String})
+    add_party_input = api.model('AddParty', {'Name': fields.String})
 
     @api.expect(add_party_input)
     def post(self):
@@ -265,8 +275,7 @@ class AddParty(Resource):
 
 @party_ns.route(f'/{DISBAND_PARTY}')
 class DisbandParty(Resource):
-    disband_party_input = api.model('Delete a party by id',
-                                    {'id': fields.Integer})
+    disband_party_input = api.model('DisbandParty', {'id': fields.Integer})
 
     @api.expect(disband_party_input)
     def post(self):
@@ -278,9 +287,8 @@ class DisbandParty(Resource):
 
 @party_ns.route(f'/{ADD_HERO}')
 class AddHero(Resource):
-    add_hero_input = api.model('Add hero to party by IDs',
-                               {'id': fields.Integer,
-                                'party_id': fields.Integer})
+    add_hero_input = api.model('AddHero', {'id': fields.Integer,
+                                           'party_id': fields.Integer})
 
     @api.expect(add_hero_input)
     def post(self):
@@ -293,9 +301,8 @@ class AddHero(Resource):
 
 @party_ns.route(f'/{REMOVE_HERO}')
 class RemoveHero(Resource):
-    remove_hero_input = api.model('Remove hero to party by IDs',
-                                  {'id': fields.Integer,
-                                   'party_id': fields.Integer})
+    remove_hero_input = api.model('RemoveHero', {'id': fields.Integer,
+                                                 'party_id': fields.Integer})
 
     @api.expect(remove_hero_input)
     def post(self):
