@@ -53,7 +53,7 @@ REMOVE_HERO = 'Remove_Hero'
 ADD_PARTY = 'Add_Party'
 DISBAND_PARTY = 'Disband_Party'
 GET_PARTY = 'Get_Party'
-PARTY_DETAIL = 'Get_Party_Detail'
+PARTY_DETAIL = 'Party_Detail'
 # Create guild routes
 CREATE_PATH = f'{GUILD_NS}/{CREATE}'
 RELOAD_PATH = f'{GUILD_NS}/{RELOAD}'
