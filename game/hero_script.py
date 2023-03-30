@@ -49,16 +49,16 @@ def get_first_name() -> str:
     data_folder = Path("game/resources/hero_firstname_rsc.txt")
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
-            f_names.append(line)
+            f_names.append(line.strip())
     return f_names[RandomRange(0, len(f_names))]
 
 
 def get_last_name() -> str:
     l_names = []
-    data_folder = Path("game/resources/hero_firstname_rsc.txt")
+    data_folder = Path("game/resources/hero_lastname_rsc.txt")
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
-            l_names.append(line)
+            l_names.append(line.strip())
     return l_names[RandomRange(0, len(l_names))]
 
 
