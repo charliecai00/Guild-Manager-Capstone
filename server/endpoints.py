@@ -324,7 +324,17 @@ class GetParty(Resource):
 class PartyDetail(Resource):
     @api.expect(detail_input)
     def post(self):
-        return {RES: db_party.get_party_details(request.json['id'])}
+        res = db_party.get_party_details(request.json['id'])
+
+        # Look up hero
+        heroes = []
+        for i in res["HeroIDs"]:
+            hero_detail = db_hero.get_hero_details(i)
+            heroes.append({'id': i, "name": hero_detail["Name"]})
+        res["Hero"] = heroes
+        del res['HeroIDs']
+
+        return {RES: res}
 
 
 if __name__ == '__main__':
