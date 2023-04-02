@@ -50,9 +50,9 @@ def get_unemploy_hero():
 
     unemploy = []
     for i in all_heros:
-        if i[IN_PARTY] is False:
-            del i['_id']
+        if i[HIRE] is False and len(unemploy) <= 10:
             unemploy.append(i)
+
     return unemploy
 
 
