@@ -274,7 +274,8 @@ class DBAddHero(Resource):
 
 @party_ns.route(f'/{ADD_PARTY}')
 class AddParty(Resource):
-    add_party_input = api.model('AddParty', {'Name': fields.String})
+    add_party_input = api.model('AddParty', {'Name': fields.String},
+                                {'guild_id': fields.Integer})
 
     @api.expect(add_party_input)
     def post(self):
