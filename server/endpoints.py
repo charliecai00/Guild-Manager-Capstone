@@ -169,7 +169,7 @@ class Buy(Resource):
         flag, msg = quest_script.buy_quest(request.json['id'],
                                            request.json['guild_id'])
         if flag:
-            return {RES: msg}
+            return {RES: "Success"}
         return {RES: msg}
 
 
