@@ -52,8 +52,12 @@ def get_challenges() -> list:
 
 
 def get_challenge_id(id) -> list:
-    pass
-
+    data_folder = Path("game/resources/challenge_rsc.csv")
+    with open(data_folder, "r") as csvfile:
+        challenge_details = csv.DictReader(csvfile)
+        for x in range(0):
+            id.append(list(challenge_details))
+    return id
 
 def start_quest(id, party_id):
     quest = quest_db.get_quest_details(id)
