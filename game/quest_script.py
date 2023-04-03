@@ -55,7 +55,7 @@ def get_challenge_id(id) -> list:
     data_folder = Path("game/resources/challenge_rsc.csv")
     with open(data_folder, "r") as csvfile:
         challenge_details = csv.DictReader(csvfile)
-        for x in range(0):
+        for x in range(1):
             id.append(list(challenge_details))
     return id
 
