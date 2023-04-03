@@ -12,5 +12,6 @@ def temp_hero_script():
     yield test_hero
     test_hero = None
 
+
 def test_heal_hero(temp_hero_script):
     pass
