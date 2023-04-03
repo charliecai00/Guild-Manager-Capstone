@@ -52,13 +52,15 @@ def get_challenges() -> list:
 
 
 def get_challenge_id(id) -> list:
-    # data_folder = Path("game/resources/challenge_rsc.csv")
-    # with open(data_folder, "r") as csvfile:
-    #     challenge_details = csv.DictReader(csvfile)
-    #     for x in range(len(challenge_details)):
-    #         if list(challenge_details)[x] == id:
-    #             return list(challenge_details)
-    pass
+    details = []
+    data_folder = Path("game/resources/challenge_rsc.csv")
+    with open(data_folder, "r") as csvfile:
+        challenge_details = csv.DictReader(csvfile)
+        for x in range(len(challenge_details)):
+            if list(challenge_details)[x] == id:
+                details.append(list(challenge_details))
+    return details
+
 
 def start_quest(id, party_id):
     quest = quest_db.get_quest_details(id)
