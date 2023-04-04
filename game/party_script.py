@@ -8,7 +8,7 @@ import db.hero as hero_db
 
 def generate_party(name="TestName"):
     party_dict = {
-            "ID": 0,
+            "ID": party_db.fetch_curr_id(),
             "Name": name,
             "HeroIDs": []
         }

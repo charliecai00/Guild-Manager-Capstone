@@ -16,7 +16,7 @@ def generate_quest(id):
     quest_name = get_quest_name()
     # challenge_ids = get_challenges()
     quest_dict = {
-            "ID": id,
+            "ID": quest_db.fetch_curr_id(),
             "Name": quest_name,
             "ChallengeIDs": [],
             "ChallengeLevel": 0,
