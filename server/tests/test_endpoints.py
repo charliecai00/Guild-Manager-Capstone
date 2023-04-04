@@ -49,15 +49,21 @@ def test_StartQuest():
     assert isinstance(res[ep.RES], str)
 
 
-# def test_Hire():
-#     res = TEST_CLIENT.post(ep.HIRE_PATH, json={'id': 1,
-#                                                'guild_id': 1}).get_json()
-#     assert res[ep.RES] == "Success"
+def test_QuestDetail():
+    res = TEST_CLIENT.post(ep.QUEST_DETAIL_PATH, json={'id': 0}).get_json()
+    assert isinstance(res[ep.RES], dict)
 
 
-# def test_Fire():
-#     res = TEST_CLIENT.post(ep.FIRE_PATH, json={'id': 1}).get_json()
-#     assert res[ep.RES] == "Success"
+def test_Hire():
+    res = TEST_CLIENT.post(ep.HIRE_PATH,
+                           json={'id': 9999, 'guild_id': 9999}).get_json()
+    assert isinstance(res[ep.RES], str)
+
+
+def test_Fire():
+    res = TEST_CLIENT.post(ep.FIRE_PATH,
+                           json={'id': 9999, 'guild_id': 9999}).get_json()
+    assert isinstance(res[ep.RES], str)
 
 
 # def test_Unemployed():
