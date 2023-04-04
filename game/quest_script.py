@@ -64,6 +64,8 @@ def get_challenge_id(id) -> list:
 
 def start_quest(id, party_id):
     quest = quest_db.get_quest_details(id)
+    if quest is None:
+        return "Quest not found"
     event_list = []
     reward = 0
     for ch_id in quest["ChallengeIDs"]:

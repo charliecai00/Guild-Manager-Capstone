@@ -1,7 +1,7 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-import pytest
+# import pytest
 import server.endpoints as ep
 import db.guild as db_guild
 
@@ -9,7 +9,8 @@ TEST_CLIENT = ep.app.test_client()
 
 
 def test_Create():
-    res = TEST_CLIENT.post(ep.CREATE_PATH, json={'Name': 'test_Create'}).get_json()
+    res = TEST_CLIENT.post(ep.CREATE_PATH,
+                           json={'Name': 'test_Create'}).get_json()
     assert res[ep.RES] == "Success"
     db_guild.del_guild(db_guild.fetch_curr_id())
 
@@ -20,7 +21,8 @@ def test_Reload():
 
 
 def test_GuildDetail():
-    res = TEST_CLIENT.post(ep.GUILD_DETAIL_PATH, json={'id': 0}).get_json()
+    res = TEST_CLIENT.post(ep.GUILD_DETAIL_PATH,
+                           json={'id': 0}).get_json()
     assert isinstance(res[ep.RES], dict)
 
 
@@ -30,19 +32,21 @@ def test_Unsold():
 
 
 def test_Buy():
-    res = TEST_CLIENT.post(ep.BUY_PATH, json={'id': 9999, 'guild_id': 9999}).get_json()
+    res = TEST_CLIENT.post(ep.BUY_PATH,
+                           json={'id': 9999, 'guild_id': 9999}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
 def test_Sell():
-    res = TEST_CLIENT.post(ep.SELL_PATH, json={'id': 9999, 'guild_id': 9999}).get_json()
+    res = TEST_CLIENT.post(ep.SELL_PATH,
+                           json={'id': 9999, 'guild_id': 9999}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
-# def test_StartQuest():
-#     res = TEST_CLIENT.post(ep.START_PATH, json={'id': 1,
-#                                                 'party_id': 1}).get_json()
-#     assert res[ep.RES] == "Success"
+def test_StartQuest():
+    res = TEST_CLIENT.post(ep.START_PATH,
+                           json={'id': 9999, 'party_id': 9999}).get_json()
+    assert isinstance(res[ep.RES], str)
 
 
 # def test_Hire():
@@ -82,7 +86,8 @@ def test_Sell():
 
 
 # def test_RemoveHero():
-#     res = TEST_CLIENT.post(ep.REMOVE_HERO_PATH, json={'id': 1, 'party_id': 1})
+#     res = TEST_CLIENT.post(ep.REMOVE_HERO_PATH,
+# json={'id': 1, 'party_id': 1})
 #     assert res[ep.RES] == "Success"
 
 
