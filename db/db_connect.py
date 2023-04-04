@@ -57,7 +57,7 @@ def fetch_curr_id(collection, db=DB):
     for doc in client[db][collection].find():
         sort_key.append(doc['ID'])
     sort_key.sort()
-    return sort_key[-1] + 1
+    return sort_key[-1]
 
 
 def fetch_field(collection, id, filt, db=DB):

@@ -8,7 +8,7 @@ import db.quest as quest_db
 
 def generate_guild(name="TestGuild"):
     guild_dict = {
-                "ID": guild_db.fetch_curr_id(),
+                "ID": guild_db.fetch_curr_id() + 1,
                 "Name": name,
                 "HeroIDs": [],
                 "PartyIDs": [],

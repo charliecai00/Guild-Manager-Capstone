@@ -92,3 +92,5 @@ def del_guild(ID):
     """
     dbc.connect_db()
     return dbc.del_one(GUILD_COLLECT, {GUILD_KEY: ID})
+
+print(fetch_curr_id())
