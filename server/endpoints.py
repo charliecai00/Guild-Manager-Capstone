@@ -266,9 +266,8 @@ class HeroNotInParty(Resource):
 
 @hero_ns.route(f'/{DB_ADD_HERO}')
 class DBAddHero(Resource):
-    @api.expect(model_id)
-    def post(self):
-        hero_script.generate_hero(request.json['id'])
+    def get(self):
+        hero_script.generate_hero()
         return {RES: "Success"}
 
 
