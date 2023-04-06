@@ -8,11 +8,11 @@ import db.guild as guild_db
 from pathlib import Path
 
 
-def generate_hero(id):
+def generate_hero():
     first_name = get_first_name()
     last_name = get_last_name()
     hero_dict = {
-            "ID": id,
+            "ID": hero_db.fetch_curr_id() + 1,
             "Name": first_name + " " + last_name,
             "Health": 5,
             "MaxHealth": RandomNormalClamped(5, 2, 1, 8),
@@ -65,12 +65,14 @@ def get_last_name() -> str:
 def heal_hero(id, guild_id):
     curr_hero = hero_db.get_hero_details(id)
     curr_guild = guild_db.get_guild_details(guild_id)
-    if curr_hero["Health"] == curr_hero["MaxHealth"]:
-        return False, "Hero already healthy"
-    elif curr_hero["Cost"] > curr_guild["Funds"]:
-        return False, "Guild does not have enough funds to heal"
-    hero_db.update_hero(id, "Health", curr_hero["MaxHealth"])
-    return True, "Hero has been healed"
+    if curr_guild is not None or curr_guild is not None:
+        if curr_hero["Health"] == curr_hero["MaxHealth"]:
+            return False, "Hero already healthy"
+        elif curr_hero["Cost"] > curr_guild["Funds"]:
+            return False, "Guild does not have enough funds to heal"
+        hero_db.update_hero(id, "Health", curr_hero["MaxHealth"])
+        return True, "Hero has been healed"
+    return False, "Hero or guild does not exist"
 
 
 def test_hero(id, stat):
