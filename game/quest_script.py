@@ -14,19 +14,18 @@ from game.game_math.random import RandomRange
 
 def generate_quest(id):
     quest_name = get_quest_name()
-    # challenge_ids = get_challenges()
     quest_dict = {
-            "ID": quest_db.fetch_curr_id(),
+            "ID": quest_db.fetch_curr_id() + 1,
             "Name": quest_name,
             "Challenges": [], # list of dicts; dicts are rows in csv
             "ChallengeLevel": 0,
             "Cost": 0,
             "Resell": 0,
-            "Purchase": True
+            "Purchase": False
         }
     for i in range(RandomRange(1, 5)):
         for ch in get_challenges():
-            quest_dict["ChallengeIDs"].append(ch[0])
+            quest_dict["Challenges"].append(ch[0])
     quest_db.add_quest(quest_dict)
 
 
@@ -35,8 +34,7 @@ def get_quest_name() -> str:
     data_folder = Path("game/resources/quest_name_rsc.txt")
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
-            q_names.append(line)
-    # print(q_names)
+            q_names.append(line.strip())
     return q_names[RandomRange(0, len(q_names))]
 
 
@@ -67,9 +65,11 @@ def get_challenge_id(id) -> list:
 
 def start_quest(id, party_id):
     quest = quest_db.get_quest_details(id)
+    if quest is None:
+        return "Quest not found"
     event_list = []
     reward = 0
-    for ch_id in quest["Challenge"]:
+    for ch_id in quest["Challenges"]:
         if (not ps.test_party_alive(party_id)):
             break
         curr_ch = get_challenge_id(ch_id)
@@ -110,20 +110,24 @@ def start_quest(id, party_id):
 def buy_quest(id, guild_id):
     curr_quest = quest_db.get_quest_details(id)
     curr_guild = guild_db.get_guild_details(guild_id)
-    if curr_quest["Purchase"]:
-        return False, "Quest already purchased"
-    elif curr_guild["Funds"] < curr_quest["Cost"]:
-        return False, "Not enough funds"
-    curr_guild["Funds"] -= curr_quest["Cost"]
-    curr_quest["Purchase"] = True
-    return True, "Quest purchased"
+    if curr_quest is not None or curr_quest is not None:
+        if curr_quest["Purchase"]:
+            return False, "Quest already purchased"
+        elif curr_guild["Funds"] < curr_quest["Cost"]:
+            return False, "Not enough funds"
+        curr_guild["Funds"] -= curr_quest["Cost"]
+        curr_quest["Purchase"] = True
+        return True, "Quest purchased"
+    return False, "Quest or guild does not exist"
 
 
 def sell_quest(id, guild_id):
     curr_quest = quest_db.get_quest_details(id)
     curr_guild = guild_db.get_guild_details(guild_id)
-    if not curr_quest["Purchase"]:
-        return False, "Quest hasn't been bought yet"
-    curr_guild["Funds"] += (curr_quest["Cost"] // 2)
-    curr_quest["Purchase"] = False
-    return True, "Quest sold"
+    if curr_quest is not None or curr_quest is not None:
+        if not curr_quest["Purchase"]:
+            return False, "Quest hasn't been bought yet"
+        curr_guild["Funds"] += (curr_quest["Cost"] // 2)
+        curr_quest["Purchase"] = False
+        return True, "Quest sold"
+    return False, "Quest or guild does not exist"

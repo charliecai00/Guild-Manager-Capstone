@@ -266,21 +266,25 @@ class HeroNotInParty(Resource):
 
 @hero_ns.route(f'/{DB_ADD_HERO}')
 class DBAddHero(Resource):
-    @api.expect(model_id)
-    def post(self):
-        hero_script.generate_hero(request.json['id'])
+    def get(self):
+        hero_script.generate_hero()
         return {RES: "Success"}
 
 
 @party_ns.route(f'/{ADD_PARTY}')
 class AddParty(Resource):
-    add_party_input = api.model('AddParty', {'Name': fields.String},
-                                {'guild_id': fields.Integer})
+    add_party_input = api.model('AddParty',
+                                {'Name': fields.String,
+                                 'guild_id': fields.String})
 
     @api.expect(add_party_input)
     def post(self):
         party_script.generate_party(request.json['Name'])
-        return {RES: 'Success'}
+        flag, msg = guild_script.add_guild_party(request.json['guild_id'],
+                                                 db_party.fetch_curr_id())
+        if flag:
+            return {RES: "Success"}
+        return {RES: msg}
 
 
 @party_ns.route(f'/{DISBAND_PARTY}')
