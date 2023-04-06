@@ -113,7 +113,11 @@ def buy_quest(id, guild_id):
         elif curr_guild["Funds"] < curr_quest["Cost"]:
             return False, "Not enough funds"
         curr_guild["Funds"] -= curr_quest["Cost"]
+        curr_guild["PartyIDs"].append(id)
         curr_quest["Purchase"] = True
+        guild_db.update_guild(guild_id, "Funds", curr_guild["Funds"])
+        guild_db.update_guild(guild_id, "PartyIDs", curr_guild["PartyIDs"])
+        quest_db.update_quest(id, "Purchase", curr_quest["Purchase"])
         return True, "Quest purchased"
     return False, "Quest or guild does not exist"
 
@@ -125,6 +129,10 @@ def sell_quest(id, guild_id):
         if not curr_quest["Purchase"]:
             return False, "Quest hasn't been bought yet"
         curr_guild["Funds"] += (curr_quest["Cost"] // 2)
+        curr_guild["PartyIDs"].remove(id)
         curr_quest["Purchase"] = False
+        guild_db.update_guild(guild_id, "Funds", curr_guild["Funds"])
+        guild_db.update_guild(guild_id, "PartyIDs", curr_guild["PartyIDs"])
+        quest_db.update_quest(id, "Purchase", curr_quest["Purchase"])
         return True, "Quest sold"
     return False, "Quest or guild does not exist"
