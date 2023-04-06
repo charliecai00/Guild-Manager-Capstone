@@ -72,7 +72,8 @@ def test_Unemployed():
 
 
 def test_Heal():
-    res = TEST_CLIENT.post(ep.HEAL_PATH, json={'id': 9999, 'guild_id': 9999}).get_json()
+    res = TEST_CLIENT.post(ep.HEAL_PATH,
+                           json={'id': 9999, 'guild_id': 9999}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
@@ -92,22 +93,26 @@ def test_DBAddHero():
 
 
 def test_AddParty():
-    res = TEST_CLIENT.post(ep.ADD_PARTY_PATH, json={'Name': 'test_AddParty', 'guild_id': 9999})
+    res = TEST_CLIENT.post(ep.ADD_PARTY_PATH,
+                           json={'Name': 'test_AddParty', 'guild_id': 9999})
     assert isinstance(res[ep.RES], str)
 
 
 def test_DisbandParty():
-    res = TEST_CLIENT.post(ep.DISBAND_PARTY_PATH, json={'id': 9999, 'party_id': 9999}).get_json()
+    res = TEST_CLIENT.post(ep.DISBAND_PARTY_PATH,
+                           json={'id': 9999, 'party_id': 9999}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
 def test_AddHero():
-    res = TEST_CLIENT.post(ep.ADD_HERO_PATH, json={'id': 9999, 'party_id': 9999}).get_json()
+    res = TEST_CLIENT.post(ep.ADD_HERO_PATH,
+                           json={'id': 9999, 'party_id': 9999}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
 def test_RemoveHero():
-    res = TEST_CLIENT.post(ep.REMOVE_HERO_PATH, json={'id': 9999, 'party_id': 9999}).get_json()
+    res = TEST_CLIENT.post(ep.REMOVE_HERO_PATH,
+                           json={'id': 9999, 'party_id': 9999}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
