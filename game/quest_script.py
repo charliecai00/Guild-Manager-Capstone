@@ -14,19 +14,18 @@ from game.game_math.random import RandomRange
 
 def generate_quest(id):
     quest_name = get_quest_name()
-    # challenge_ids = get_challenges()
     quest_dict = {
             "ID": quest_db.fetch_curr_id() + 1,
             "Name": quest_name,
-            "ChallengeIDs": [],
+            "Challenges": [],
             "ChallengeLevel": 0,
             "Cost": 0,
             "Resell": 0,
-            "Purchase": True
+            "Purchase": False
         }
     for i in range(RandomRange(1, 5)):
         for ch in get_challenges():
-            quest_dict["ChallengeIDs"].append(ch[0])
+            quest_dict["Challenges"].append(ch[0])
     quest_db.add_quest(quest_dict)
 
 
@@ -35,8 +34,7 @@ def get_quest_name() -> str:
     data_folder = Path("game/resources/quest_name_rsc.txt")
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
-            q_names.append(line)
-    # print(q_names)
+            q_names.append(line.strip())
     return q_names[RandomRange(0, len(q_names))]
 
 
@@ -68,7 +66,7 @@ def start_quest(id, party_id):
         return "Quest not found"
     event_list = []
     reward = 0
-    for ch_id in quest["Challenge"]:
+    for ch_id in quest["Challenges"]:
         if (not ps.test_party_alive(party_id)):
             break
         curr_ch = get_challenge_id(ch_id)
