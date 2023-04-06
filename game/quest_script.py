@@ -125,7 +125,7 @@ def buy_quest(id, guild_id):
 def sell_quest(id, guild_id):
     curr_quest = quest_db.get_quest_details(id)
     curr_guild = guild_db.get_guild_details(guild_id)
-    if curr_quest is not None or curr_quest is not None:
+    if curr_quest is not None or curr_guild is not None:
         if not curr_quest["Purchase"]:
             return False, "Quest hasn't been bought yet"
         curr_guild["Funds"] += (curr_quest["Cost"] // 2)
