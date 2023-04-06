@@ -18,7 +18,7 @@ def generate_quest(id):
     quest_dict = {
             "ID": quest_db.fetch_curr_id(),
             "Name": quest_name,
-            "ChallengeIDs": [],
+            "Challenges": [], # list of dicts; dicts are rows in csv
             "ChallengeLevel": 0,
             "Cost": 0,
             "Resell": 0,
@@ -44,6 +44,8 @@ def get_challenges() -> list:
     ids = []
     data_folder = Path("game/resources/challenge_rsc.csv")
     with open(data_folder, "r") as csvfile:
+        # bug: challenge is a dict, below treats it like a list
+        # sol: grab file, number of lines - 1 = total # challneges. treat like len(list) and randomly grab from there.
         challenges = csv.DictReader(csvfile)
         for x in range(5):
             ids.append(random.choice(list(challenges))[0])
@@ -56,6 +58,7 @@ def get_challenge_id(id) -> list:
     data_folder = Path("game/resources/challenge_rsc.csv")
     with open(data_folder, "r") as csvfile:
         challenge_details = csv.DictReader(csvfile)
+        # bug: challenge_details is a dict, below treats it like a list
         for x in range(len(challenge_details)):
             if list(challenge_details)[x] == id:
                 details.append(list(challenge_details))
