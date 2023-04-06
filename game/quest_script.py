@@ -66,7 +66,7 @@ def start_quest(id, party_id):
     quest = quest_db.get_quest_details(id)
     event_list = []
     reward = 0
-    for ch_id in quest["ChallengeIDs"]:
+    for ch_id in quest["Challenge"]:
         if (not ps.test_party_alive(party_id)):
             break
         curr_ch = get_challenge_id(ch_id)
