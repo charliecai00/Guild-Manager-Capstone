@@ -278,7 +278,6 @@ class AddParty(Resource):
                                 {'Name': fields.String,
                                  'guild_id': fields.String})
 
-
     @api.expect(add_party_input)
     def post(self):
         party_script.generate_party(request.json['Name'])
