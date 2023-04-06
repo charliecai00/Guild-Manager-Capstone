@@ -238,7 +238,7 @@ class Heal(Resource):
         flag, msg = hero_script.heal_hero(request.json['id'],
                                           request.json['guild_id'])
         if flag:
-            return {RES: msg}
+            return {RES: 'Success'}
         return {RES: msg}
 
 
