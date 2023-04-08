@@ -180,7 +180,7 @@ class Sell(Resource):
         flag, msg = quest_script.sell_quest(request.json['id'],
                                             request.json['guild_id'])
         if flag:
-            return {RES: msg}
+            return {RES: "Success"}
         return {RES: msg}
 
 
