@@ -107,7 +107,7 @@ def start_quest(id, party_id):
 def buy_quest(id, guild_id):
     curr_quest = quest_db.get_quest_details(id)
     curr_guild = guild_db.get_guild_details(guild_id)
-    if curr_quest is not None or curr_quest is not None:
+    if curr_quest is not None or curr_guild is not None:
         if curr_quest["Purchase"]:
             return False, "Quest already purchased"
         elif curr_guild["Funds"] < curr_quest["Cost"]:
@@ -115,9 +115,8 @@ def buy_quest(id, guild_id):
         curr_guild["Funds"] -= curr_quest["Cost"]
         curr_guild["QuestIDs"].append(id)
         curr_quest["Purchase"] = True
-        print(curr_guild)
         guild_db.update_guild(guild_id, "Funds", curr_guild["Funds"])
-        guild_db.update_guild(guild_id, "QuestIDs`", curr_guild["QuestIDs"])
+        guild_db.update_guild(guild_id, "QuestIDs", curr_guild["QuestIDs"])
         quest_db.update_quest(id, "Purchase", curr_quest["Purchase"])
         return True, "Quest purchased"
     return False, "Quest or guild does not exist"
