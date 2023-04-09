@@ -275,7 +275,7 @@ class DBAddHero(Resource):
 class AddParty(Resource):
     add_party_input = api.model('AddParty',
                                 {'Name': fields.String,
-                                 'guild_id': fields.String})
+                                 'guild_id': fields.Integer})
 
     @api.expect(add_party_input)
     def post(self):
