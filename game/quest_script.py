@@ -40,9 +40,6 @@ def get_challenges() -> list:
     challenges = []
     data_folder = Path("game/resources/challenge_rsc.csv")
     with open(data_folder, "r") as csvfile:
-        # bug: challenge is a dict, below treats it like a list
-        # sol: grab file, number of lines - 1 = total # challneges. treat like len(list) and randomly grab from there.
-        # challenges = csv.DictReader(csvfile)
         for x in range(1, len(csvfile)):
             line = csvfile[x].split(",").strip()
             if len(line) > 0:
