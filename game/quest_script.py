@@ -83,36 +83,36 @@ def start_quest(id, party_id):
         return "Quest not found"
     event_list = []
     reward = 0
-    for ch_id in quest["Challenges"]:
+    for ch in quest["Challenges"]:
         if (not ps.test_party_alive(party_id)):
             break
-        curr_ch = get_challenge_id(ch_id)
-        if (curr_ch[3] == "True"):
-            result = ps.test_party_single(party_id, curr_ch[2])
+        # curr_ch = get_challenge_id(ch_id)
+        if (ch["SingleHero"] == "True"):
+            result = ps.test_party_single(party_id, ch["TestStat"])
             curr_hero = hero_db.get_hero_details(result[2])
             if (result[0]):
                 # success
                 event_list.append(
-                    curr_ch[4].replace("[Hero]",
+                    ch["SuccessMsg"].replace("[Hero]",
                                        curr_hero["Name"]))
                 hero_db.update_hero(
                     curr_hero["ID"],
                     "Exp",
-                    curr_hero["Exp"] + int(curr_ch[8]))
-                reward += int(curr_ch[7])
+                    curr_hero["Exp"] + int(ch["ExpReward"]))
+                reward += int(ch["GoldReward"])
             else:
                 # failure
                 event_list.append(
-                    curr_ch[5].replace("[Hero]",
+                    ch["FailureMsg"].replace("[Hero]",
                                        curr_hero["Name"]))
                 hero_db.update_hero(
                     curr_hero["ID"],
                     "Health",
-                    curr_hero["Health"] - int(curr_ch[9]))
+                    curr_hero["Health"] - int(ch["DmgFail"]))
                 # check for death
-                if (curr_hero["Health"] - int(curr_ch[9]) <= 0):
+                if (curr_hero["Health"] - int(ch["DmgFail"]) <= 0):
                     event_list.append(
-                        curr_ch[6].replace("[Hero]", curr_hero["Name"]))
+                        ch["DeathMsg"].replace("[Hero]", curr_hero["Name"]))
     final_report = {
         "EventList": event_list,
         "Reward": reward,
