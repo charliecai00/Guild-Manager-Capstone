@@ -39,16 +39,30 @@ def get_quest_name() -> str:
 
 
 def get_challenges() -> list:
-    ids = []
+    challenges = []
     data_folder = Path("game/resources/challenge_rsc.csv")
     with open(data_folder, "r") as csvfile:
         # bug: challenge is a dict, below treats it like a list
         # sol: grab file, number of lines - 1 = total # challneges. treat like len(list) and randomly grab from there.
-        challenges = csv.DictReader(csvfile)
-        for x in range(5):
-            ids.append(random.choice(list(challenges))[0])
-    # return challenges[RandomRange(0, len(challenges))]
-    return ids
+        # challenges = csv.DictReader(csvfile)
+        for x in range(1, len(csvfile)):
+            line = csvfile[x].split(",").strip()
+            ch_details = {
+            "ID": line[0],
+            "Name": line[1],
+            "TestStat": line[2],
+            "SingleHero": line[3],
+            "SuccessMsg": line[4],
+            "FailureMsg": line[5],
+            "DeathMsg": line[6],
+            "GoldReward": line[7],
+            "ExpReward": line[8],
+            "DmgFail": line[9],
+            "Type": line[10],
+            "Difficulty": line[11]
+        }
+            challenges.append(ch_details)
+    return challenges
 
 
 def get_challenge_id(id) -> list:
