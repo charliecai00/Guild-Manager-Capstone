@@ -15,7 +15,7 @@ def generate_quest(id):
     quest_dict = {
             "ID": quest_db.fetch_curr_id() + 1,
             "Name": quest_name,
-            "Challenges": [], # list of dicts; dicts are rows in csv
+            "Challenges": [],
             "ChallengeLevel": 0,
             "Cost": 0,
             "Resell": 0,
