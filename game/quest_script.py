@@ -25,7 +25,7 @@ def generate_quest(id):
         }
     for i in range(RandomRange(1, 5)):
         for ch in get_challenges():
-            quest_dict["Challenges"].append(ch[0])
+            quest_dict["Challenges"].append(ch)
     quest_db.add_quest(quest_dict)
 
 
