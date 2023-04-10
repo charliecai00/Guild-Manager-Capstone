@@ -47,21 +47,22 @@ def get_challenges() -> list:
         # challenges = csv.DictReader(csvfile)
         for x in range(1, len(csvfile)):
             line = csvfile[x].split(",").strip()
-            ch_details = {
-            "ID": line[0],
-            "Name": line[1],
-            "TestStat": line[2],
-            "SingleHero": line[3],
-            "SuccessMsg": line[4],
-            "FailureMsg": line[5],
-            "DeathMsg": line[6],
-            "GoldReward": line[7],
-            "ExpReward": line[8],
-            "DmgFail": line[9],
-            "Type": line[10],
-            "Difficulty": line[11]
-        }
-            challenges.append(ch_details)
+            if len(line) > 0:
+                ch_details = {
+                "ID": line[0],
+                "Name": line[1],
+                "TestStat": line[2],
+                "SingleHero": line[3],
+                "SuccessMsg": line[4],
+                "FailureMsg": line[5],
+                "DeathMsg": line[6],
+                "GoldReward": line[7],
+                "ExpReward": line[8],
+                "DmgFail": line[9],
+                "Type": line[10],
+                "Difficulty": line[11]
+            }
+                challenges.append(ch_details)
     return challenges
 
 
