@@ -89,8 +89,7 @@ def start_quest(id, party_id):
             if (result[0]):
                 # success
                 event_list.append(
-                    ch["SuccessMsg"].replace("[Hero]",
-                                       curr_hero["Name"]))
+                    ch["SuccessMsg"].replace("[Hero]", curr_hero["Name"]))
                 hero_db.update_hero(
                     curr_hero["ID"],
                     "Exp",
@@ -99,8 +98,7 @@ def start_quest(id, party_id):
             else:
                 # failure
                 event_list.append(
-                    ch["FailureMsg"].replace("[Hero]",
-                                       curr_hero["Name"]))
+                    ch["FailureMsg"].replace("[Hero]", curr_hero["Name"]))
                 hero_db.update_hero(
                     curr_hero["ID"],
                     "Health",
