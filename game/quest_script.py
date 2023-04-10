@@ -3,8 +3,6 @@
 
 # import db.quest as db
 from pathlib import Path
-import csv
-import random
 import db.quest as quest_db
 import db.guild as guild_db
 import db.hero as hero_db
