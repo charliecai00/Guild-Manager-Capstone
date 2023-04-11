@@ -1,16 +1,15 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-from unittest.mock import patch, MagicMock, PropertyMock
+from unittest.mock import patch
 import game.guild_script as gs
-# import pytest
 
 EX_GUILD_FULL = {
     "ID": 0,
     "Name": "TestFull",
-    "HeroIDs": [0,1,2,3,4],
-    "PartyIDs": [0,1,2,3,4],
-    "QuestIDs": [0,1,2,3,4],
+    "HeroIDs": [0, 1, 2, 3, 4],
+    "PartyIDs": [0, 1, 2, 3, 4],
+    "QuestIDs": [0, 1, 2, 3, 4],
     "Funds": 999,
     "QuestsCompleted": 999
 }
@@ -62,60 +61,77 @@ EX_HERO_EMPLOYED = {
     "Cost": 999
 }
 
-@patch('guild_script.hero_db.get_hero_details', return_value=EX_HERO_UNEMPLOYED.copy())
-@patch('guild_script.guild_db.get_guild_details', return_value=EX_GUILD_FULL.copy())
+
+@patch('guild_script.hero_db.get_hero_details',
+       return_value=EX_HERO_UNEMPLOYED.copy())
+@patch('guild_script.guild_db.get_guild_details',
+       return_value=EX_GUILD_FULL.copy())
 @patch('guild_script.guild_db.update_guild')
 @patch('guild_script.hero_db.update_hero')
-def test_hire_guild_hero_works(get_hero_details_mock, get_guild_details_mock, update_guild_mock, update_hero_mock):
-    ret = gs.hire_guild_hero(0,0)
+def test_hire_guild_hero_works(get_hero_details_mock,
+                               get_guild_details_mock,
+                               update_guild_mock,
+                               update_hero_mock):
+    ret = gs.hire_guild_hero(0, 0)
     assert ret[1] == ""
-    assert ret[0] == True
+    assert ret[0] is True
 
 
-@patch('guild_script.hero_db.get_hero_details', return_value=EX_HERO_UNEMPLOYED.copy())
-@patch('guild_script.guild_db.get_guild_details', return_value=EX_GUILD_EMPTY.copy())
+@patch('guild_script.hero_db.get_hero_details',
+       return_value=EX_HERO_UNEMPLOYED.copy())
+@patch('guild_script.guild_db.get_guild_details',
+       return_value=EX_GUILD_EMPTY.copy())
 @patch('guild_script.guild_db.update_guild')
 @patch('guild_script.hero_db.update_hero')
-def test_hire_guild_hero_broke_guild(get_hero_details_mock, get_guild_details_mock, update_guild_mock, update_hero_mock):
-    ret = gs.hire_guild_hero(0,0)
+def test_hire_guild_hero_broke_guild(get_hero_details_mock,
+                                     get_guild_details_mock,
+                                     update_guild_mock,
+                                     update_hero_mock):
+    ret = gs.hire_guild_hero(0, 0)
     assert ret[1] == "Guild does not have enough funds"
-    assert ret[0] == False
+    assert ret[0] is False
 
 
-@patch('guild_script.hero_db.get_hero_details', return_value=EX_HERO_EMPLOYED.copy())
-@patch('guild_script.guild_db.get_guild_details', return_value=EX_GUILD_FULL.copy())
+@patch('guild_script.hero_db.get_hero_details',
+       return_value=EX_HERO_EMPLOYED.copy())
+@patch('guild_script.guild_db.get_guild_details',
+       return_value=EX_GUILD_FULL.copy())
 @patch('guild_script.guild_db.update_guild')
 @patch('guild_script.hero_db.update_hero')
-def test_hire_guild_hero_hired_hero(get_hero_details_mock, get_guild_details_mock, update_guild_mock, update_hero_mock):
-    ret = gs.hire_guild_hero(0,0)
+def test_hire_guild_hero_hired_hero(get_hero_details_mock,
+                                    get_guild_details_mock,
+                                    update_guild_mock,
+                                    update_hero_mock):
+    ret = gs.hire_guild_hero(0, 0)
     assert ret[1] == "Hero already hired"
-    assert ret[0] == False
+    assert ret[0] is False
 
 
-@patch('guild_script.hero_db.get_hero_details', return_value=EX_HERO_EMPLOYED.copy())
-@patch('guild_script.guild_db.get_guild_details', return_value=None)
+@patch('guild_script.hero_db.get_hero_details',
+       return_value=EX_HERO_EMPLOYED.copy())
+@patch('guild_script.guild_db.get_guild_details',
+       return_value=None)
 @patch('guild_script.guild_db.update_guild')
 @patch('guild_script.hero_db.update_hero')
-def test_hire_guild_hero_missing_guild(get_hero_details_mock, get_guild_details_mock, update_guild_mock, update_hero_mock):
-    ret = gs.hire_guild_hero(0,0)
+def test_hire_guild_hero_missing_guild(get_hero_details_mock,
+                                       get_guild_details_mock,
+                                       update_guild_mock,
+                                       update_hero_mock):
+    ret = gs.hire_guild_hero(0, 0)
     assert ret[1] == "Guild or hero does not exist"
-    assert ret[0] == False
+    assert ret[0] is False
 
 
-@patch('guild_script.hero_db.get_hero_details', return_value=None)
-@patch('guild_script.guild_db.get_guild_details', return_value=EX_GUILD_FULL.copy())
+@patch('guild_script.hero_db.get_hero_details',
+       return_value=None)
+@patch('guild_script.guild_db.get_guild_details',
+       return_value=EX_GUILD_FULL.copy())
 @patch('guild_script.guild_db.update_guild')
 @patch('guild_script.hero_db.update_hero')
-def test_hire_guild_hero_missing_hero(get_hero_details_mock, get_guild_details_mock, update_guild_mock, update_hero_mock):
-    ret = gs.hire_guild_hero(0,0)
+def test_hire_guild_hero_missing_hero(get_hero_details_mock,
+                                      get_guild_details_mock,
+                                      update_guild_mock,
+                                      update_hero_mock):
+    ret = gs.hire_guild_hero(0, 0)
     assert ret[1] == "Guild or hero does not exist"
-    assert ret[0] == False
-# # @patch('db.guild.get_guild_details', return_value=None, autospec=True)
-# # @patch('hero_db.get_hero_details', return_value=EX_HERO_EMPLOYED, autospec=True)
-# # @patch('db.guild.update_guild')
-# # @patch('db.guild.update_quest')
-# @patch('db.guild')
-# def test_hire_guild_hero_missing_guild(get_guild_details, get_hero_details, update_guild, update_quest):
-#     ret = gs.hire_guild_hero(0,0)
-#     assert ret[0] == False
-#     assert ret[1] == "Guild or hero does not exist"
+    assert ret[0] is False

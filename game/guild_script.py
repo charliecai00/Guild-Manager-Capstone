@@ -38,7 +38,6 @@ def hire_guild_hero(id, hero_id):
             # hero_db update hero
             hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
             return True, ""
-            
     return False, "Guild or hero does not exist"
 
 

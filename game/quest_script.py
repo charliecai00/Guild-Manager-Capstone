@@ -8,6 +8,7 @@ import db.guild as guild_db
 import db.hero as hero_db
 import game.party_script as ps
 from game.game_math.random import RandomRange
+from random import sample
 
 
 def generate_quest(id):
@@ -21,9 +22,9 @@ def generate_quest(id):
             "Resell": 0,
             "Purchase": False
         }
-    for i in range(RandomRange(1, 5)):
-        for ch in get_challenges():
-            quest_dict["Challenges"].append(ch)
+    quest_dict["Challenges"] = sample(get_challenges(), RandomRange(2, 5))
+    for ch in quest_dict["Challenges"]:
+        quest_dict["ChallengeLevel"] += int(ch["Difficulty"])
     quest_db.add_quest(quest_dict)
 
 
@@ -39,9 +40,13 @@ def get_quest_name() -> str:
 def get_challenges() -> list:
     challenges = []
     data_folder = Path("game/resources/challenge_rsc.csv")
+    file_len = 0
     with open(data_folder, "r") as csvfile:
-        for x in range(1, len(csvfile)):
-            line = csvfile[x].split(",").strip()
+        file_len = len(csvfile.readlines())
+    with open(data_folder, "r") as csvfile:
+        csvfile.readline()
+        for x in range(1, file_len):
+            line = csvfile.readline().strip().split(",")
             if len(line) > 0:
                 ch_details = {
                         "ID": line[0],
