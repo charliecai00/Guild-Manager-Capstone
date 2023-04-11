@@ -152,4 +152,3 @@ def sell_quest(id, guild_id):
         quest_db.update_quest(id, "Purchase", curr_quest["Purchase"])
         return True, "Quest sold"
     return False, "Quest or guild does not exist"
-
