@@ -153,4 +153,3 @@ def sell_quest(id, guild_id):
         return True, "Quest sold"
     return False, "Quest or guild does not exist"
 
-generate_quest(0)
