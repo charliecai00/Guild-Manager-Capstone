@@ -180,7 +180,7 @@ class Sell(Resource):
         flag, msg = quest_script.sell_quest(request.json['id'],
                                             request.json['guild_id'])
         if flag:
-            return {RES: msg}
+            return {RES: "Success"}
         return {RES: msg}
 
 
@@ -275,7 +275,7 @@ class DBAddHero(Resource):
 class AddParty(Resource):
     add_party_input = api.model('AddParty',
                                 {'Name': fields.String,
-                                 'guild_id': fields.String})
+                                 'guild_id': fields.Integer})
 
     @api.expect(add_party_input)
     def post(self):

@@ -64,6 +64,7 @@ def add_guild_party(id, party_id):
     curr_guild = guild_db.get_guild_details(id)
     if party_id not in curr_guild["PartyIDs"]:
         curr_guild["PartyIDs"].append(party_id)
+        guild_db.update_guild(id, "PartyIDs", curr_guild["PartyIDs"])
         return True, ""
     else:
         return False, "Party already in guild"
