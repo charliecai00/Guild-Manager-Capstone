@@ -1,9 +1,8 @@
 # A NYU Capstone Project
 # The Guild Manager by JV · CC · ZQ · ZF
 
-from unittest.mock import patch, MagicMock, PropertyMock
+from unittest.mock import patch
 import game.guild_script as gs
-# import pytest
 
 EX_GUILD_FULL = {
     "ID": 0,
@@ -110,12 +109,3 @@ def test_hire_guild_hero_missing_hero(get_hero_details_mock, get_guild_details_m
     ret = gs.hire_guild_hero(0,0)
     assert ret[1] == "Guild or hero does not exist"
     assert ret[0] == False
-# # @patch('db.guild.get_guild_details', return_value=None, autospec=True)
-# # @patch('hero_db.get_hero_details', return_value=EX_HERO_EMPLOYED, autospec=True)
-# # @patch('db.guild.update_guild')
-# # @patch('db.guild.update_quest')
-# @patch('db.guild')
-# def test_hire_guild_hero_missing_guild(get_guild_details, get_hero_details, update_guild, update_quest):
-#     ret = gs.hire_guild_hero(0,0)
-#     assert ret[0] == False
-#     assert ret[1] == "Guild or hero does not exist"
