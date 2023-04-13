@@ -41,7 +41,7 @@ def test_get_hero_details(temp_rec):
 
 
 def test_get_hero_details_not_there(temp_rec):
-    ret = db_hero.get_hero_details(976)
+    ret = db_hero.get_hero_details(404)
     assert ret is None
 
 

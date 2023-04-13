@@ -9,6 +9,7 @@ import game.guild_script as guild_script
 import game.hero_script as hero_script
 import game.party_script as party_script
 import game.quest_script as quest_script
+import db.db_connect as dbc
 import db.guild as db_guild
 import db.hero as db_hero
 import db.party as db_party
@@ -24,15 +25,18 @@ GUILD_NS = 'Guild'
 QUEST_NS = 'Quest'
 HERO_NS = 'Hero'
 PARTY_NS = 'Party'
+DEVELOPER_NS = 'Developer'
 # Create namespaces
 guild_ns = Namespace(GUILD_NS, 'Guild APIs')
-quest_ns = Namespace(QUEST_NS, 'Quest API')
-hero_ns = Namespace(HERO_NS, 'Hero API')
-party_ns = Namespace(PARTY_NS, 'Party API')
+quest_ns = Namespace(QUEST_NS, 'Quest APIs')
+hero_ns = Namespace(HERO_NS, 'Hero APIs')
+party_ns = Namespace(PARTY_NS, 'Party APIs')
+developer_ns = Namespace(DEVELOPER_NS, 'Developer API')
 api.add_namespace(guild_ns)
 api.add_namespace(quest_ns)
 api.add_namespace(hero_ns)
 api.add_namespace(party_ns)
+api.add_namespace(developer_ns)
 # Define API routes
 # Create guild routes
 CREATE = 'Create'
@@ -59,14 +63,14 @@ UNEMPLOYED = 'Unemployed'
 HEAL = 'Heal'
 HERO_DETAIL = 'Hero_Detail'
 HERO_NOT_IN_PARTY = 'Hero_Not_In_Party'
-DB_ADD_HERO = 'DB_Add_Heroes'
+HERO_OPTIONS = 'Hero_Options'
 HIRE_PATH = f'{HERO_NS}/{HIRE}'
 FIRE_PATH = f'{HERO_NS}/{FIRE}'
 UNEMPLOYED_PATH = f'{HERO_NS}/{UNEMPLOYED}'
 HEAL_PATH = f'{HERO_NS}/{HEAL}'
 HERO_DETAIL_PATH = f'{HERO_NS}/{HERO_DETAIL}'
 HERO_NOT_IN_PARTY_PATH = f'{HERO_NS}/{HERO_NOT_IN_PARTY}'
-DB_ADD_HERO_PATH = f'{HERO_NS}/{DB_ADD_HERO}'  # Developer endpoint
+HERO_OPTIONS_PATH = f'{HERO_NS}/{HERO_OPTIONS}'
 # Create party routes
 ADD_HERO = 'Add_Hero'
 REMOVE_HERO = 'Remove_Hero'
@@ -78,8 +82,9 @@ REMOVE_HERO_PATH = f'{PARTY_NS}/{REMOVE_HERO}'
 ADD_PARTY_PATH = f'{PARTY_NS}/{ADD_PARTY}'
 DISBAND_PARTY_PATH = f'{PARTY_NS}/{DISBAND_PARTY}'
 PARTY_DETAIL_PATH = f'{PARTY_NS}/{PARTY_DETAIL}'
-# Create main menu route
-# MAIN_MENU = '/main_menu'
+# Create developer endpoint
+RESET_DB = 'Reset_DB'
+RESET_DB_PATH = f'{DEVELOPER_NS}/{RESET_DB}'
 
 # Define Marco
 RES = 'Response'
@@ -262,11 +267,12 @@ class HeroNotInParty(Resource):
         return {RES: res}
 
 
-@hero_ns.route(f'/{DB_ADD_HERO}')
-class DBAddHero(Resource):
+@hero_ns.route(f'/{HERO_OPTIONS}')
+class HeroOptions(Resource):
     def get(self):
-        hero_script.generate_hero()
-        return {RES: "Success"}
+        res = {"Fire": FIRE_PATH,
+               "Heal": HEAL_PATH}
+        return {RES: res}
 
 
 @party_ns.route(f'/{ADD_PARTY}')
@@ -333,6 +339,22 @@ class PartyDetail(Resource):
         del res['HeroIDs']
 
         return {RES: res}
+
+
+@developer_ns.route(f'/{RESET_DB}')
+class ResetDB(Resource):
+    def get(self):
+        """
+        Delete all DB items & Populate 200 heros and quests
+        """
+        dbc.del_many(db_guild.GUILD_COLLECT, {})
+        dbc.del_many(db_hero.HERO_COLLECT, {})
+        dbc.del_many(db_party.PARTY_COLLECT, {})
+        dbc.del_many(db_quest.QUEST_COLLECT, {})
+
+        for i in range(200):
+            hero_script.generate_hero()
+            quest_script.generate_quest()
 
 
 if __name__ == '__main__':
