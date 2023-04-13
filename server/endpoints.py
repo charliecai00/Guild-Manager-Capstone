@@ -347,14 +347,20 @@ class ResetDB(Resource):
         """
         Delete all DB items & Populate 200 heros and quests
         """
-        dbc.del_many(db_guild.GUILD_COLLECT, {})
-        dbc.del_many(db_hero.HERO_COLLECT, {})
-        dbc.del_many(db_party.PARTY_COLLECT, {})
-        dbc.del_many(db_quest.QUEST_COLLECT, {})
+        res_guild = dbc.del_many(db_guild.GUILD_COLLECT, {})
+        res_hero = dbc.del_many(db_hero.HERO_COLLECT, {})
+        res_party = dbc.del_many(db_party.PARTY_COLLECT, {})
+        res_quest = dbc.del_many(db_quest.QUEST_COLLECT, {})
 
         for i in range(200):
             hero_script.generate_hero()
             quest_script.generate_quest()
+
+        return {"Deleted Count": {
+            "Guild": res_guild.deleted_count,
+            "Hero": res_hero.deleted_count,
+            "Party": res_party.deleted_count,
+            "Quest": res_quest.deleted_count}}
 
 
 if __name__ == '__main__':
