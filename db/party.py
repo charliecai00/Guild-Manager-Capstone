@@ -14,14 +14,6 @@ def add_party(details):
 
 
 # Read
-def get_party():
-    """
-    return a list of dictionary guilds [{...},{...},{...}]
-    """
-    dbc.connect_db()
-    return dbc.fetch_all(PARTY_COLLECT)
-
-
 def get_party_details(id):
     dbc.connect_db()
     return dbc.fetch_one(PARTY_COLLECT, {PARTY_KEY: id})
