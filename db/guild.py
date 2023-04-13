@@ -6,6 +6,7 @@ import db.db_connect as dbc
 GUILD_KEY = 'ID'
 GUILD_COLLECT = 'Guild'
 
+
 # Create
 def add_guild(details):
     dbc.connect_db()
