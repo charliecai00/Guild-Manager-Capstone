@@ -18,13 +18,15 @@ def generate_quest():
             "Name": quest_name,
             "Challenges": [],
             "ChallengeLevel": 0,
-            "Cost": 0,
+            "Cost": 2,
             "Resell": 0,
             "Purchase": False
         }
     quest_dict["Challenges"] = sample(get_challenges(), RandomRange(2, 5))
     for ch in quest_dict["Challenges"]:
         quest_dict["ChallengeLevel"] += int(ch["Difficulty"])
+    quest_dict["Cost"] *= quest_dict["ChallengeLevel"]
+    quest_dict["Resell"] = int(quest_dict["Cost"] // 2)
     quest_db.add_quest(quest_dict)
 
 
