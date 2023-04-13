@@ -23,8 +23,8 @@ def generate_hero():
                 "DEX": RandomNormalClamped(50, 25, 5, 95),
                 "WIS": RandomNormalClamped(50, 25, 5, 95),
                 "INT": RandomNormalClamped(50, 25, 5, 95),
-                "CHA": RandomNormalClamped(50, 25, 5, 95),
-            },
+                "CHA": RandomNormalClamped(50, 25, 5, 95)
+                },
             "Hired?": False,
             "InParty?": False,
             "PartyID": 0,

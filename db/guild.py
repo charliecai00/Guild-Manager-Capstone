@@ -32,10 +32,6 @@ def get_guild_details(id):
     return dbc.fetch_one(GUILD_COLLECT, {GUILD_KEY: id})
 
 
-def guild_exists(id):
-    return get_guild_details(id) is not None
-
-
 # Update
 def update_guild(id, key, value):
     """

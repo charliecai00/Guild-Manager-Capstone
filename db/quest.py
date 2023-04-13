@@ -3,26 +3,8 @@
 
 import db.db_connect as dbc
 
-ID = 'ID'
-NAME = 'Name'
-CHALLENGE = 'Challenge'
-DIFFICULTY = 'Difficulty'
-COST = 'Cost'
-RESELL = 'Resell'
-PURCHASE = 'Purchase'
-
 QUEST_KEY = 'ID'
 QUEST_COLLECT = 'Quest'
-
-TEST_QUEST = 'TEST_QUEST'
-REQUIRED_FLDS = [ID, NAME, CHALLENGE, DIFFICULTY, COST, RESELL]
-dummy_quest = {TEST_QUEST: {ID: 1,
-                            NAME: "Temporary Quest",
-                            CHALLENGE: [1, 2, 3],
-                            DIFFICULTY: 5,
-                            COST: 999999,
-                            RESELL: 999999,
-                            PURCHASE: False}}
 
 
 # Create
@@ -41,7 +23,7 @@ def get_unpurchase_quest():
 
     unpurchase = []
     for i in all_quest:
-        if i[PURCHASE] is False:
+        if i["Purchase"] is False:
             unpurchase.append(i)
     return unpurchase
 

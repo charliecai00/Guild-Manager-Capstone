@@ -2,62 +2,45 @@
 # The Guild Manager by JV · CC · ZQ · ZF
 
 import pytest
-import db.guild as guild
+import db.guild as db_guild
 
-
-TEST_DEL_NAME = 'guild to be deleted'
-
-
-def create_guild_details():
-    details = {}
-    for field in gu.REQUIRED_FLDS:
-        details[field] = "dummy_data"
-    return details
+TEST_COLLECT = 'TESTING'
+TEST_INPUT = {"ID": 965,
+              "Name": "TESTING",
+              "HeroIDs": [],
+              "PartyIDs": [],
+              "QuestIDs": [],
+              "Funds": 50,
+              "QuestsCompleted": 0}
 
 
 @pytest.fixture(scope='function')
-def temp_guild():
-    gu.add_guild(gu.TEST_GUILD, create_guild_details())
+def temp_rec():
+    db_guild.add_guild(TEST_INPUT)
     yield
-    gu.del_guild(gu.TEST_GUILD)
+    db_guild.del_guild(965)
 
 
-@pytest.fixture(scope='function')
-def new_guild():
-    return gu.add_guild(TEST_DEL_NAME, create_guild_details())
+def test_get_guilds(temp_rec):
+    ret = db_guild.get_guilds()
+    assert isinstance(ret, list)
 
 
-def test_del_guild(new_guild):
-    gu.del_guild(TEST_DEL_NAME)
-    assert not gu.guild_exists(TEST_DEL_NAME)
+def test_fetch_curr_id(temp_rec):
+    ret = db_guild.fetch_curr_id()
+    assert isinstance(ret, int)
 
 
-def test_get_guilds(temp_guild):
-    chs = gu.get_guilds()
-    assert isinstance(chs, list)
-    assert len(chs) > 0  # or 1
+def test_get_guild_details(temp_rec):
+    ret = db_guild.get_guild_details(965)
+    assert ret is not None
 
 
-def test_get_guilds_dict(temp_guild):
-    chs = gu.get_guilds_dict()
-    assert isinstance(chs, dict)
-    assert len(chs) > 0  # or 1
+def test_get_guild_details_not_there(temp_rec):
+    ret = db_guild.get_guild_details(404)
+    assert ret is None
 
 
-def test_get_guild_details(temp_guild):
-    ch_dets = gu.get_guild_details(gu.TEST_GUILD)
-    assert isinstance(ch_dets, dict)
-
-
-def TEST_GUILD_exists(temp_guild):
-    assert gu.guild_exists(gu.TEST_GUILD)
-
-
-def TEST_GUILD_not_exists(temp_guild):
-    assert not gu.guild_exists('Surely this is not a guild name!')
-
-
-def test_add_guild():
-    gu.add_guild(gu.TEST_GUILD, create_guild_details())
-    assert gu.guild_exists(gu.TEST_GUILD)
-    gu.del_guild(gu.TEST_GUILD)
+def test_update_guild(temp_rec):
+    ret = db_guild.update_guild(965, "Name", "TESTING_UPDATE")
+    assert ret is not None
