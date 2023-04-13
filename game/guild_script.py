@@ -4,6 +4,7 @@
 import db.guild as guild_db
 import db.hero as hero_db
 import db.quest as quest_db
+import game.party_script as ps
 
 
 def generate_guild(name="TestGuild"):
@@ -72,7 +73,11 @@ def add_guild_party(id, party_id):
 def remove_guild_party(id, party_id):
     curr_guild = guild_db.get_guild_details(id)
     if party_id in curr_guild["PartyIDs"]:
+        ret = ps.disband_party(party_id)
+        if ret[0] is False:
+            return False, ret[1]
         curr_guild["PartyIDs"].pop(party_id)
+        guild_db.update_guild(id, "PartyIDs", curr_guild["PartyIDs"])
         return True, ""
     else:
         return False, "Party already in guild"
