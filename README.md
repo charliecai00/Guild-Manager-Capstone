@@ -19,7 +19,7 @@ The project is called "Guild Manager", a game where you organize a guild of adve
 
 ## Building and installing Guild Manager
 ### Production
-`TBD`
+The flask server is automatically deployed to Heroku @ https://guild-manager.herokuapp.com/
 
 ### Development
 `make dev_env; sh server.sh`
