@@ -3,37 +3,8 @@
 
 import db.db_connect as dbc
 
-"""
-This module encapsulates details about guilds.
-"""
-
-ID = 'ID'
-NAME = 'NAME'
-HIRED_HERO = 'HIRED_HERO'
-PURCHASED_QUEST = 'PURCHASED_QUEST'
-CREATED_PARTY = 'CREATED_PARTY'
-FUNDS = 'FUNDS'
-QUEST_COMPLETED = 'QUEST_COMPLETED'
-
 GUILD_KEY = 'ID'
 GUILD_COLLECT = 'Guild'
-
-TEST_GUILD = 'test_guild'
-REQUIRED_FLDS = [ID,
-                 NAME,
-                 HIRED_HERO,
-                 PURCHASED_QUEST,
-                 CREATED_PARTY,
-                 FUNDS,
-                 QUEST_COMPLETED]
-dummy_guilds = {TEST_GUILD: {ID: 1,
-                             NAME: "Temporary Guild",
-                             HIRED_HERO: [1, 2, 3],
-                             PURCHASED_QUEST: [1, 2, 3],
-                             CREATED_PARTY: ["TempParty1", "TempParty2"],
-                             FUNDS: 9999999,
-                             QUEST_COMPLETED: 9999999}}
-
 
 # Create
 def add_guild(details):
@@ -42,16 +13,6 @@ def add_guild(details):
 
 
 # Read
-def get_field(id, field):
-    """
-    parameter:  the id of the guild
-                takes a field, ex. HERO_ID
-    return: a list of values, [1,2,3]
-    """
-    dbc.connect_db()
-    return dbc.fetch_field(GUILD_COLLECT, {GUILD_KEY: id}, field)
-
-
 def get_guilds():
     """
     return a list of dictionary guilds [{...},{...},{...}]
