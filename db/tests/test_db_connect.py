@@ -6,8 +6,13 @@ import db.db_connect as dbc
 
 TEST_DB = dbc.DB
 TEST_COLLECT = 'TESTING'
-TEST_INPUT = {"ID": 55, "Name": "TESTING", "HeroIDs": [], "PartyIDs": [],
-              "QuestIDs": [], "Funds": 50, "QuestsCompleted": 0}
+TEST_INPUT = {"ID": 55,
+              "Name": "TESTING",
+              "HeroIDs": [],
+              "PartyIDs": [],
+              "QuestIDs": [],
+              "Funds": 50,
+              "QuestsCompleted": 0}
 
 
 @pytest.fixture(scope='function')
