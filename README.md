@@ -1,9 +1,10 @@
 <!-- A NYU Capstone Project
 The Guild Manager by JV · CC · ZQ · ZF -->
 
-![release](https://img.shields.io/github/v/release/Jorge-A-Velasquez/Guild-Manager-Capstone?include_prereleases&style=for-the-badge)
-![license](https://img.shields.io/github/license/Jorge-A-Velasquez/Guild-Manager-Capstone?style=for-the-badge)
-![last commit](https://img.shields.io/github/last-commit/Jorge-A-Velasquez/Guild-Manager-Capstone?style=for-the-badge)
+![release](https://img.shields.io/github/v/release/charliecai00/Guild-Manager-Capstone?include_prereleases&style=for-the-badge)
+![license](https://img.shields.io/github/license/charliecai00/Guild-Manager-Capstone?style=for-the-badge)
+![last commit](https://img.shields.io/github/last-commit/charliecai00/Guild-Manager-Capstone?color=yellow&style=for-the-badge)
+![deployment](https://img.shields.io/github/deployments/charliecai00/Guild-Manager-Capstone/guild-manager?label=Deployment&style=for-the-badge)
 
 ## Product Vision Statement
 The project is called "Guild Manager", a game where you organize a guild of adventurers in a fantasy world. You will send heroes out on quests and then use the treasure and riches they collect to build up the greatest guild in the world. The game will be a program that runs on the cloud and all the data it generates (characters, quests, treasure, dungeons, etc.) will get stored in a database. Finally there'll be an API that a web client could use to send commands to the game on the cloud.
