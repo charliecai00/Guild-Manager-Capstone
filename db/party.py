@@ -24,10 +24,6 @@ def fetch_curr_id():
     return dbc.fetch_curr_id(PARTY_COLLECT)
 
 
-def party_exists(id):
-    return get_party_details(id) is not None
-
-
 # Update
 def update_party(id, key, value):
     dbc.connect_db()

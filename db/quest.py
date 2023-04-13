@@ -38,10 +38,6 @@ def fetch_curr_id():
     return dbc.fetch_curr_id(QUEST_COLLECT)
 
 
-def quest_exists(id):
-    return get_quest_details(id) is not None
-
-
 # Update
 def update_quest(id, key, value):
     dbc.connect_db()
@@ -49,9 +45,9 @@ def update_quest(id, key, value):
 
 
 # Delete
-def del_quest(name):
+def del_quest(ID):
     """
-    Delete all quest
+    Delete one quest
     """
     dbc.connect_db()
-    return dbc.del_many(QUEST_COLLECT, {})
+    return dbc.del_one(QUEST_COLLECT, {QUEST_KEY: ID})

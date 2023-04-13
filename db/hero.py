@@ -48,7 +48,7 @@ def update_hero(id, key, value):
 # Delete
 def del_hero(ID):
     """
-    Delete all hero
+    Delete one hero
     """
     dbc.connect_db()
     return dbc.del_one(HERO_COLLECT, {HERO_KEY: ID})
