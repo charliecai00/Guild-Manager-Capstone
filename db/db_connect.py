@@ -77,4 +77,4 @@ def del_one(collection, filt, db=DB):
 
 def del_many(collection, filt, db=DB):
     connect_db()
-    return client[db][collection].delete_many({})
+    return client[db][collection].delete_many(filt)
