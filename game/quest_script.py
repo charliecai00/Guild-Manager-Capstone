@@ -11,7 +11,7 @@ from game.game_math.random import RandomRange
 from random import sample
 
 
-def generate_quest(id):
+def generate_quest():
     quest_name = get_quest_name()
     quest_dict = {
             "ID": quest_db.fetch_curr_id() + 1,

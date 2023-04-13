@@ -47,7 +47,7 @@ def fire_guild_hero(id, hero_id):
         if hero_id in curr_guild["HeroIDs"]:
             curr_hero = hero_db.get_hero_details(hero_id)
             curr_hero["Hired?"] = False
-            curr_guild["HeroIDs"].pop(hero_id)
+            curr_guild["HeroIDs"].remove(hero_id)
             # guild_db update guild
             guild_db.update_guild(id, "Funds", curr_guild["Funds"])
             guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
