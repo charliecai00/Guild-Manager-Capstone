@@ -24,7 +24,7 @@ lint: FORCE
 	cd $(GAME_DIR); make lint
 
 unit: FORCE
-	# cd $(API_DIR); make unit
+	cd $(API_DIR); make unit
 	cd $(DB_DIR); make unit
 	# cd $(GAME_DIR); make unit
 
@@ -38,5 +38,5 @@ lint_local: FORCE
 
 unit_local: FORCE
 	cd $(API_DIR); make unit_local
-	cd $(DB_DIR); make unit_local
-	cd $(GAME_DIR); make unit
+	# cd $(DB_DIR); make unit_local
+	# cd $(GAME_DIR); make unit

@@ -112,7 +112,7 @@ class Create(Resource):
 @guild_ns.route(f'/{RELOAD}')
 class Reload(Resource):
     """
-    Return example: [{id:name}] -> [{1:'guild1'}, {2:'guild2}]
+    Return example: [{id:name}] -> [{1:'guild1'}, {2:'guild2'}]
     """
     def get(self):
         guilds = db_guild.get_guilds()
@@ -136,7 +136,8 @@ class GuildDetail(Resource):
         heroes = []
         for i in res["HeroIDs"]:
             hero_detail = db_hero.get_hero_details(i)
-            heroes.append({'id': i, "name": hero_detail["Name"]})
+            heroes.append({'ID': hero_detail["ID"],
+                           "name": hero_detail["Name"]})
         res["Hero"] = heroes
         del res['HeroIDs']
 
@@ -144,7 +145,8 @@ class GuildDetail(Resource):
         party = []
         for i in res["PartyIDs"]:
             party_detail = db_party.get_party_details(i)
-            party.append({'id': i, "name": party_detail["Name"]})
+            party.append({'ID': party_detail["ID"],
+                          "name": party_detail["Name"]})
         res["Party"] = party
         del res['PartyIDs']
 
@@ -152,7 +154,8 @@ class GuildDetail(Resource):
         quest = []
         for i in res["QuestIDs"]:
             quest_detail = db_quest.get_quest_details(i)
-            quest.append({'id': i, "name": quest_detail["Name"]})
+            quest.append({'ID': quest_detail["ID"],
+                          "name": quest_detail["Name"]})
         res["Quest"] = quest
         del res['QuestIDs']
 
