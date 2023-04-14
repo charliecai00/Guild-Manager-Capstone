@@ -12,7 +12,7 @@ LIST = [955, 965, 975]
 
 
 @patch('game.guild_script.generate_guild')
-def test_Create(guild_script_generate_guild_mock):
+def test_Create(game_guild_script_generate_guild_mock):
     res = TEST_CLIENT.post(ep.CREATE_PATH, json={'Name': 'Testing'}).get_json()
     assert res[ep.RES] == "Success"
 
@@ -21,7 +21,7 @@ RELOAD_MOCK = [{'ID': 955, 'Name': 'Testing1'},
                {'ID': 965, 'Name': 'Testing2'}]
 
 
-@patch('endpoints.db_guild.get_guilds', return_value=RELOAD_MOCK)
+@patch('db.guild.get_guilds', return_value=RELOAD_MOCK)
 def test_Reload(db_guild_get_guilds_mock):
     res = TEST_CLIENT.get(ep.RELOAD_PATH).get_json()
     assert isinstance(res[ep.RES], list)
@@ -39,13 +39,13 @@ GUILDDETAIL_MOCK = {"get_guild_details": {"ID": 955,
                     "get_quest_details": {"ID": 5, "Name": "Testing4"}}
 
 
-@patch('endpoints.db_guild.get_guild_details',
+@patch('db.guild.get_guild_details',
        return_value=GUILDDETAIL_MOCK["get_guild_details"])
-@patch('endpoints.db_hero.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=GUILDDETAIL_MOCK["get_hero_details"])
-@patch('endpoints.db_party.get_party_details',
+@patch('db.party.get_party_details',
        return_value=GUILDDETAIL_MOCK["get_party_details"])
-@patch('endpoints.db_quest.get_quest_details',
+@patch('db.quest.get_quest_details',
        return_value=GUILDDETAIL_MOCK["get_quest_details"])
 def test_GuildDetail(db_guild_get_guild_details_mock,
                      db_hero_get_hero_details_mock,
@@ -56,21 +56,21 @@ def test_GuildDetail(db_guild_get_guild_details_mock,
     assert isinstance(res[ep.RES], dict)
 
 
-@patch('endpoints.db_quest.get_unpurchase_quest', return_value=LIST)
+@patch('db.quest.get_unpurchase_quest', return_value=LIST)
 def test_Unsold(db_quest_get_unpurchase_quest_mock):
     res = TEST_CLIENT.get(ep.UNSOLD_QUEST_PATH).get_json()
     assert isinstance(res[ep.RES], list)
 
 
-@patch('endpoints.quest_script.buy_quest', return_value=FLAG_MSG)
-def test_Buy(quest_script_buy_quest_mock):
+@patch('game.quest_script.buy_quest', return_value=FLAG_MSG)
+def test_Buy(game_quest_script_buy_quest_mock):
     res = TEST_CLIENT.post(ep.BUY_PATH,
                            json={'id': 955, 'guild_id': 965}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
-@patch('endpoints.quest_script.sell_quest', return_value=FLAG_MSG)
-def test_Sell(quest_script_sell_quest_mock):
+@patch('game.quest_script.sell_quest', return_value=FLAG_MSG)
+def test_Sell(game_quest_script_sell_quest_mock):
     res = TEST_CLIENT.post(ep.SELL_PATH,
                            json={'id': 955, 'guild_id': 965}).get_json()
     assert isinstance(res[ep.RES], str)
@@ -81,8 +81,8 @@ STARTQUEST_MOCK = {"EventList": "Testing1",
                    "PartyStatus": "Testing3"}
 
 
-@patch('endpoints.quest_script.start_quest', return_value=STARTQUEST_MOCK)
-def test_StartQuest(quest_script_start_quest_mock):
+@patch('game.quest_script.start_quest', return_value=STARTQUEST_MOCK)
+def test_StartQuest(game_quest_script_start_quest_mock):
     res = TEST_CLIENT.post(ep.START_PATH,
                            json={'id': 955, 'party_id': 965}).get_json()
     assert isinstance(res[ep.RES], dict)
@@ -97,34 +97,34 @@ QUESTDETAIL_MOCK = {"ID": 955,
                     "Purchase": True}
 
 
-@patch('endpoints.db_quest.get_quest_details', return_value=QUESTDETAIL_MOCK)
+@patch('db.quest.get_quest_details', return_value=QUESTDETAIL_MOCK)
 def test_QuestDetail(db_quest_get_quest_details_mock):
     res = TEST_CLIENT.post(ep.QUEST_DETAIL_PATH, json={'id': 955}).get_json()
     assert isinstance(res[ep.RES], dict)
 
 
-@patch('endpoints.guild_script.hire_guild_hero', return_value=FLAG_MSG)
-def test_Hire(guild_script_hire_guild_hero_mock):
+@patch('game.guild_script.hire_guild_hero', return_value=FLAG_MSG)
+def test_Hire(game_guild_script_hire_guild_hero_mock):
     res = TEST_CLIENT.post(ep.HIRE_PATH,
                            json={'id': 955, 'guild_id': 965}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
-@patch('endpoints.guild_script.fire_guild_hero', return_value=FLAG_MSG)
-def test_Fire(guild_script_fire_guild_hero_mock):
+@patch('game.guild_script.fire_guild_hero', return_value=FLAG_MSG)
+def test_Fire(game_guild_script_fire_guild_hero_mock):
     res = TEST_CLIENT.post(ep.FIRE_PATH,
                            json={'id': 955, 'guild_id': 965}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
-@patch('endpoints.db_hero.get_unemploy_hero', return_value=LIST)
+@patch('db.hero.get_unemploy_hero', return_value=LIST)
 def test_Unemployed(db_hero_get_unemploy_hero_mock):
     res = TEST_CLIENT.get(ep.UNEMPLOYED_PATH).get_json()
     assert isinstance(res[ep.RES], list)
 
 
-@patch('endpoints.hero_script.heal_hero', return_value=FLAG_MSG)
-def test_Heal(hero_script_heal_hero_mock):
+@patch('game.hero_script.heal_hero', return_value=FLAG_MSG)
+def test_Heal(game_hero_script_heal_hero_mock):
     res = TEST_CLIENT.post(ep.HEAL_PATH,
                            json={'id': 955, 'guild_id': 965}).get_json()
     assert isinstance(res[ep.RES], str)
@@ -148,7 +148,7 @@ HERODETAIL_MOCK = {"ID": 955,
                    "Cost": 50}
 
 
-@patch('endpoints.db_hero.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=HERODETAIL_MOCK)
 def test_HeroDetail(db_hero_get_hero_details):
     res = TEST_CLIENT.get(ep.HERO_DETAIL_PATH, json={'id': 955}).get_json()
