@@ -186,7 +186,8 @@ HERONOTINPARTY_MOCK = {"get_guild_details": {"ID": 955,
        return_value=HERONOTINPARTY_MOCK["get_hero_details"])
 def test_HeroNotInParty(db_guild_get_hero_details_mock,
                         db_hero_get_hero_details_mock):
-    res = TEST_CLIENT.post(ep.HERO_NOT_IN_PARTY_PATH).get_json()
+    res = TEST_CLIENT.post(ep.HERO_NOT_IN_PARTY_PATH,
+                           json={'id': 955}).get_json()
     assert isinstance(res[ep.RES], list)
 
 
@@ -260,10 +261,16 @@ RESETDB_MOCK = {"deleted_count": 200}
 
 
 @patch('db.db_connect.del_many', return_value=RESETDB_MOCK)
+@patch('db.db_connect.del_many', return_value=RESETDB_MOCK)
+@patch('db.db_connect.del_many', return_value=RESETDB_MOCK)
+@patch('db.db_connect.del_many', return_value=RESETDB_MOCK)
 @patch('game.hero_script.generate_hero')
 @patch('game.quest_script.generate_quest')
-def test_ResetDB(db_db_connect_del_many_mock,
+def test_ResetDB(db_db_connect_del_many_mock1,
+                 db_db_connect_del_many_mock2,
+                 db_db_connect_del_many_mock3,
+                 db_db_connect_del_many_mock4,
                  game_hero_script_generate_hero_mock,
                  game_quest_script_generate_quest_mock):
     res = TEST_CLIENT.get(ep.RESET_DB_PATH).get_json()
-    assert isinstance(res[ep.DEL], dict)
+    assert isinstance(res[ep.RES], dict)

@@ -88,7 +88,6 @@ RESET_DB_PATH = f'{DEVELOPER_NS}/{RESET_DB}'
 
 # Define Marco
 RES = 'Response'
-DEL = 'Deleted Count'
 
 # API models
 model_id = api.model('Input: id', {'id': fields.Integer})
@@ -360,7 +359,7 @@ class ResetDB(Resource):
             hero_script.generate_hero()
             quest_script.generate_quest()
 
-        return {DEL: {
+        return {RES: {
             "Guild": res_guild.deleted_count,
             "Hero": res_hero.deleted_count,
             "Party": res_party.deleted_count,
