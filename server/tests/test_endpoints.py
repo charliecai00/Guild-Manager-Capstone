@@ -196,15 +196,15 @@ def test_HeroOptions():
     assert isinstance(res[ep.RES], dict)
 
 
-# @patch('game.party_script.generate_party')
-# @patch('game.guild_script.add_guild_party', return_value=FLAG_MSG)
-# @patch('db.party.fetch_curr_id', return_value=955)
-# def test_AddParty(game_party_script_generate_party_mock,
-#                   game_guild_script_add_guild_party_mock,
-#                   db_party_fetch_curr_id_mock):
-#     res = TEST_CLIENT.post(ep.ADD_PARTY_PATH,
-#                            json={'Name': 'Testing', 'guild_id': 955})
-#     assert isinstance(res[ep.RES], str)
+@patch('game.party_script.generate_party')
+@patch('game.guild_script.add_guild_party', return_value=FLAG_MSG)
+@patch('db.party.fetch_curr_id', return_value=955)
+def test_AddParty(game_party_script_generate_party_mock,
+                  game_guild_script_add_guild_party_mock,
+                  db_party_fetch_curr_id_mock):
+    res = TEST_CLIENT.post(ep.ADD_PARTY_PATH,
+                           json={'Name': 'Testing', 'guild_id': 955})
+    assert isinstance(res[ep.RES], str)
 
 
 @patch('game.guild_script.remove_guild_party', return_value=FLAG_MSG)
