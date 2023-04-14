@@ -146,7 +146,10 @@ HERODETAIL_MOCK = {"ID": 955,
                    "InParty?": False,
                    "PartyID": 50,
                    "Cost": 50}
-@patch('endpoints.db_hero.get_hero_details', return_value=HERODETAIL_MOCK)
+
+
+@patch('endpoints.db_hero.get_hero_details',
+       return_value=HERODETAIL_MOCK)
 def test_HeroDetail(db_hero_get_hero_details):
     res = TEST_CLIENT.get(ep.HERO_DETAIL_PATH, json={'id': 955}).get_json()
     assert isinstance(res[ep.RES], dict)
