@@ -43,7 +43,7 @@ def remove_party_hero(id, hero_id):
         if hero_id not in curr_party["HeroIDs"]:
             return False, "Hero not in party"
         else:
-            curr_party["HeroIDs"].pop(hero_id)
+            curr_party["HeroIDs"].remove(hero_id)
             curr_hero["InParty?"] = False
             curr_hero["PartyID"] = 0
             # party_db update party
