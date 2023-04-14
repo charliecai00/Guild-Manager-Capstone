@@ -334,7 +334,7 @@ class PartyDetail(Resource):
         heroes = []
         for i in res["HeroIDs"]:
             hero_detail = db_hero.get_hero_details(i)
-            heroes.append({'id': i, "name": hero_detail["Name"]})
+            heroes.append({'ID': i, "Name": hero_detail["Name"]})
         res["Hero"] = heroes
         del res['HeroIDs']
 
