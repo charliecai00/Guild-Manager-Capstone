@@ -11,7 +11,7 @@ FLAG_MSG = (True, "Success")
 LIST = [955, 965, 975]
 
 
-@patch('guild_script.generate_guild')
+@patch('game.guild_script.generate_guild')
 def test_Create(guild_script_generate_guild_mock):
     res = TEST_CLIENT.post(ep.CREATE_PATH, json={'Name': 'Testing'}).get_json()
     assert res[ep.RES] == "Success"
