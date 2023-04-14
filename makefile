@@ -39,4 +39,4 @@ lint_local: FORCE
 unit_local: FORCE
 	cd $(API_DIR); make unit_local
 	# cd $(DB_DIR); make unit_local
-	# cd $(GAME_DIR); make unit
+	# cd $(GAME_DIR); make unit_local

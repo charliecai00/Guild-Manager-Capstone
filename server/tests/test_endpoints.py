@@ -11,7 +11,7 @@ FLAG_MSG = (True, "Success")
 LIST = [955, 965, 975]
 
 
-@patch('endpoints.guild_script.generate_guild')
+@patch('guild_script.generate_guild')
 def test_Create(guild_script_generate_guild_mock):
     res = TEST_CLIENT.post(ep.CREATE_PATH, json={'Name': 'Testing'}).get_json()
     assert res[ep.RES] == "Success"
@@ -130,26 +130,26 @@ def test_Heal(hero_script_heal_hero_mock):
     assert isinstance(res[ep.RES], str)
 
 
-# HERODETAIL_MOCK = {"ID": 955,
-#                    "Name": "Testing",
-#                    "Health": 50,
-#                    "MaxHealth": 50,
-#                    "Exp": 50,
-#                    "Stats": {
-#                        "STR": 50,
-#                        "CON": 50,
-#                        "DEX": 50,
-#                        "WIS": 50,
-#                        "INT": 50,
-#                        "CHA": 50},
-#                    "Hired?": True,
-#                    "InParty?": False,
-#                    "PartyID": 50,
-#                    "Cost": 50}
-# @patch('endpoints.db_hero.get_hero_details', return_value=HERODETAIL_MOCK)
-# def test_HeroDetail(db_hero_get_hero_details):
-#     res = TEST_CLIENT.get(ep.HERO_DETAIL_PATH, json={'id': 955}).get_json()
-#     assert isinstance(res[ep.RES], dict)
+HERODETAIL_MOCK = {"ID": 955,
+                   "Name": "Testing",
+                   "Health": 50,
+                   "MaxHealth": 50,
+                   "Exp": 50,
+                   "Stats": {
+                       "STR": 50,
+                       "CON": 50,
+                       "DEX": 50,
+                       "WIS": 50,
+                       "INT": 50,
+                       "CHA": 50},
+                   "Hired?": True,
+                   "InParty?": False,
+                   "PartyID": 50,
+                   "Cost": 50}
+@patch('endpoints.db_hero.get_hero_details', return_value=HERODETAIL_MOCK)
+def test_HeroDetail(db_hero_get_hero_details):
+    res = TEST_CLIENT.get(ep.HERO_DETAIL_PATH, json={'id': 955}).get_json()
+    assert isinstance(res[ep.RES], dict)
 
 
 # def test_HeroNotInParty():
