@@ -207,7 +207,9 @@ def test_AddParty(game_party_script_generate_party_mock,
 
 
 @patch('game.guild_script.remove_guild_party', return_value=FLAG_MSG)
-def test_DisbandParty(game_guild_script_remove_guild_party_mock):
+@patch('game.party_script.disband_party', return_value=FLAG_MSG)
+def test_DisbandParty(game_guild_script_remove_guild_party_mock,
+                      game_party_script_disband_party_mock):
     res = TEST_CLIENT.post(ep.DISBAND_PARTY_PATH,
                            json={'id': 955, 'party_id': 965}).get_json()
     assert isinstance(res[ep.RES], str)

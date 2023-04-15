@@ -106,7 +106,7 @@ def disband_party(id):
     try:
         for hero_id in curr_party["HeroIDs"]:
             remove_party_hero(id, hero_id)
-    except:
-        pass
+    except AttributeError:
+        print("No heroes in party")
     party_db.del_party(id)
     return True, ""

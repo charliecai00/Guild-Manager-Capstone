@@ -299,7 +299,7 @@ class DisbandParty(Resource):
     @api.expect(model_id_partyid)
     def post(self):
         flag1, msg1 = guild_script.remove_guild_party(request.json['id'],
-                                                    request.json['party_id'])
+                                                      request.json['party_id'])
         flag2, msg2 = party_script.disband_party(request.json['party_id'])
         if flag1 and flag2:
             return {RES: "Success"}
