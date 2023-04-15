@@ -203,7 +203,8 @@ def test_AddParty(game_party_script_generate_party_mock,
                   game_guild_script_add_guild_party_mock,
                   db_party_fetch_curr_id_mock):
     res = TEST_CLIENT.post(ep.ADD_PARTY_PATH,
-                           json={'Name': 'Testing', 'guild_id': 955})
+                           json={'Name': 'Testing',
+                                 'guild_id': 955}).get_json()
     assert isinstance(res[ep.RES], str)
 
 
