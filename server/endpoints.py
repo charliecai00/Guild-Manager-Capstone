@@ -138,7 +138,7 @@ class GuildDetail(Resource):
         for i in res["HeroIDs"]:
             hero_detail = db_hero.get_hero_details(i)
             heroes.append({'ID': hero_detail["ID"],
-                           "name": hero_detail["Name"]})
+                           "Name": hero_detail["Name"]})
         res["Hero"] = heroes
         del res['HeroIDs']
 
@@ -147,7 +147,7 @@ class GuildDetail(Resource):
         for i in res["PartyIDs"]:
             party_detail = db_party.get_party_details(i)
             party.append({'ID': party_detail["ID"],
-                          "name": party_detail["Name"]})
+                          "Name": party_detail["Name"]})
         res["Party"] = party
         del res['PartyIDs']
 
@@ -156,7 +156,7 @@ class GuildDetail(Resource):
         for i in res["QuestIDs"]:
             quest_detail = db_quest.get_quest_details(i)
             quest.append({'ID': quest_detail["ID"],
-                          "name": quest_detail["Name"]})
+                          "Name": quest_detail["Name"]})
         res["Quest"] = quest
         del res['QuestIDs']
 
