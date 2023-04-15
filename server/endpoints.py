@@ -295,11 +295,12 @@ class AddParty(Resource):
 class DisbandParty(Resource):
     @api.expect(model_id_partyid)
     def post(self):
-        flag, msg = guild_script.remove_guild_party(request.json['id'],
+        flag1, msg1 = guild_script.remove_guild_party(request.json['id'],
                                                     request.json['party_id'])
-        if flag:
+        flag2, msg2 = party_script.disband_party(request.json['party_id'])
+        if flag1 and flag2:
             return {RES: "Success"}
-        return {RES: msg}
+        return {RES: msg1 + msg2}
 
 
 @party_ns.route(f'/{ADD_HERO}')

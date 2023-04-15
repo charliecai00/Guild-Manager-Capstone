@@ -24,40 +24,36 @@ def hire_guild_hero(id, hero_id):
     curr_guild = guild_db.get_guild_details(id)
     curr_hero = hero_db.get_hero_details(hero_id)
     print("curr_guild = {}, curr_hero = {}".format(curr_guild, curr_hero))
-    if curr_guild is not None and curr_hero is not None:
-        if curr_hero["Hired?"]:
-            return False, "Hero already hired"
-        elif curr_hero["Cost"] > curr_guild["Funds"]:
-            return False, "Guild does not have enough funds"
-        else:
-            curr_guild["Funds"] -= curr_hero["Cost"]
-            curr_guild["HeroIDs"].append(hero_id)
-            curr_hero["Hired?"] = True
-            # guild_db update guild
-            guild_db.update_guild(id, "Funds", curr_guild["Funds"])
-            guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
-            # hero_db update hero
-            hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
-            return True, ""
-    return False, "Guild or hero does not exist"
+    if curr_hero["Hired?"]:
+        return False, "Hero already hired"
+    elif curr_hero["Cost"] > curr_guild["Funds"]:
+        return False, "Guild does not have enough funds"
+    else:
+        curr_guild["Funds"] -= curr_hero["Cost"]
+        curr_guild["HeroIDs"].append(hero_id)
+        curr_hero["Hired?"] = True
+        # guild_db update guild
+        guild_db.update_guild(id, "Funds", curr_guild["Funds"])
+        guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
+        # hero_db update hero
+        hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
+        return True, ""
 
 
 def fire_guild_hero(id, hero_id):
     curr_guild = guild_db.get_guild_details(id)
-    if curr_guild is not None:
-        if hero_id in curr_guild["HeroIDs"]:
-            curr_hero = hero_db.get_hero_details(hero_id)
-            curr_hero["Hired?"] = False
-            curr_guild["HeroIDs"].remove(hero_id)
-            # guild_db update guild
-            guild_db.update_guild(id, "Funds", curr_guild["Funds"])
-            guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
-            # hero_db update hero
-            hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
-            return True, ""
-        else:
-            return False, "Hero not in guild"
-    return False, "Guild does not exist"
+    if hero_id in curr_guild["HeroIDs"]:
+        curr_hero = hero_db.get_hero_details(hero_id)
+        curr_hero["Hired?"] = False
+        curr_guild["HeroIDs"].remove(hero_id)
+        # guild_db update guild
+        guild_db.update_guild(id, "Funds", curr_guild["Funds"])
+        guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
+        # hero_db update hero
+        hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
+        return True, ""
+    else:
+        return False, "Hero not in guild"
 
 
 def add_guild_party(id, party_id):
@@ -76,11 +72,11 @@ def remove_guild_party(id, party_id):
         ret = ps.disband_party(party_id)
         if ret[0] is False:
             return False, ret[1]
-        curr_guild["PartyIDs"].pop(party_id)
+        curr_guild["PartyIDs"].remove(party_id)
         guild_db.update_guild(id, "PartyIDs", curr_guild["PartyIDs"])
         return True, ""
     else:
-        return False, "Party already in guild"
+        return False, "Party not in guild"
 
 
 def buy_guild_quest(id, quest_id):

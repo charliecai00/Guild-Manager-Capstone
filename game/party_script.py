@@ -18,41 +18,37 @@ def generate_party(name="TestName"):
 def add_party_hero(id, hero_id):
     curr_party = party_db.get_party_details(id)
     curr_hero = hero_db.get_hero_details(hero_id)
-    if curr_party is not None and curr_hero is not None:
-        if curr_hero["InParty?"]:
-            return False, "Hero already in another party"
-        elif hero_id in curr_party["HeroIDs"]:
-            return False, "Hero already in party"
-        else:
-            curr_party["HeroIDs"].append(hero_id)
-            curr_hero["InParty?"] = True
-            curr_hero["PartyID"] = id
-            # party_db update party
-            party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
-            # hero_db update hero
-            hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
-            hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
-            return True, ""
-    return False, "Party or hero does not exist"
+    if curr_hero["InParty?"]:
+        return False, "Hero already in another party"
+    elif hero_id in curr_party["HeroIDs"]:
+        return False, "Hero already in party"
+    else:
+        curr_party["HeroIDs"].append(hero_id)
+        curr_hero["InParty?"] = True
+        curr_hero["PartyID"] = id
+        # party_db update party
+        party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
+        # hero_db update hero
+        hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
+        hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
+        return True, ""
 
 
 def remove_party_hero(id, hero_id):
     curr_party = party_db.get_party_details(id)
     curr_hero = hero_db.get_hero_details(hero_id)
-    if curr_party is not None and curr_hero is not None:
-        if hero_id not in curr_party["HeroIDs"]:
-            return False, "Hero not in party"
-        else:
-            curr_party["HeroIDs"].remove(hero_id)
-            curr_hero["InParty?"] = False
-            curr_hero["PartyID"] = 0
-            # party_db update party
-            party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
-            # hero_db update hero
-            hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
-            hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
-            return True, ""
-    return False, "Party or hero does not exist"
+    if hero_id not in curr_party["HeroIDs"]:
+        return False, "Hero not in party"
+    else:
+        curr_party["HeroIDs"].remove(hero_id)
+        curr_hero["InParty?"] = False
+        curr_hero["PartyID"] = 0
+        # party_db update party
+        party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
+        # hero_db update hero
+        hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
+        hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
+        return True, ""
 
 
 def test_party_single(id, stat):
@@ -107,10 +103,10 @@ def get_party_status(id):
 
 def disband_party(id):
     curr_party = party_db.get_party_details(id)
-    if curr_party is not None:
+    try:
         for hero_id in curr_party["HeroIDs"]:
             remove_party_hero(id, hero_id)
-        party_db.del_party(id)
-        return True, ""
-    else:
-        return False, "Party does not exist"
+    except:
+        pass
+    party_db.del_party(id)
+    return True, ""
