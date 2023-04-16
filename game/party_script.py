@@ -37,18 +37,15 @@ def add_party_hero(id, hero_id):
 def remove_party_hero(id, hero_id):
     curr_party = party_db.get_party_details(id)
     curr_hero = hero_db.get_hero_details(hero_id)
-    if hero_id not in curr_party["HeroIDs"]:
-        return False, "Hero not in party"
-    else:
-        curr_party["HeroIDs"].remove(hero_id)
-        curr_hero["InParty?"] = False
-        curr_hero["PartyID"] = 0
-        # party_db update party
-        party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
-        # hero_db update hero
-        hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
-        hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
-        return True, ""
+    curr_party["HeroIDs"].remove(hero_id)
+    curr_hero["InParty?"] = False
+    curr_hero["PartyID"] = 0
+    # party_db update party
+    party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
+    # hero_db update hero
+    hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
+    hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
+    return True, ""
 
 
 def test_party_single(id, stat):
@@ -106,7 +103,7 @@ def disband_party(id):
     try:
         for hero_id in curr_party["HeroIDs"]:
             remove_party_hero(id, hero_id)
-    except AttributeError:
-        print("No heroes in party")
+    except TypeError:
+        pass
     party_db.del_party(id)
     return True, ""

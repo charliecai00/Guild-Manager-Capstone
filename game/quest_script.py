@@ -144,9 +144,9 @@ def sell_quest(id, guild_id):
     if not curr_quest["Purchase"]:
         return False, "Quest hasn't been bought yet"
     curr_guild["Funds"] += (curr_quest["Cost"] // 2)
-    curr_guild["PartyIDs"].remove(id)
+    curr_guild["QuestIDs"].remove(id)
     curr_quest["Purchase"] = False
     guild_db.update_guild(guild_id, "Funds", curr_guild["Funds"])
-    guild_db.update_guild(guild_id, "PartyIDs", curr_guild["PartyIDs"])
+    guild_db.update_guild(guild_id, "QuestIDs", curr_guild["QuestIDs"])
     quest_db.update_quest(id, "Purchase", curr_quest["Purchase"])
     return True, "Quest sold"
