@@ -24,7 +24,11 @@ def hire_guild_hero(id, hero_id):
     curr_guild = guild_db.get_guild_details(id)
     curr_hero = hero_db.get_hero_details(hero_id)
     print("curr_guild = {}, curr_hero = {}".format(curr_guild, curr_hero))
-    if curr_hero["Hired?"]:
+    if curr_guild is None:
+        return False, "Guild does not exist"
+    elif curr_hero is None:
+        return False, "Hero does not exist"
+    elif curr_hero["Hired?"]:
         return False, "Hero already hired"
     elif curr_hero["Cost"] > curr_guild["Funds"]:
         return False, "Guild does not have enough funds"

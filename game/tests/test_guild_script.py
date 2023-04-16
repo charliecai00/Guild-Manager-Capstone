@@ -118,7 +118,7 @@ def test_hire_guild_hero_missing_guild(get_hero_details_mock,
                                        update_guild_mock,
                                        update_hero_mock):
     ret = gs.hire_guild_hero(0, 0)
-    assert ret[1] == "Guild or hero does not exist"
+    assert ret[1] == "Guild does not exist"
     assert ret[0] is False
 
 
