@@ -61,6 +61,7 @@ EX_HERO_HEALTHY = {
     "Cost": 999
 }
 
+
 @patch('hero_script.hero_db.get_hero_details',
        return_value=EX_HERO_HURT.copy())
 @patch('hero_script.guild_db.get_guild_details',
