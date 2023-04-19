@@ -3,3 +3,4 @@ Flask-Cors==3.0.10
 flask-restx==0.5.1
 gunicorn==20.1.0
 pymongo==4.3.3
+Werkzeug==2.1.2
