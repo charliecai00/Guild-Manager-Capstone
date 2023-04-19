@@ -9,6 +9,9 @@ QUEST_COLLECT = 'Quest'
 
 # Create
 def add_quest(details):
+    """
+    Insert a single doc into collection
+    """
     dbc.connect_db()
     return dbc.insert_one(QUEST_COLLECT, details)
 
@@ -16,7 +19,7 @@ def add_quest(details):
 # Read
 def get_unpurchase_quest():
     """
-    return: a list of values, [1,2,3]
+    return: a list of quest IDs, [1,2,3]
     """
     dbc.connect_db()
     all_quest = dbc.fetch_all(QUEST_COLLECT)
@@ -29,17 +32,26 @@ def get_unpurchase_quest():
 
 
 def get_quest_details(id):
+    """
+    Use ID as filter and return the row matching the ID
+    """
     dbc.connect_db()
     return dbc.fetch_one(QUEST_COLLECT, {QUEST_KEY: id})
 
 
 def fetch_curr_id():
+    """
+    Return the last ID of collection
+    """
     dbc.connect_db()
     return dbc.fetch_curr_id(QUEST_COLLECT)
 
 
 # Update
 def update_quest(id, key, value):
+    """
+    Using @parameter id as filter, update @parameter key value pair
+    """
     dbc.connect_db()
     return dbc.update_one(QUEST_COLLECT, {QUEST_KEY: id}, key, value)
 

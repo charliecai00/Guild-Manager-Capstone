@@ -4,11 +4,13 @@
 import pymongo as pm
 
 DB = "Guild_Manager"
-
 client = None
 
 
 def connect_db():
+    """
+    Create a database connection
+    """
     global client
     if client is None:  # not connected yet!
         print("Connecting to Mongo in the cloud.")
@@ -20,13 +22,16 @@ def connect_db():
 # Create
 def insert_one(collection, doc, db=DB):
     """
-    Insert a single doc into collection.
+    Insert a single doc into collection
     """
     return client[db][collection].insert_one(doc)
 
 
 # Read
 def fetch_all(collection, db=DB):
+    """
+    Return all rows as a list
+    """
     ret = []
     for doc in client[db][collection].find():
         del doc['_id']
@@ -36,6 +41,9 @@ def fetch_all(collection, db=DB):
 
 # Read
 def fetch_all_as_dict(key, collection, db=DB):
+    """
+    Return all rows as dictionary, use @parameter key as dictionary key
+    """
     ret = {}
     for doc in client[db][collection].find():
         del doc['_id']
@@ -45,7 +53,7 @@ def fetch_all_as_dict(key, collection, db=DB):
 
 def fetch_one(collection, filt, db=DB):
     """
-    Find a filter and return on the first doc found.
+    Use a filter and return on the first doc found.
     """
     for doc in client[db][collection].find(filt):
         del doc['_id']
@@ -53,6 +61,9 @@ def fetch_one(collection, filt, db=DB):
 
 
 def fetch_curr_id(collection, db=DB):
+    """
+    Return the last ID of collection
+    """
     sort_key = []
     for doc in client[db][collection].find():
         sort_key.append(doc['ID'])
@@ -64,17 +75,23 @@ def fetch_curr_id(collection, db=DB):
 
 # Update
 def update_one(collection, filt, key, detail, db=DB):
+    """
+    Using ID as filter, update a value in that row
+    """
     return client[db][collection].update_one(filt, {"$set": {key: detail}})
 
 
 # Delete
 def del_one(collection, filt, db=DB):
     """
-    Find with a filter and return on the first doc found.
+    Delete one row matching the filter
     """
     return client[db][collection].delete_one(filt)
 
 
 def del_many(collection, filt, db=DB):
+    """
+    Delete all rows matching the filter
+    """
     connect_db()
     return client[db][collection].delete_many(filt)

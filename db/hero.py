@@ -9,6 +9,9 @@ HERO_COLLECT = 'Hero'
 
 # Create
 def add_hero(details):
+    """
+    Insert a single doc into collection
+    """
     dbc.connect_db()
     return dbc.insert_one(HERO_COLLECT, details)
 
@@ -16,7 +19,7 @@ def add_hero(details):
 # Read
 def get_unemploy_hero():
     """
-    return: a list of values, [1,2,3]
+    Return a list of hero IDs, [1,2,3]
     """
     dbc.connect_db()
     all_heros = dbc.fetch_all(HERO_COLLECT)
@@ -30,11 +33,17 @@ def get_unemploy_hero():
 
 
 def get_hero_details(id):
+    """
+    Use ID as filter and return the row matching the ID
+    """
     dbc.connect_db()
     return dbc.fetch_one(HERO_COLLECT, {HERO_KEY: id})
 
 
 def fetch_curr_id():
+    """
+    Return the last ID of collection
+    """
     dbc.connect_db()
     return dbc.fetch_curr_id(HERO_COLLECT)
 

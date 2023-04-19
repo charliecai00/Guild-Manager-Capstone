@@ -9,6 +9,9 @@ GUILD_COLLECT = 'Guild'
 
 # Create
 def add_guild(details):
+    """
+    Insert a single doc into collection
+    """
     dbc.connect_db()
     return dbc.insert_one(GUILD_COLLECT, details)
 
@@ -23,11 +26,17 @@ def get_guilds():
 
 
 def fetch_curr_id():
+    """
+    Return the last ID of collection
+    """
     dbc.connect_db()
     return dbc.fetch_curr_id(GUILD_COLLECT)
 
 
 def get_guild_details(id):
+    """
+    Use ID as filter and return the row matching the ID
+    """
     dbc.connect_db()
     return dbc.fetch_one(GUILD_COLLECT, {GUILD_KEY: id})
 
@@ -35,7 +44,7 @@ def get_guild_details(id):
 # Update
 def update_guild(id, key, value):
     """
-    parameter:  id = guild id
+    Parameter:  id = guild id
                 key = column name ex. FUNDS
                 value = the value ex. 999999
     """
@@ -46,7 +55,7 @@ def update_guild(id, key, value):
 # Delete
 def del_guild(ID):
     """
-    Please use this method responsiblly
+    Delete one row using ID
     """
     dbc.connect_db()
     return dbc.del_one(GUILD_COLLECT, {GUILD_KEY: ID})
