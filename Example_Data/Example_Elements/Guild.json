@@ -1,9 +1,0 @@
-{
-    "ID": 0,
-    "Name": "String",
-    "HeroIDs": [0,1,2,3,4],
-    "PartyIDs": [0,1,2,3,4],
-    "QuestIDs": [0,1,2,3,4],
-    "Funds": 0,
-    "QuestsCompleted": 0
-}
