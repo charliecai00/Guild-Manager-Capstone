@@ -124,6 +124,12 @@ def test_heal_hero_missing_guild(get_hero_details_mock,
 
 # test_hero tests
 @patch('hero_script.hero_db.get_hero_details',
+       return_value=EX_HERO_HEALTHY)
+def test_test_hero_works(get_hero_details_mock):
+    ret = hs.test_hero(0, "STR")
+    assert ret[0] is True
+
+@patch('hero_script.hero_db.get_hero_details',
        return_value=None)
 def test_test_hero_missing_hero(get_hero_details_mock):
     ret = hs.test_hero(0, "STR")
