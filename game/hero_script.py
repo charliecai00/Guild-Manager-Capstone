@@ -65,6 +65,10 @@ def get_last_name() -> str:
 def heal_hero(id, guild_id):
     curr_hero = hero_db.get_hero_details(id)
     curr_guild = guild_db.get_guild_details(guild_id)
+    if curr_guild is None:
+        return False, "Guild does not exist"
+    elif curr_hero is None:
+        return False, "Hero does not exist"
     if curr_hero["Health"] == curr_hero["MaxHealth"]:
         return False, "Hero already healthy"
     elif curr_hero["Cost"] > curr_guild["Funds"]:
