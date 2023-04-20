@@ -73,3 +73,15 @@ def test_heal_hero_works(get_hero_details_mock,
     ret = hs.heal_hero(0, 0)
     assert ret[1] == "Hero has been healed"
     assert ret[0] is True
+
+@patch('hero_script.hero_db.get_hero_details',
+       return_value=EX_HERO_HURT.copy())
+@patch('hero_script.guild_db.get_guild_details',
+       return_value=EX_GUILD_EMPTY.copy())
+@patch('hero_script.hero_db.update_hero')
+def test_heal_hero_broke(get_hero_details_mock,
+                         get_guild_details_mock,
+                         update_hero_mock):
+    ret = hs.heal_hero(0, 0)
+    assert ret[1] == "Guild does not have enough funds to heal"
+    assert ret[0] is False
