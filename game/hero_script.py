@@ -79,5 +79,7 @@ def heal_hero(id, guild_id):
 
 def test_hero(id, stat):
     curr_hero = hero_db.get_hero_details(id)
+    if curr_hero is None:
+        return False, "Hero does not exist"
     roll = RandomRange(0, 99)
     return True, str(roll <= curr_hero["Stats"][stat])

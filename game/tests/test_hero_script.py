@@ -61,7 +61,7 @@ EX_HERO_HEALTHY = {
     "Cost": 999
 }
 
-
+# heal_hero tests
 @patch('hero_script.hero_db.get_hero_details',
        return_value=EX_HERO_HURT.copy())
 @patch('hero_script.guild_db.get_guild_details',
@@ -120,4 +120,12 @@ def test_heal_hero_missing_guild(get_hero_details_mock,
                          update_hero_mock):
     ret = hs.heal_hero(0, 0)
     assert ret[1] == "Guild does not exist"
+    assert ret[0] is False
+
+# test_hero tests
+@patch('hero_script.hero_db.get_hero_details',
+       return_value=None)
+def test_test_hero_missing_hero(get_hero_details_mock):
+    ret = hs.test_hero(0, "STR")
+    assert ret[1] == "Hero does not exist"
     assert ret[0] is False
