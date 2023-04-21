@@ -89,9 +89,9 @@ def del_one(collection, filt, db=DB):
     return client[db][collection].delete_one(filt)
 
 
-def del_many(collection, filt, db=DB):
+def del_all(collection, db=DB):
     """
     Delete all rows matching the filter
     """
     connect_db()
-    return client[db][collection].delete_many(filt)
+    return client[db][collection].delete_many({})
