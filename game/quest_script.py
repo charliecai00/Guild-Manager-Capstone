@@ -32,7 +32,7 @@ def generate_quest():
 
 def get_quest_name() -> str:
     q_names = []
-    data_folder = Path("game/resources/quest_name_rsc.txt")
+    data_folder = Path("/app/game/resources/quest_name_rsc.txt")
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
             q_names.append(line.strip())
@@ -41,7 +41,7 @@ def get_quest_name() -> str:
 
 def get_challenges() -> list:
     challenges = []
-    data_folder = Path("game/resources/challenge_rsc.csv")
+    data_folder = Path("/app/game/resources/challenge_rsc.csv")
     file_len = 0
     with open(data_folder, "r") as csvfile:
         file_len = len(csvfile.readlines())
