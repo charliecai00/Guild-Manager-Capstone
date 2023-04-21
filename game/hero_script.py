@@ -6,7 +6,6 @@ from game.game_math.random import RandomNormalClamped
 import db.hero as hero_db
 import db.guild as guild_db
 import os
-from pathlib import Path
 
 
 def generate_hero():
@@ -47,7 +46,8 @@ def generate_hero():
 
 def get_first_name() -> str:
     f_names = []
-    data_folder = os.path.join(os.getcwd(), "game/resources/hero_firstname_rsc.txt")
+    data_folder = os.path.join(os.getcwd(),
+                               "game/resources/hero_firstname_rsc.txt")
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
             f_names.append(line.strip())
@@ -56,7 +56,8 @@ def get_first_name() -> str:
 
 def get_last_name() -> str:
     l_names = []
-    data_folder = os.path.join(os.getcwd(), "game/resources/hero_lastname_rsc.txt")
+    data_folder = os.path.join(os.getcwd(),
+                               "game/resources/hero_lastname_rsc.txt")
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
             l_names.append(line.strip())
