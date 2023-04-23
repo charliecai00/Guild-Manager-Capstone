@@ -53,6 +53,7 @@ EX_PARTY_HERO_INCLUDED = {
             "HeroIDs": [0]
 }
 
+
 @patch('party_script.party_db.get_party_details',
        return_value=EX_PARTY_HERO_EXCLUDED.copy())
 @patch('party_script.hero_db.get_hero_details',
@@ -66,3 +67,18 @@ def test_add_party_hero_works(get_party_detail_mock,
     ret = ps.add_party_hero(1, 0)
     assert ret[1] == ""
     assert ret[0] is True
+
+
+@patch('party_script.party_db.get_party_details',
+       return_value=EX_PARTY_HERO_EXCLUDED.copy())
+@patch('party_script.hero_db.get_hero_details',
+       return_value=EX_HERO_INPARTY.copy())
+@patch('party_script.party_db.update_party')
+@patch('party_script.hero_db.update_hero')
+def test_add_party_hero_hero_inparty(get_party_detail_mock,
+                              get_hero_details_mock,
+                              update_party_mock,
+                              update_hero_mock):
+    ret = ps.add_party_hero(1, 0)
+    assert ret[1] == "Hero already in a party"
+    assert ret[0] is False
