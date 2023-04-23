@@ -61,6 +61,7 @@ EX_HERO_HEALTHY = {
     "Cost": 999
 }
 
+
 # heal_hero tests
 @patch('hero_script.hero_db.get_hero_details',
        return_value=EX_HERO_HURT.copy())
@@ -74,6 +75,7 @@ def test_heal_hero_works(get_hero_details_mock,
     assert ret[1] == "Hero has been healed"
     assert ret[0] is True
 
+
 @patch('hero_script.hero_db.get_hero_details',
        return_value=EX_HERO_HURT.copy())
 @patch('hero_script.guild_db.get_guild_details',
@@ -85,6 +87,7 @@ def test_heal_hero_broke(get_hero_details_mock,
     ret = hs.heal_hero(0, 0)
     assert ret[1] == "Guild does not have enough funds to heal"
     assert ret[0] is False
+
 
 @patch('hero_script.hero_db.get_hero_details',
        return_value=EX_HERO_HEALTHY.copy())
@@ -98,6 +101,7 @@ def test_heal_hero_healthy(get_hero_details_mock,
     assert ret[1] == "Hero already healthy"
     assert ret[0] is False
 
+
 @patch('hero_script.hero_db.get_hero_details',
        return_value=None)
 @patch('hero_script.guild_db.get_guild_details',
@@ -109,6 +113,7 @@ def test_heal_hero_missing_hero(get_hero_details_mock,
     ret = hs.heal_hero(0, 0)
     assert ret[1] == "Hero does not exist"
     assert ret[0] is False
+
 
 @patch('hero_script.hero_db.get_hero_details',
        return_value=EX_HERO_HEALTHY)
@@ -122,12 +127,14 @@ def test_heal_hero_missing_guild(get_hero_details_mock,
     assert ret[1] == "Guild does not exist"
     assert ret[0] is False
 
+
 # test_hero tests
 @patch('hero_script.hero_db.get_hero_details',
        return_value=EX_HERO_HEALTHY)
 def test_test_hero_works(get_hero_details_mock):
     ret = hs.test_hero(0, "STR")
     assert ret[0] is True
+
 
 @patch('hero_script.hero_db.get_hero_details',
        return_value=None)
