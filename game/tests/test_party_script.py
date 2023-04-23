@@ -6,7 +6,7 @@ import game.party_script as ps
 
 EX_HERO_NOT_INPARTY = {
     "ID": 0,
-    "Name": "String",
+    "Name": "TestSolo",
     "Health": 0,
     "MaxHealth": 5,
     "Exp": 0,
@@ -25,7 +25,7 @@ EX_HERO_NOT_INPARTY = {
 }
 EX_HERO_INPARTY = {
     "ID": 0,
-    "Name": "String",
+    "Name": "TestParty",
     "Health": 0,
     "MaxHealth": 5,
     "Exp": 0,
@@ -39,6 +39,16 @@ EX_HERO_INPARTY = {
     },
     "Hired?": False,
     "InParty?": True,
-    "PartyID": 0,
+    "PartyID": 1,
     "Cost": 999
+}
+EX_PARTY_HERO_EXCLUDED = {
+            "ID": 1,
+            "Name": "TestExcluded",
+            "HeroIDs": []
+}
+EX_PARTY_HERO_INCLUDED = {
+            "ID": 1,
+            "Name": "TestIncluded",
+            "HeroIDs": [0]
 }
