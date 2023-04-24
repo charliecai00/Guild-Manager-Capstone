@@ -193,12 +193,14 @@ class Sell(Resource):
 @quest_ns.route(f'/{START}')
 class StartQuest(Resource):
     start_input = api.model('StartQuest', {'id': fields.Integer,
-                                           'party_id': fields.Integer})
+                                           'party_id': fields.Integer,
+                                           'guild_id': fields.Integer})
 
     @api.expect(start_input)
     def post(self):
         report = quest_script.start_quest(request.json['id'],
-                                          request.json['party_id'])
+                                          request.json['party_id'],
+                                          request.json['guild_id'])
         return {RES: report}
 
 
