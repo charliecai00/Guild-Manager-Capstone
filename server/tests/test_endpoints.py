@@ -84,7 +84,9 @@ STARTQUEST_MOCK = {"EventList": "Testing1",
 @patch('game.quest_script.start_quest', return_value=STARTQUEST_MOCK)
 def test_StartQuest(game_quest_script_start_quest_mock):
     res = TEST_CLIENT.post(ep.START_PATH,
-                           json={'id': 955, 'party_id': 965, 'guild_id': 975}).get_json()
+                           json={'id': 955,
+                                 'party_id': 965,
+                                 'guild_id': 975}).get_json()
     assert isinstance(res[ep.RES], dict)
 
 
