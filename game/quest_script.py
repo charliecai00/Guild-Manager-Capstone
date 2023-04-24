@@ -80,7 +80,7 @@ def get_challenges() -> list:
 #     return details
 
 
-def start_quest(id, party_id):
+def start_quest(id, party_id, guild_id=0):
     quest = quest_db.get_quest_details(id)
     if quest is None:
         return "Quest not found"
@@ -89,11 +89,10 @@ def start_quest(id, party_id):
     for ch in quest["Challenges"]:
         if (not ps.test_party_alive(party_id)):
             break
-        # curr_ch = get_challenge_id(ch_id)
         if (ch["SingleHero"] == "True"):
             result = ps.test_party_single(party_id, ch["TestStat"])
             curr_hero = hero_db.get_hero_details(result[2])
-            if (result[0]):
+            if (result[1]):
                 # success
                 event_list.append(
                     ch["SuccessMsg"].replace("[Hero]", curr_hero["Name"]))
@@ -106,12 +105,13 @@ def start_quest(id, party_id):
                 # failure
                 event_list.append(
                     ch["FailureMsg"].replace("[Hero]", curr_hero["Name"]))
+                new_health = curr_hero["Health"] - int(ch["DmgFail"])
                 hero_db.update_hero(
                     curr_hero["ID"],
                     "Health",
-                    curr_hero["Health"] - int(ch["DmgFail"]))
+                    new_health)
                 # check for death
-                if (curr_hero["Health"] - int(ch["DmgFail"]) <= 0):
+                if (new_health <= 0):
                     event_list.append(
                         ch["DeathMsg"].replace("[Hero]", curr_hero["Name"]))
     final_report = {
@@ -119,6 +119,8 @@ def start_quest(id, party_id):
         "Reward": reward,
         "PartyStatus": ps.get_party_status(party_id)
     }
+    guild = guild_db.get_guild_details(guild_id)
+    guild_db.update_guild(guild_id, guild["Funds"], guild["Funds"] + reward)
     return final_report
 
 

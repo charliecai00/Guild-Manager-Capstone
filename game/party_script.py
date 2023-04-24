@@ -58,7 +58,7 @@ def test_party_single(id, stat):
             ret_hero_id = curr_hero["ID"]
             max_stat = curr_hero["Stats"][stat]
     roll = RandomRange(0, 99)
-    return True, str(roll <= max_stat), ret_hero_id
+    return True, roll <= max_stat, int(ret_hero_id)
 
 
 def test_party_team(id, stat):
