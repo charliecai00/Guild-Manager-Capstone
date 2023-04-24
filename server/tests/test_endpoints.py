@@ -260,14 +260,11 @@ def test_PartyDetail(db_party_get_party_details_mock,
     assert isinstance(res[ep.RES], dict)
 
 
-# RESETDB_MOCK = {"deleted_count": 200}
-
-
-# @patch('db.db_connect.del_many', return_value=RESETDB_MOCK)
-# @patch('game.hero_script.generate_hero')
-# @patch('game.quest_script.generate_quest')
-# def test_ResetDB(db_db_connect_del_many_mock1,
-#                  game_hero_script_generate_hero_mock,
-#                  game_quest_script_generate_quest_mock):
-#     res = TEST_CLIENT.get(ep.RESET_DB_PATH).get_json()
-#     assert isinstance(res[ep.RES], dict)
+@patch('db.db_connect.del_all')
+@patch('game.hero_script.generate_hero')
+@patch('game.quest_script.generate_quest')
+def test_ResetDB(db_db_connect_del_all_mock,
+                 game_hero_script_generate_hero_mock,
+                 game_quest_script_generate_quest_mock):
+    res = TEST_CLIENT.get(ep.RESET_DB_PATH).get_json()
+    assert isinstance(res[ep.RES], str)

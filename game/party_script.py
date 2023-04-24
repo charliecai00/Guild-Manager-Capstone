@@ -18,25 +18,30 @@ def generate_party(name="TestName"):
 def add_party_hero(id, hero_id):
     curr_party = party_db.get_party_details(id)
     curr_hero = hero_db.get_hero_details(hero_id)
-    if curr_hero["InParty?"]:
-        return False, "Hero already in another party"
-    elif hero_id in curr_party["HeroIDs"]:
-        return False, "Hero already in party"
-    else:
-        curr_party["HeroIDs"].append(hero_id)
-        curr_hero["InParty?"] = True
-        curr_hero["PartyID"] = id
-        # party_db update party
-        party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
-        # hero_db update hero
-        hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
-        hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
-        return True, ""
+    if curr_hero is None:
+        return False, "Hero does not exist"
+    elif curr_party is None:
+        return False, "Party does not exist"
+    elif curr_hero["InParty?"]:
+        return False, "Hero already in a party"
+    curr_party["HeroIDs"].append(hero_id)
+    curr_hero["InParty?"] = True
+    curr_hero["PartyID"] = id
+    # party_db update party
+    party_db.update_party(id, "HeroIDs", curr_party["HeroIDs"])
+    # hero_db update hero
+    hero_db.update_hero(hero_id, "InParty?", curr_hero["InParty?"])
+    hero_db.update_hero(hero_id, "PartyID", curr_hero["PartyID"])
+    return True, ""
 
 
 def remove_party_hero(id, hero_id):
     curr_party = party_db.get_party_details(id)
     curr_hero = hero_db.get_hero_details(hero_id)
+    if curr_hero is None:
+        return False, "Hero does not exist"
+    elif curr_party is None:
+        return False, "Party does not exist"
     curr_party["HeroIDs"].remove(hero_id)
     curr_hero["InParty?"] = False
     curr_hero["PartyID"] = 0
@@ -50,10 +55,14 @@ def remove_party_hero(id, hero_id):
 
 def test_party_single(id, stat):
     curr_party = party_db.get_party_details(id)
+    if curr_party is None:
+        return False, "Party does not exist"
     max_stat = 0
     ret_hero_id = ""
     for hero_id in curr_party["HeroIDs"]:
         curr_hero = hero_db.get_hero_details(hero_id)
+        if curr_hero is None:
+            return False, "Hero does not exist"
         if curr_hero["Health"] > 0 and curr_hero["Stats"][stat] > max_stat:
             ret_hero_id = curr_hero["ID"]
             max_stat = curr_hero["Stats"][stat]
@@ -63,10 +72,14 @@ def test_party_single(id, stat):
 
 def test_party_team(id, stat):
     curr_party = party_db.get_party_details(id)
+    if curr_party is None:
+        return False, "Party does not exist"
     avg_stat = 0
     party_alive_c = 0
     for hero_id in curr_party["HeroIDs"]:
         curr_hero = hero_db.get_hero_details(hero_id)
+        if curr_hero is None:
+            return False, "Hero does not exist"
         if curr_hero["Health"] > 0:
             avg_stat += curr_hero["Stats"][stat]
             party_alive_c += 1
@@ -77,8 +90,12 @@ def test_party_team(id, stat):
 
 def test_party_alive(id):
     curr_party = party_db.get_party_details(id)
+    if curr_party is None:
+        return False, "Party does not exist"
     for hero_id in curr_party["HeroIDs"]:
         curr_hero = hero_db.get_hero_details(hero_id)
+        if curr_hero is None:
+            return False, "Hero does not exist"
         if curr_hero["Health"] > 0:
             return True
     return False
@@ -86,9 +103,13 @@ def test_party_alive(id):
 
 def get_party_status(id):
     curr_party = party_db.get_party_details(id)
+    if curr_party is None:
+        return False, "Party does not exist"
     ret_lst = []
     for hero_id in curr_party["HeroIDs"]:
         curr_hero = hero_db.get_hero_details(hero_id)
+        if curr_hero is None:
+            return False, "Hero does not exist"
         hero_data = {
             "HeroName": curr_hero["Name"],
             "Health": curr_hero["Health"],

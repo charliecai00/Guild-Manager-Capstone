@@ -88,7 +88,6 @@ RESET_DB_PATH = f'{DEVELOPER_NS}/{RESET_DB}'
 
 # Define Marco
 RES = 'Response'
-DEL = 'Deleted count'
 
 # API models
 model_id = api.model('Input: id', {'id': fields.Integer})
@@ -352,20 +351,16 @@ class ResetDB(Resource):
         """
         Delete all DB items & Populate 200 heros and quests
         """
-        res_guild = dbc.del_all(db_guild.GUILD_COLLECT)
-        res_hero = dbc.del_all(db_hero.HERO_COLLECT)
-        res_party = dbc.del_all(db_party.PARTY_COLLECT)
-        res_quest = dbc.del_all(db_quest.QUEST_COLLECT)
+        dbc.del_all(db_guild.GUILD_COLLECT)
+        dbc.del_all(db_hero.HERO_COLLECT)
+        dbc.del_all(db_party.PARTY_COLLECT)
+        dbc.del_all(db_quest.QUEST_COLLECT)
 
         for i in range(200):
             hero_script.generate_hero()
             quest_script.generate_quest()
 
-        return {DEL: {
-            "Guild": res_guild.deleted_count,
-            "Hero": res_hero.deleted_count,
-            "Party": res_party.deleted_count,
-            "Quest": res_quest.deleted_count}}
+        return {RES: "Success"}
 
 
 if __name__ == '__main__':
