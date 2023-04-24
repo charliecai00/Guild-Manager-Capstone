@@ -1,5 +1,9 @@
 {
     "ID": 0,
     "Name": "String",
-    "HeroIDs": [0,1,2,3,4]
+    "Challenges": [0,1,2,3,4],
+    "ChallengeLevel": 0,
+    "Cost": 0,
+    "Resell": 0,
+    "Purchase": false
 }
