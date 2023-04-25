@@ -121,6 +121,8 @@ def start_quest(id, party_id, guild_id=0):
     }
     guild = guild_db.get_guild_details(guild_id)
     guild_db.update_guild(guild_id, "Funds", guild["Funds"] + reward)
+    guild_db.update_guild(guild_id, "QuestsCompleted",
+                          guild["QuestsCompleted"] + 1)
     return final_report
 
 

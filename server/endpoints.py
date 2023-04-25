@@ -101,6 +101,9 @@ model_id_party_id = api.model('Input: id & partyid',
 
 @guild_ns.route(f'/{CREATE}')
 class Create(Resource):
+    """
+    Create a new guild
+    """
     create_input = api.model('Create', {'Name': fields.String})
 
     @api.expect(create_input)
@@ -124,6 +127,9 @@ class Reload(Resource):
 
 @guild_ns.route(f'/{GUILD_DETAIL}')
 class GuildDetail(Resource):
+    """
+    Return guild detail + amount of heros, party, and quest
+    """
     @api.expect(model_id)
     def post(self):
         res = db_guild.get_guild_details(request.json['id'])
