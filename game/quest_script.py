@@ -120,7 +120,7 @@ def start_quest(id, party_id, guild_id=0):
         "PartyStatus": ps.get_party_status(party_id)
     }
     guild = guild_db.get_guild_details(guild_id)
-    guild_db.update_guild(guild_id, guild["Funds"], guild["Funds"] + reward)
+    guild_db.update_guild(guild_id, "Funds", guild["Funds"] + reward)
     return final_report
 
 

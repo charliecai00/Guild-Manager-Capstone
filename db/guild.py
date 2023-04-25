@@ -45,7 +45,7 @@ def get_guild_details(id):
 def update_guild(id, key, value):
     """
     Parameter:  id = guild id
-                key = column name ex. FUNDS
+                key = column name ex. Funds
                 value = the value ex. 999999
     """
     dbc.connect_db()
