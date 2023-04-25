@@ -91,12 +91,12 @@ RES = 'Response'
 
 # API models
 model_id = api.model('Input: id', {'id': fields.Integer})
-model_id_guildid = api.model('Input: id & guildid',
-                             {'id': fields.Integer,
-                              'guild_id': fields.Integer})
-model_id_partyid = api.model('Input: id & partyid',
-                             {'id': fields.Integer,
-                              'party_id': fields.Integer})
+model_id_guild_id = api.model('Input: id & guildid',
+                              {'id': fields.Integer,
+                               'guild_id': fields.Integer})
+model_id_party_id = api.model('Input: id & partyid',
+                              {'id': fields.Integer,
+                               'party_id': fields.Integer})
 
 
 @guild_ns.route(f'/{CREATE}')
@@ -170,7 +170,7 @@ class Unsold(Resource):
 
 @quest_ns.route(f'/{BUY}')
 class Buy(Resource):
-    @api.expect(model_id_guildid)
+    @api.expect(model_id_guild_id)
     def post(self):
         flag, msg = quest_script.buy_quest(request.json['id'],
                                            request.json['guild_id'])
@@ -181,7 +181,7 @@ class Buy(Resource):
 
 @quest_ns.route(f'/{SELL}')
 class Sell(Resource):
-    @api.expect(model_id_guildid)
+    @api.expect(model_id_guild_id)
     def post(self):
         flag, msg = quest_script.sell_quest(request.json['id'],
                                             request.json['guild_id'])
@@ -213,7 +213,7 @@ class QuestDetail(Resource):
 
 @hero_ns.route(f'/{HIRE}')
 class Hire(Resource):
-    @api.expect(model_id_guildid)
+    @api.expect(model_id_guild_id)
     def post(self):
         flag, msg = guild_script.hire_guild_hero(request.json['guild_id'],
                                                  request.json['id'])
@@ -224,7 +224,7 @@ class Hire(Resource):
 
 @hero_ns.route(f'/{FIRE}')
 class Fire(Resource):
-    @api.expect(model_id_guildid)
+    @api.expect(model_id_guild_id)
     def post(self):
         flag, msg = guild_script.fire_guild_hero(request.json['guild_id'],
                                                  request.json['id'])
@@ -241,7 +241,7 @@ class Unemployed(Resource):
 
 @hero_ns.route(f'/{HEAL}')
 class Heal(Resource):
-    @api.expect(model_id_guildid)
+    @api.expect(model_id_guild_id)
     def post(self):
         flag, msg = hero_script.heal_hero(request.json['id'],
                                           request.json['guild_id'])
@@ -298,7 +298,7 @@ class AddParty(Resource):
 
 @party_ns.route(f'/{DISBAND_PARTY}')
 class DisbandParty(Resource):
-    @api.expect(model_id_partyid)
+    @api.expect(model_id_party_id)
     def post(self):
         flag1, msg1 = guild_script.remove_guild_party(request.json['id'],
                                                       request.json['party_id'])
@@ -310,7 +310,7 @@ class DisbandParty(Resource):
 
 @party_ns.route(f'/{ADD_HERO}')
 class AddHero(Resource):
-    @api.expect(model_id_partyid)
+    @api.expect(model_id_party_id)
     def post(self):
         flag, msg = party_script.add_party_hero(request.json['party_id'],
                                                 request.json['id'])
@@ -321,7 +321,7 @@ class AddHero(Resource):
 
 @party_ns.route(f'/{REMOVE_HERO}')
 class RemoveHero(Resource):
-    @api.expect(model_id_partyid)
+    @api.expect(model_id_party_id)
     def post(self):
         flag, msg = party_script.remove_party_hero(request.json['party_id'],
                                                    request.json['id'])

@@ -46,6 +46,7 @@ def hire_guild_hero(id, hero_id):
 
 def fire_guild_hero(id, hero_id):
     curr_guild = guild_db.get_guild_details(id)
+    curr_hero = hero_db.get_hero_details(hero_id)
     if hero_id in curr_guild["HeroIDs"]:
         curr_hero = hero_db.get_hero_details(hero_id)
         curr_hero["Hired?"] = False
@@ -55,6 +56,7 @@ def fire_guild_hero(id, hero_id):
         guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
         # hero_db update hero
         hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
+        flag, msg = ps.remove_party_hero(curr_hero["PartyID"], hero_id)
         return True, ""
     else:
         return False, "Hero not in guild"
