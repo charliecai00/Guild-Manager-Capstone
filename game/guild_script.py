@@ -51,12 +51,14 @@ def fire_guild_hero(id, hero_id):
         curr_hero = hero_db.get_hero_details(hero_id)
         curr_hero["Hired?"] = False
         curr_guild["HeroIDs"].remove(hero_id)
+        flag, msg = ps.remove_party_hero(curr_hero["PartyID"], hero_id)
+        if not flag:
+            return flag, msg
         # guild_db update guild
         guild_db.update_guild(id, "Funds", curr_guild["Funds"])
         guild_db.update_guild(id, "HeroIDs", curr_guild["HeroIDs"])
         # hero_db update hero
         hero_db.update_hero(hero_id, "Hired?", curr_hero["Hired?"])
-        flag, msg = ps.remove_party_hero(curr_hero["PartyID"], hero_id)
         return True, ""
     else:
         return False, "Hero not in guild"
