@@ -117,7 +117,7 @@ def test_heal_hero_missing_hero(get_hero_details_mock,
 
 @patch('db.hero.get_hero_details',
        return_value=EX_HERO_HEALTHY)
-@patch('hero_script.guild_db.get_guild_details',
+@patch('db.guild.get_guild_details',
        return_value=None)
 @patch('db.hero.update_hero')
 def test_heal_hero_missing_guild(get_hero_details_mock,
