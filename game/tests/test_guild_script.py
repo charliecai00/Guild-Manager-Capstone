@@ -62,12 +62,12 @@ EX_HERO_EMPLOYED = {
 }
 
 
-@patch('guild_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_UNEMPLOYED.copy())
-@patch('guild_script.guild_db.get_guild_details',
+@patch('db.guild.get_guild_details',
        return_value=EX_GUILD_FULL.copy())
-@patch('guild_script.guild_db.update_guild')
-@patch('guild_script.hero_db.update_hero')
+@patch('db.guild.update_guild')
+@patch('db.hero.update_hero')
 def test_hire_guild_hero_works(get_hero_details_mock,
                                get_guild_details_mock,
                                update_guild_mock,
@@ -77,12 +77,12 @@ def test_hire_guild_hero_works(get_hero_details_mock,
     assert ret[0] is True
 
 
-@patch('guild_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_UNEMPLOYED.copy())
-@patch('guild_script.guild_db.get_guild_details',
+@patch('db.guild.get_guild_details',
        return_value=EX_GUILD_EMPTY.copy())
-@patch('guild_script.guild_db.update_guild')
-@patch('guild_script.hero_db.update_hero')
+@patch('db.guild.update_guild')
+@patch('db.hero.update_hero')
 def test_hire_guild_hero_broke_guild(get_hero_details_mock,
                                      get_guild_details_mock,
                                      update_guild_mock,
@@ -92,12 +92,12 @@ def test_hire_guild_hero_broke_guild(get_hero_details_mock,
     assert ret[0] is False
 
 
-@patch('guild_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_EMPLOYED.copy())
-@patch('guild_script.guild_db.get_guild_details',
+@patch('db.guild.get_guild_details',
        return_value=EX_GUILD_FULL.copy())
-@patch('guild_script.guild_db.update_guild')
-@patch('guild_script.hero_db.update_hero')
+@patch('db.guild.update_guild')
+@patch('db.hero.update_hero')
 def test_hire_guild_hero_hired_hero(get_hero_details_mock,
                                     get_guild_details_mock,
                                     update_guild_mock,
@@ -107,12 +107,12 @@ def test_hire_guild_hero_hired_hero(get_hero_details_mock,
     assert ret[0] is False
 
 
-@patch('guild_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_EMPLOYED.copy())
-@patch('guild_script.guild_db.get_guild_details',
+@patch('db.guild.get_guild_details',
        return_value=None)
-@patch('guild_script.guild_db.update_guild')
-@patch('guild_script.hero_db.update_hero')
+@patch('db.guild.update_guild')
+@patch('db.hero.update_hero')
 def test_hire_guild_hero_missing_guild(get_hero_details_mock,
                                        get_guild_details_mock,
                                        update_guild_mock,
@@ -122,12 +122,12 @@ def test_hire_guild_hero_missing_guild(get_hero_details_mock,
     assert ret[0] is False
 
 
-@patch('guild_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=None)
-@patch('guild_script.guild_db.get_guild_details',
+@patch('db.guild.get_guild_details',
        return_value=EX_GUILD_FULL.copy())
-@patch('guild_script.guild_db.update_guild')
-@patch('guild_script.hero_db.update_hero')
+@patch('db.guild.update_guild')
+@patch('db.hero.update_hero')
 def test_hire_guild_hero_missing_hero(get_hero_details_mock,
                                       get_guild_details_mock,
                                       update_guild_mock,

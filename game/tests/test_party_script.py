@@ -55,12 +55,12 @@ EX_PARTY_HERO_INCLUDED = {
 
 
 # add_party_hero tests
-@patch('party_script.party_db.get_party_details',
+@patch('db.party.get_party_details',
        return_value=EX_PARTY_HERO_EXCLUDED.copy())
-@patch('party_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_NOT_INPARTY.copy())
-@patch('party_script.party_db.update_party')
-@patch('party_script.hero_db.update_hero')
+@patch('db.party.update_party')
+@patch('db.hero.update_hero')
 def test_add_party_hero_works(get_party_detail_mock,
                               get_hero_details_mock,
                               update_party_mock,
@@ -70,12 +70,12 @@ def test_add_party_hero_works(get_party_detail_mock,
     assert ret[0] is True
 
 
-@patch('party_script.party_db.get_party_details',
+@patch('db.party.get_party_details',
        return_value=EX_PARTY_HERO_EXCLUDED.copy())
-@patch('party_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_INPARTY.copy())
-@patch('party_script.party_db.update_party')
-@patch('party_script.hero_db.update_hero')
+@patch('db.party.update_party')
+@patch('db.hero.update_hero')
 def test_add_party_hero_hero_inparty(get_party_detail_mock,
                                      get_hero_details_mock,
                                      update_party_mock,
@@ -85,12 +85,12 @@ def test_add_party_hero_hero_inparty(get_party_detail_mock,
     assert ret[0] is False
 
 
-@patch('party_script.party_db.get_party_details',
+@patch('db.party.get_party_details',
        return_value=EX_PARTY_HERO_EXCLUDED.copy())
-@patch('party_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=None)
-@patch('party_script.party_db.update_party')
-@patch('party_script.hero_db.update_hero')
+@patch('db.party.update_party')
+@patch('db.hero.update_hero')
 def test_add_party_hero_missing_hero(get_party_detail_mock,
                                      get_hero_details_mock,
                                      update_party_mock,
@@ -100,12 +100,12 @@ def test_add_party_hero_missing_hero(get_party_detail_mock,
     assert ret[0] is False
 
 
-@patch('party_script.party_db.get_party_details',
+@patch('db.party.get_party_details',
        return_value=None)
-@patch('party_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_NOT_INPARTY)
-@patch('party_script.party_db.update_party')
-@patch('party_script.hero_db.update_hero')
+@patch('db.party.update_party')
+@patch('db.hero.update_hero')
 def test_add_party_hero_missing_party(get_party_detail_mock,
                                       get_hero_details_mock,
                                       update_party_mock,
@@ -116,12 +116,12 @@ def test_add_party_hero_missing_party(get_party_detail_mock,
 
 
 # remove_party_hero tests
-@patch('party_script.party_db.get_party_details',
+@patch('db.party.get_party_details',
        return_value=EX_PARTY_HERO_INCLUDED)
-@patch('party_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_INPARTY)
-@patch('party_script.party_db.update_party')
-@patch('party_script.hero_db.update_hero')
+@patch('db.party.update_party')
+@patch('db.hero.update_hero')
 def test_remove_party_hero_works(get_party_detail_mock,
                                  get_hero_details_mock,
                                  update_party_mock,
@@ -131,12 +131,12 @@ def test_remove_party_hero_works(get_party_detail_mock,
     assert ret[0] is True
 
 
-@patch('party_script.party_db.get_party_details',
+@patch('db.party.get_party_details',
        return_value=None)
-@patch('party_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=EX_HERO_INPARTY)
-@patch('party_script.party_db.update_party')
-@patch('party_script.hero_db.update_hero')
+@patch('db.party.update_party')
+@patch('db.hero.update_hero')
 def test_remove_party_hero_missing_party(get_party_detail_mock,
                                          get_hero_details_mock,
                                          update_party_mock,
@@ -146,12 +146,12 @@ def test_remove_party_hero_missing_party(get_party_detail_mock,
     assert ret[0] is False
 
 
-@patch('party_script.party_db.get_party_details',
+@patch('db.party.get_party_details',
        return_value=EX_PARTY_HERO_INCLUDED)
-@patch('party_script.hero_db.get_hero_details',
+@patch('db.hero.get_hero_details',
        return_value=None)
-@patch('party_script.party_db.update_party')
-@patch('party_script.hero_db.update_hero')
+@patch('db.party.update_party')
+@patch('db.hero.update_hero')
 def test_remove_party_hero_missing_hero(get_party_detail_mock,
                                         get_hero_details_mock,
                                         update_party_mock,
