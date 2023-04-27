@@ -39,7 +39,6 @@ def fetch_all(collection, db=DB):
     return ret
 
 
-# Read
 def fetch_all_as_dict(key, collection, db=DB):
     """
     Return all rows as dictionary, use @parameter key as dictionary key
@@ -64,13 +63,11 @@ def fetch_curr_id(collection, db=DB):
     """
     Return the last ID of collection
     """
-    sort_key = []
-    for doc in client[db][collection].find():
-        sort_key.append(doc['ID'])
-    sort_key.sort()
-    if len(sort_key) == 0:
-        return 0
-    return sort_key[-1]
+
+    doc = client[db][collection].find_one(sort=[("ID", -1)])
+    if doc:
+        return doc['ID']
+    return 0
 
 
 # Update

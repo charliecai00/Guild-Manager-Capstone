@@ -2,13 +2,13 @@
 # The Guild Manager by JV · CC · ZQ · ZF
 
 # import db.quest as db
-from pathlib import Path
 import db.quest as quest_db
 import db.guild as guild_db
 import db.hero as hero_db
 import game.party_script as ps
 from game.game_math.random import RandomRange
 from random import sample
+import os
 
 
 def generate_quest():
@@ -32,7 +32,9 @@ def generate_quest():
 
 def get_quest_name() -> str:
     q_names = []
-    data_folder = Path("/app/game/resources/quest_name_rsc.txt")
+    dir = os.environ.get('DIR')
+    data_folder = os.path.join(dir.strip(),
+                               "game/resources/quest_name_rsc.txt")
     with open(data_folder, "r") as txtfile:
         for line in txtfile:
             q_names.append(line.strip())
@@ -41,7 +43,9 @@ def get_quest_name() -> str:
 
 def get_challenges() -> list:
     challenges = []
-    data_folder = Path("/app/game/resources/challenge_rsc.csv")
+    dir = os.environ.get('DIR')
+    data_folder = os.path.join(dir.strip(),
+                               "game/resources/challenge_rsc.csv")
     file_len = 0
     with open(data_folder, "r") as csvfile:
         file_len = len(csvfile.readlines())
