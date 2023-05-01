@@ -43,37 +43,23 @@ def generate_hero():
     hero_dict["Cost"] = max(1, hero_dict["Cost"])
     hero_db.add_hero(hero_dict)
 
-def get_names(filename: str, listname: str) -> str:
-    names = []
-    data_folder = Path("/app/game/resources/")
-    with open(data_folder / filename, "r") as txtfile:
-        for line in txtfile:
-            names.append(line.strip())
-    return names[RandomRange(0, len(names))]
 
 def get_first_name() -> str:
-    return get_names("hero_firstname_rsc.txt", "f_names")
+    f_names = []
+    data_folder = Path("/app/game/resources/hero_firstname_rsc.txt")
+    with open(data_folder, "r") as txtfile:
+        for line in txtfile:
+            f_names.append(line.strip())
+    return f_names[RandomRange(0, len(f_names))]
+
 
 def get_last_name() -> str:
-    return get_names("hero_lastname_rsc.txt", "l_names")
-
-
-# def get_first_name() -> str:
-#     f_names = []
-#     data_folder = Path("/app/game/resources/hero_firstname_rsc.txt")
-#     with open(data_folder, "r") as txtfile:
-#         for line in txtfile:
-#             f_names.append(line.strip())
-#     return f_names[RandomRange(0, len(f_names))]
-
-
-# def get_last_name() -> str:
-#     l_names = []
-#     data_folder = Path("/app/game/resources/hero_lastname_rsc.txt")
-#     with open(data_folder, "r") as txtfile:
-#         for line in txtfile:
-#             l_names.append(line.strip())
-#     return l_names[RandomRange(0, len(l_names))]
+    l_names = []
+    data_folder = Path("/app/game/resources/hero_lastname_rsc.txt")
+    with open(data_folder, "r") as txtfile:
+        for line in txtfile:
+            l_names.append(line.strip())
+    return l_names[RandomRange(0, len(l_names))]
 
 
 def heal_hero(id, guild_id):
