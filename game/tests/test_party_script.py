@@ -169,3 +169,14 @@ def test_test_party_single_works(get_party_details_mock,
                                  get_hero_details_mock):
     ret = ps.test_party_single(1, "STR")
     assert ret[0] is True
+
+
+@patch('db.party.get_party_details',
+       return_value=None)
+@patch('db.hero.get_hero_details',
+       return_value=EX_HERO_INPARTY)
+def test_test_party_single_mising_party(get_party_details_mock,
+                                 get_hero_details_mock):
+    ret = ps.test_party_single(1, "STR")
+    assert ret[1] == "Party does not exist"
+    assert ret[0] is False
