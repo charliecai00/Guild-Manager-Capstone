@@ -159,3 +159,13 @@ def test_remove_party_hero_missing_hero(get_party_detail_mock,
     ret = ps.remove_party_hero(1, 0)
     assert ret[1] == "Hero does not exist"
     assert ret[0] is False
+
+
+@patch('db.party.get_party_details',
+       return_value=EX_PARTY_HERO_INCLUDED)
+@patch('db.hero.get_hero_details',
+       return_value=EX_HERO_INPARTY)
+def test_test_party_single_works(get_party_details_mock,
+                                 get_hero_details_mock):
+    ret = ps.test_party_single(1, "STR")
+    assert ret[0] is True
