@@ -7,7 +7,7 @@ import game.party_script as ps
 EX_HERO_NOT_INPARTY = {
     "ID": 0,
     "Name": "TestSolo",
-    "Health": 0,
+    "Health": 5,
     "MaxHealth": 5,
     "Exp": 0,
     "Stats": {
@@ -26,7 +26,7 @@ EX_HERO_NOT_INPARTY = {
 EX_HERO_INPARTY = {
     "ID": 0,
     "Name": "TestParty",
-    "Health": 0,
+    "Health": 5,
     "MaxHealth": 5,
     "Exp": 0,
     "Stats": {
@@ -191,3 +191,13 @@ def test_test_party_single_mising_hero(get_party_details_mock,
     ret = ps.test_party_single(1, "STR")
     assert ret[1] == "Hero does not exist"
     assert ret[0] is False
+
+
+@patch('db.party.get_party_details',
+       return_value=EX_PARTY_HERO_INCLUDED)
+@patch('db.hero.get_hero_details',
+       return_value=EX_HERO_INPARTY)
+def test_get_party_status_works(get_party_details_mock,
+                                get_hero_details_mock):
+    ret = ps.get_party_status(1)
+    assert ret is not None
