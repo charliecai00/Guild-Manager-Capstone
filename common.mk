@@ -1,3 +1,6 @@
+# A NYU Capstone Project
+# The Guild Manager by JV · CC · ZQ · ZF
+
 LINTER = flake8
 PYTESTFLAGS = -vv --verbose --tb=short --cov=$(PKG) --cov-branch --cov-report term-missing
 
